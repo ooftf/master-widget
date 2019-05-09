@@ -26,20 +26,29 @@ public class SuspendWindow {
     WindowManager.LayoutParams layoutParams;
     ValueAnimator valueAnimator;
     View view;
-    public static SuspendWindow INSTANCE = new SuspendWindow();
+    public static SuspendWindow INSTANCE;
 
     public static SuspendWindow getInstance() {
+        if (INSTANCE == null) {
+            synchronized (SuspendWindow.class){
+                if(INSTANCE == null){
+                    INSTANCE = new SuspendWindow();
+                }
+            }
+        }
         return INSTANCE;
     }
 
     public static void init(Application app) {
         application = app;
+        ActivityManager.INSTANCE.init(application);
     }
 
     private OnClickListener onClickListener;
 
-    public void setOnClickListener(OnClickListener onClickListener) {
+    public SuspendWindow setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+        return this;
     }
 
     private SuspendWindow() {
@@ -87,6 +96,9 @@ public class SuspendWindow {
                 return true;
             }
         });
+    }
+
+    public void startShow() {
         try {
             windowManager.addView(view, layoutParams);
             ActivityManager.INSTANCE.registerBackgroundObserver(() -> {
@@ -104,7 +116,6 @@ public class SuspendWindow {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
-
     }
 
     private void initLayoutParams() {
