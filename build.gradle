@@ -1,0 +1,67 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+
+    ext {
+        MoudleDebug = false
+        ext.maven = false
+        versions = [
+                'kotlin'     : '1.3.31',
+                'compileSdk' : 28,
+                'minSdk'     : 19,
+                'targetSdk'  : 26,
+                'support'    : '1.0.0',
+                'butterknife': "10.1.0",
+                'tinker'     : "1.9.9",
+                'tinkerpatch': "1.2.9",
+                'packerNG'   : "2.0.1",
+                'arouter'    : "1.2.1",
+                'glide'      : "4.8.0",
+                'dagger'     : '2.22.1',
+                'java'       : JavaVersion.VERSION_1_8,
+                'rxlifecycle': "3.0.0",
+                'master'     : "1.0.1-SNAPSHOT"
+        ]
+
+        deps = [
+                'constraintLayout': 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5',
+                'fastjson'        : 'com.alibaba:fastjson:1.1.70.android',
+                'HiHttp'          : 'com.ooftf:hi-http:3.5.2',
+                'MMKV'            : 'com.tencent:mmkv:1.0.10',
+                'progressDrawable': 'com.github.ooftf:progress-drawable:1.2.0',
+                'disklrucache'    : 'com.jakewharton:disklrucache:2.0.2',
+                'bugly'           : 'com.tencent.bugly:crashreport_upgrade:latest.release',
+                'dagger2_compiler': "com.google.dagger:dagger-compiler:$versions.dagger",
+                'matisse'         : 'com.zhihu.android:matisse:0.5.1',
+                'CalendarView'    : 'com.github.ooftf:CalendarView:1.0.5',
+                'ARouterCompiler' : "com.alibaba:arouter-compiler:$versions.arouter",
+                'ARouterApi'      : 'com.alibaba:arouter-api:1.4.1',
+        ]
+    }
+
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
