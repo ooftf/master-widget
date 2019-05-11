@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeOverlay.Toolbar.PopupMenu" parent="ThemeOverlay.AppCompat.Light">
+        <item name="overlapAnchor">false</item>
+        <item name="android:textColor">@color/black</item>
+        <!--设置背景颜色的-->
+        <!--<item name="android:colorBackground">#223344</item>-->
+    </style>
+
+    <style name="selectableItemBackgroundBorderless">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+</resources>

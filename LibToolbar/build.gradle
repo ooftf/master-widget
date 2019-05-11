@@ -1,16 +1,17 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 28
+
+
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     compileOptions {
         sourceCompatibility versions.java
@@ -28,8 +29,8 @@ publish {
     repoName = 'maven'
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
-    artifactId = 'master-widget-suspend-window' // bintray创建的package
-    publishVersion = '1.0.1'
+    artifactId = 'master-widget-toolbar' // bintray创建的package
+    publishVersion = '1.0.0'
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()
@@ -48,5 +49,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation deps.constraintLayout
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    api "com.google.android.material:material:$versions.support"
 }
