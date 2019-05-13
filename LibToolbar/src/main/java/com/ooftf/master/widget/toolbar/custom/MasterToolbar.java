@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.ooftf.master.widget.toolbar.R;
 import com.ooftf.master.widget.toolbar.util.ContextUtils;
+import com.ooftf.master.widget.toolbar.util.DensityUtil;
 
 /**
  * @author ooftf
@@ -55,7 +57,7 @@ public class MasterToolbar extends ConstraintLayout {
             setLeftIcon(typedArray.getDrawable(R.styleable.MasterToolbar_left_icon));
         }
         if (typedArray.hasValue(R.styleable.MasterToolbar_right_icon)) {
-            setLeftIcon(typedArray.getDrawable(R.styleable.MasterToolbar_right_icon));
+            setRightIcon(typedArray.getDrawable(R.styleable.MasterToolbar_right_icon));
         }
         typedArray.recycle();
     }
@@ -63,7 +65,8 @@ public class MasterToolbar extends ConstraintLayout {
     {
         inflate(getContext(), R.layout.toolbar_master, this);
         title = findViewById(R.id.title);
-
+        leftContainer = findViewById(R.id.leftContainer);
+        rightContainer = findViewById(R.id.rightContainer);
     }
 
     MasterToolbar setTitle(CharSequence textView) {
@@ -111,6 +114,11 @@ public class MasterToolbar extends ConstraintLayout {
         return this;
     }
 
+    MasterToolbar setLeftClickListener(View.OnClickListener listener) {
+        checkLeftButton();
+        leftDefaultButton.setOnClickListener(listener);
+        return this;
+    }
     public ToolbarItem getLeftDefaultButton() {
         return leftDefaultButton;
     }
@@ -124,6 +132,7 @@ public class MasterToolbar extends ConstraintLayout {
                     activity.finish();
                 }
             });
+            leftDefaultButton.setPadding(DensityUtil.dp2px(16),leftDefaultButton.getPaddingTop(), leftDefaultButton.getPaddingRight(),leftDefaultButton.getPaddingBottom());
             leftContainer.addView(leftDefaultButton, 0);
         }
     }
@@ -145,13 +154,13 @@ public class MasterToolbar extends ConstraintLayout {
 
     MasterToolbar setRightIcon(Drawable drawable) {
         checkRightButton();
-        rightDefaultButton.setLeftIcon(drawable);
+        rightDefaultButton.setRightIcon(drawable);
         return this;
     }
 
     MasterToolbar setRightIcon(@DrawableRes int resId) {
         checkRightButton();
-        rightDefaultButton.setLeftIcon(resId);
+        rightDefaultButton.setRightIcon(resId);
         return this;
     }
 
@@ -160,16 +169,16 @@ public class MasterToolbar extends ConstraintLayout {
         rightDefaultButton.setTextColor(color);
         return this;
     }
+    MasterToolbar setRightClickListener(View.OnClickListener listener) {
+        checkRightButton();
+        rightDefaultButton.setOnClickListener(listener);
+        return this;
+    }
 
     protected void checkRightButton() {
         if (rightDefaultButton == null) {
             rightDefaultButton = newDefaultToolbarItem();
-            rightDefaultButton.setOnClickListener(v -> {
-                Activity activity = ContextUtils.toActivity(getContext());
-                if (activity != null) {
-                    activity.finish();
-                }
-            });
+            rightDefaultButton.setPadding(rightDefaultButton.getPaddingLeft(),rightDefaultButton.getPaddingTop(), DensityUtil.dp2px(16),rightDefaultButton.getPaddingBottom());
             rightContainer.addView(rightDefaultButton, rightContainer.getChildCount());
         }
     }

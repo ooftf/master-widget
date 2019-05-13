@@ -3,6 +3,7 @@ package com.ooftf.master.widget.toolbar.custom;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class ToolbarItem extends LinearLayout {
 
     {
         inflate(getContext(), R.layout.layout_toolbar_item, this);
+        setOrientation(HORIZONTAL);
+        setGravity(Gravity.CENTER_VERTICAL);
         leftIcon = findViewById(R.id.left_icon);
         rightIcon = findViewById(R.id.right_icon);
         text = findViewById(R.id.text);
