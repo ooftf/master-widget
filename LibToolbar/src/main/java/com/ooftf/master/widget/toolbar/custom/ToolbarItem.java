@@ -3,12 +3,12 @@ package com.ooftf.master.widget.toolbar.custom;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.ooftf.master.widget.toolbar.R;
 
@@ -18,7 +18,7 @@ import com.ooftf.master.widget.toolbar.R;
  * @email 994749769@qq.com
  * @date 2019/5/7 0007
  */
-public class ToolbarItem extends LinearLayout {
+public class ToolbarItem extends ConstraintLayout {
     ImageView leftIcon;
     TextView text;
     ImageView rightIcon;
@@ -37,8 +37,6 @@ public class ToolbarItem extends LinearLayout {
 
     {
         inflate(getContext(), R.layout.layout_toolbar_item, this);
-        setOrientation(HORIZONTAL);
-        setGravity(Gravity.CENTER_VERTICAL);
         leftIcon = findViewById(R.id.left_icon);
         rightIcon = findViewById(R.id.right_icon);
         text = findViewById(R.id.text);
@@ -46,21 +44,25 @@ public class ToolbarItem extends LinearLayout {
 
 
     public ToolbarItem setLeftIcon(@DrawableRes int resId) {
+        this.leftIcon.setVisibility(VISIBLE);
         this.leftIcon.setImageResource(resId);
         return this;
     }
 
     public ToolbarItem setLeftIcon(Drawable resId) {
+        this.leftIcon.setVisibility(VISIBLE);
         this.leftIcon.setImageDrawable(resId);
         return this;
     }
 
     public ToolbarItem setRightIcon(@DrawableRes int resId) {
+        this.rightIcon.setVisibility(VISIBLE);
         this.rightIcon.setImageResource(resId);
         return this;
     }
 
     public ToolbarItem setRightIcon(Drawable resId) {
+        this.rightIcon.setVisibility(VISIBLE);
         this.rightIcon.setImageDrawable(resId);
         return this;
     }
@@ -74,15 +76,17 @@ public class ToolbarItem extends LinearLayout {
         this.text.setTextSize(sp);
         return this;
     }
+
     public ToolbarItem setText(CharSequence text) {
         this.text.setText(text);
         return this;
     }
 
     public ToolbarItem setMarginSpace(int marginSpace) {
-        LayoutParams layoutParams = (LayoutParams) this.text.getLayoutParams();
-        layoutParams.leftMargin = marginSpace;
-        layoutParams.rightMargin = marginSpace;
+        LayoutParams leftLayoutParams = (LayoutParams) this.leftIcon.getLayoutParams();
+        leftLayoutParams.rightMargin = marginSpace;
+        LayoutParams rightLayoutParams = (LayoutParams) this.rightIcon.getLayoutParams();
+        rightLayoutParams.leftMargin = marginSpace;
         return this;
     }
 }
