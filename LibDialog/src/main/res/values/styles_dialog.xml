@@ -1,0 +1,48 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="master_DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 除去title -->
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 背景是否变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+
+    </style>
+
+    <style name="master_DialogTheme.Master">
+        <!-- 背景色 -->
+        <item name="android:windowBackground">@drawable/master_shape_dialog_background</item>
+    </style>
+
+    <style name="master_DialogTheme.Blank">
+        <!-- 背景色 -->
+        <item name="android:windowBackground">@color/master_background</item>
+    </style>
+
+    <style name="master_WindowAnimTranslateBottom">
+        <item name="android:windowEnterAnimation">@anim/master_dialog_enter_bottom</item>
+        <item name="android:windowExitAnimation">@anim/master_dialog_outer_bottom</item>
+    </style>
+
+    <style name="master_WindowAnimAlpha">
+        <item name="android:windowEnterAnimation">@anim/master_dialog_enter_alpha</item>
+        <item name="android:windowExitAnimation">@anim/master_dialog_outer_alpha</item>
+    </style>
+
+    <style name="master_DialogTheme.Blur">
+        <!-- 背景色 -->
+        <item name="android:windowBackground">@color/master_transparent</item>
+        <!-- 背景是否变暗 -->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="master_DialogTheme.Transparent">
+        <!-- 背景色 -->
+        <item name="android:windowBackground">@color/master_transparent</item>
+    </style>
+
+
+</resources>

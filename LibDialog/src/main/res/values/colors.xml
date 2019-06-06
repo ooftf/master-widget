@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="master_background">#FAFAFA</color>
+    <color name="master_translucent">#11000000</color>
+    <color name="master_transparent">#00000000</color>
+</resources>
