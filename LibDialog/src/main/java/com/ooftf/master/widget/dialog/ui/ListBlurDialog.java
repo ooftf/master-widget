@@ -38,4 +38,10 @@ public class ListBlurDialog extends BlurDialog implements ListDialogInterface {
     public ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener) {
         return delegate.setOnItemClickListener(listener);
     }
+
+    @Override
+    public ListDialogInterface show_() {
+        delegate.show_();
+        return this;
+    }
 }

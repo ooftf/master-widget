@@ -13,16 +13,16 @@ public interface ListDialogInterface extends DialogInterface {
     ListDialogInterface setShowCancel(boolean showCancel);
 
     /**
-     *
      * @param data
      * @return
      */
     ListDialogInterface setList(List<String> data);
 
     /**
-     *
      * @param listener
      * @return
      */
     ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener);
+
+    ListDialogInterface show_();
 }

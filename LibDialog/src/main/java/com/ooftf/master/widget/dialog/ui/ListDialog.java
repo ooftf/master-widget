@@ -38,4 +38,10 @@ public class ListDialog extends BottomDialog implements ListDialogInterface {
     public ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener) {
         return dialogDelegate.setOnItemClickListener(listener);
     }
+
+    @Override
+    public ListDialogInterface show_() {
+        dialogDelegate.show_();
+        return this;
+    }
 }

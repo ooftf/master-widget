@@ -79,6 +79,12 @@ public class ListDialogDelegate implements ListDialogInterface {
         return this;
     }
 
+    @Override
+    public ListDialogInterface show_() {
+        dialog.show();
+        return this;
+    }
+
     private class TheAdapter extends RecyclerView.Adapter<TheViewHolder> {
 
         List<String> data;
