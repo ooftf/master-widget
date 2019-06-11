@@ -1,7 +1,6 @@
 package com.ooftf.master.widget.suspend;
 
 import android.animation.ValueAnimator;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
@@ -20,18 +19,18 @@ import android.view.animation.DecelerateInterpolator;
  * @email 994749769@qq.com
  * @date 2019/3/6 0006
  */
-public class SuspendWindow {
-    static Application application;
+class SuspendWindow {
     WindowManager windowManager;
     WindowManager.LayoutParams layoutParams;
     ValueAnimator valueAnimator;
     View view;
     public static SuspendWindow INSTANCE;
 
+
     public static SuspendWindow getInstance() {
         if (INSTANCE == null) {
-            synchronized (SuspendWindow.class){
-                if(INSTANCE == null){
+            synchronized (SuspendWindow.class) {
+                if (INSTANCE == null) {
                     INSTANCE = new SuspendWindow();
                 }
             }
@@ -39,10 +38,6 @@ public class SuspendWindow {
         return INSTANCE;
     }
 
-    public static void init(Application app) {
-        application = app;
-        ActivityManager.INSTANCE.init(application);
-    }
 
     private OnClickListener onClickListener;
 
@@ -55,9 +50,9 @@ public class SuspendWindow {
         valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(300);
         valueAnimator.setInterpolator(new DecelerateInterpolator());
-        windowManager = (WindowManager) application.getSystemService(Context.WINDOW_SERVICE);
+        windowManager = (WindowManager) Suspend.application.getSystemService(Context.WINDOW_SERVICE);
         initLayoutParams();
-        LayoutInflater layoutInflater = LayoutInflater.from(application);
+        LayoutInflater layoutInflater = LayoutInflater.from(Suspend.application);
         view = layoutInflater.inflate(R.layout.window_suspend, null);
         // 设置点击事件
         view.setOnClickListener(v -> {
@@ -129,24 +124,24 @@ public class SuspendWindow {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         layoutParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
-        layoutParams.x = ScreenUtils.getScreenWidth(application);
-        layoutParams.y = (int) (ScreenUtils.getScreenHeight(application) / 6f * 4);
+        layoutParams.x = ScreenUtils.getScreenWidth(Suspend.application);
+        layoutParams.y = (int) (ScreenUtils.getScreenHeight(Suspend.application) / 6f * 4);
         layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         layoutParams.format = PixelFormat.RGBA_8888;
     }
 
     void reviseLocation(View view) {
-        int right = ScreenUtils.getScreenWidth(application) - layoutParams.x - view.getWidth();
-        int bottom = ScreenUtils.getScreenHeight(application) - layoutParams.y - view.getHeight();
+        int right = ScreenUtils.getScreenWidth(Suspend.application) - layoutParams.x - view.getWidth();
+        int bottom = ScreenUtils.getScreenHeight(Suspend.application) - layoutParams.y - view.getHeight();
         if (layoutParams.x < layoutParams.y && layoutParams.x < right && layoutParams.x < bottom) {
             moveTo(true, 0);
         } else if (layoutParams.y < layoutParams.x && layoutParams.y < right && layoutParams.y < bottom) {
             moveTo(false, 0);
         } else if (right < layoutParams.x && right < layoutParams.y && right < bottom) {
-            moveTo(true, ScreenUtils.getScreenWidth(application) - view.getWidth());
+            moveTo(true, ScreenUtils.getScreenWidth(Suspend.application) - view.getWidth());
         } else {
-            moveTo(false, ScreenUtils.getScreenHeight(application) - view.getHeight());
+            moveTo(false, ScreenUtils.getScreenHeight(Suspend.application) - view.getHeight());
         }
     }
 

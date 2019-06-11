@@ -6,7 +6,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.view.WindowManager;
 
-public class ScreenUtils {
+class ScreenUtils {
     /**
      * Return the width of screen, in pixel.
      *
