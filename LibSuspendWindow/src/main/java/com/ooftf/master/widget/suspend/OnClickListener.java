@@ -4,6 +4,6 @@ import android.app.Activity;
 
 import androidx.annotation.Nullable;
 
-interface OnClickListener {
+public interface OnClickListener {
     void onClick(@Nullable Activity activity);
 }

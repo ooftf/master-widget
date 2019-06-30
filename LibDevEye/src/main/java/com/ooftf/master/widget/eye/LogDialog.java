@@ -1,4 +1,4 @@
-package com.ooftf.master.widget.suspend;
+package com.ooftf.master.widget.eye;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -40,7 +40,7 @@ class LogDialog extends BaseDialog {
                     @Override
                     public boolean onLongClick(View v) {
                         CopyUtil.copy(v.getContext(), theViewHolder.textView.getText().toString());
-                        Toast.makeText(Suspend.application, "已复制到粘贴板", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DevEye.application, "已复制到粘贴板", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 });

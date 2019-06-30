@@ -1,4 +1,4 @@
-package com.ooftf.master.widget.suspend;
+package com.ooftf.master.widget.eye;
 
 import android.content.Context;
 import android.content.Intent;

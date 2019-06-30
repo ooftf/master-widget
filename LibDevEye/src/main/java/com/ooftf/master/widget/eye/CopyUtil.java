@@ -1,4 +1,4 @@
-package com.ooftf.master.widget.suspend;
+package com.ooftf.master.widget.eye;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

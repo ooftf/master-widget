@@ -19,7 +19,7 @@ import android.view.animation.DecelerateInterpolator;
  * @email 994749769@qq.com
  * @date 2019/3/6 0006
  */
-class SuspendWindow {
+public class SuspendWindow {
     WindowManager windowManager;
     WindowManager.LayoutParams layoutParams;
     ValueAnimator valueAnimator;
