@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,19 +48,25 @@ public class SuspendWindow {
     }
 
     private SuspendWindow() {
+        Log.e("SuspendWindow","1");
         valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(300);
+        Log.e("SuspendWindow","2");
         valueAnimator.setInterpolator(new DecelerateInterpolator());
         windowManager = (WindowManager) Suspend.application.getSystemService(Context.WINDOW_SERVICE);
         initLayoutParams();
+        Log.e("SuspendWindow","3");
         LayoutInflater layoutInflater = LayoutInflater.from(Suspend.application);
+        Log.e("SuspendWindow","3.1");
         view = layoutInflater.inflate(R.layout.window_suspend, null);
+        Log.e("SuspendWindow","3.2");
         // 设置点击事件
         view.setOnClickListener(v -> {
             if (onClickListener != null) {
                 onClickListener.onClick(ActivityManager.INSTANCE.getTopActivity());
             }
         });
+        Log.e("SuspendWindow","4");
         view.setOnTouchListener(new View.OnTouchListener() {
             float cX = 0;
             float cy = 0;
@@ -91,6 +98,7 @@ public class SuspendWindow {
                 return true;
             }
         });
+        Log.e("SuspendWindow","5");
     }
 
     public void startShow() {

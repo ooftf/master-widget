@@ -1,5 +1,6 @@
 package com.ooftf.master.widget.suspend;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.test.InstrumentationRegistry;
@@ -8,7 +9,7 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,7 +22,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
+        Suspend.init((Application) appContext.getApplicationContext());
         assertEquals("com.ooftf.master.widget.suspend.test", appContext.getPackageName());
     }
 }
