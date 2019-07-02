@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,6 +14,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
+
+import com.ooftf.master.unit.am.ActivityManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页开发者工具球
@@ -39,7 +46,6 @@ public class SuspendWindow {
         return INSTANCE;
     }
 
-
     private OnClickListener onClickListener;
 
     public SuspendWindow setOnClickListener(OnClickListener onClickListener) {
@@ -47,26 +53,36 @@ public class SuspendWindow {
         return this;
     }
 
+    boolean isCreated = false;
+
     private SuspendWindow() {
-        Log.e("SuspendWindow","1");
-        valueAnimator = new ValueAnimator();
-        valueAnimator.setDuration(300);
-        Log.e("SuspendWindow","2");
-        valueAnimator.setInterpolator(new DecelerateInterpolator());
-        windowManager = (WindowManager) Suspend.application.getSystemService(Context.WINDOW_SERVICE);
-        initLayoutParams();
-        Log.e("SuspendWindow","3");
-        LayoutInflater layoutInflater = LayoutInflater.from(Suspend.application);
-        Log.e("SuspendWindow","3.1");
-        view = layoutInflater.inflate(R.layout.window_suspend, null);
-        Log.e("SuspendWindow","3.2");
+        Suspend.executor.execute(() -> {
+            valueAnimator = new ValueAnimator();
+            valueAnimator.setDuration(300);
+            valueAnimator.setInterpolator(new DecelerateInterpolator());
+            windowManager = (WindowManager) Suspend.application.getSystemService(Context.WINDOW_SERVICE);
+            initLayoutParams();
+            LayoutInflater layoutInflater = LayoutInflater.from(Suspend.application);
+            view = layoutInflater.inflate(R.layout.window_suspend, null);
+            isCreated = true;
+            new Handler(Looper.getMainLooper()).post(() -> {
+                for (Runnable runnable : onCreateRunnable) {
+                    runnable.run();
+                }
+                onCreateRunnable.clear();
+                onCreate();
+            });
+        });
+    }
+
+    void onCreate() {
         // 设置点击事件
         view.setOnClickListener(v -> {
             if (onClickListener != null) {
                 onClickListener.onClick(ActivityManager.INSTANCE.getTopActivity());
             }
         });
-        Log.e("SuspendWindow","4");
+        Log.e("SuspendWindow", "4");
         view.setOnTouchListener(new View.OnTouchListener() {
             float cX = 0;
             float cy = 0;
@@ -98,24 +114,44 @@ public class SuspendWindow {
                 return true;
             }
         });
-        Log.e("SuspendWindow","5");
+        ActivityManager.INSTANCE.registerBackgroundObserver(() -> {
+            view.setVisibility(View.GONE);
+            return null;
+        });
+        ActivityManager.INSTANCE.registerForegroundObserver(() -> {
+
+            view.setVisibility(View.VISIBLE);
+            return null;
+        });
     }
 
     public void startShow() {
-        try {
-            windowManager.addView(view, layoutParams);
-            ActivityManager.INSTANCE.registerBackgroundObserver(() -> {
-                if (view.getParent() != null) {
-                    windowManager.removeView(view);
-                }
-                return null;
-            });
-            ActivityManager.INSTANCE.registerForegroundObserver(() -> {
+        postOnCreate(() -> {
+            try {
                 if (view.getParent() == null) {
                     windowManager.addView(view, layoutParams);
                 }
-                return null;
-            });
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    List<Runnable> onCreateRunnable = new ArrayList<>();
+
+    public void postOnCreate(Runnable runnable) {
+        if (isCreated) {
+            runnable.run();
+        } else {
+            onCreateRunnable.add(runnable);
+        }
+    }
+
+    public void dismiss() {
+        try {
+            if (view != null && view.getParent() != null) {
+                windowManager.removeView(view);
+            }
         } catch (RuntimeException e) {
             e.printStackTrace();
         }

@@ -1,22 +1,21 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'kotlin-android'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
 
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 28
+        minSdkVersion 15
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    compileOptions {
-        sourceCompatibility versions.java
-        targetCompatibility versions.java
-    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,8 +28,8 @@ publish {
     repoName = 'maven'
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
-    artifactId = 'master-widget-dev-eye' // bintray创建的package
-    publishVersion = '1.0.3'//-snapshot
+    artifactId = 'master-unit-activity-manager' // bintray创建的package
+    publishVersion = '1.0.2'//-snapshot
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()
@@ -49,7 +48,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.ooftf:master-widget-suspend-window:1.1.0'
-    implementation 'com.ooftf:master-widget-dialog:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 }

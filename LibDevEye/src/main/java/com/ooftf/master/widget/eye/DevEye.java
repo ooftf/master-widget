@@ -9,6 +9,7 @@ import com.ooftf.master.widget.suspend.SuspendWindow;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author ooftf
@@ -20,9 +21,9 @@ public class DevEye {
     static LinkedList<String> queue = new LinkedList<>();
     static Application application;
 
-    public static void init(Application app) {
+    public static void init(Application app, ThreadPoolExecutor executor) {
         application = app;
-        Suspend.init(app);
+        Suspend.init(app, executor);
         SuspendLog.register(message -> {
             while (queue.size() >= cacheSize) {
                 queue.poll();

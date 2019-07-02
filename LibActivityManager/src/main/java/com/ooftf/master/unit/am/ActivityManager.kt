@@ -1,10 +1,9 @@
-package com.ooftf.master.widget.suspend
+package com.ooftf.master.unit.am
 
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.os.Process
 import java.lang.ref.WeakReference
 
 /**
@@ -12,12 +11,11 @@ import java.lang.ref.WeakReference
  *
  * 只适用于单进程Activity
  */
-object ActivityManager {
+public object ActivityManager {
     private val activities = ArrayList<WeakReference<Activity>>()
     private var touchCounter = 0
     private var showCounter = 0
     private var top: WeakReference<Activity>? = null
-
     fun init(application: Application) {
         application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(activity: Activity?) {
@@ -25,21 +23,18 @@ object ActivityManager {
                     top = null
                 }
                 touchCounter--
-
             }
 
             override fun onActivityResumed(activity: Activity) {
                 top = WeakReference(activity)
                 touchCounter++
 
+
             }
 
             override fun onActivityStarted(activity: Activity?) {
-                if (showCounter == 0) {
-                    foregroundObservers.forEach { it.invoke() }
-                }
                 showCounter++
-
+                notifyShowChange()
             }
 
             override fun onActivityDestroyed(activity: Activity) {
@@ -51,7 +46,9 @@ object ActivityManager {
                     }
                 }
                 if (activities.size == 0) {
-                    Process.killProcess(Process.myPid())
+                    emptyActivityObservers.forEach {
+                        it.invoke()
+                    }
                 }
             }
 
@@ -61,9 +58,7 @@ object ActivityManager {
 
             override fun onActivityStopped(activity: Activity?) {
                 showCounter--
-                if (showCounter == 0) {
-                    backgroundObservers.forEach { it.invoke() }
-                }
+                notifyShowChange()
             }
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -73,6 +68,18 @@ object ActivityManager {
         })
     }
 
+    var isBackground = true
+    private fun notifyShowChange() {
+        if (isBackground && showCounter > 0) {
+            isBackground = false
+            foregroundObservers.forEach { it.invoke() }
+        } else if (!isBackground && showCounter <= 0) {
+            isBackground = true
+            backgroundObservers.forEach { it.invoke() }
+        }
+    }
+
+    private var emptyActivityObservers = LinkedHashSet<() -> Unit>()
     fun getTopActivity(): Activity? = top?.get()
 
     private var foregroundObservers = LinkedHashSet<() -> Unit>()
@@ -88,7 +95,7 @@ object ActivityManager {
         foregroundObservers.clear()
     }
 
-    fun unRegisterForegroundObserver(observer: () -> Unit) {
+    fun unregisterForegroundObserver(observer: () -> Unit) {
         foregroundObservers.remove(observer)
     }
 
@@ -100,8 +107,20 @@ object ActivityManager {
         backgroundObservers.clear()
     }
 
-    fun unRegisterBackgroundObserver(observer: () -> Unit) {
+    fun unregisterBackgroundObserver(observer: () -> Unit) {
         backgroundObservers.remove(observer)
+    }
+
+    fun registerEmptyActvityObserver(observer: () -> Unit) {
+        emptyActivityObservers.add(observer)
+    }
+
+    fun clearEmptyActvityObserver() {
+        emptyActivityObservers.clear()
+    }
+
+    fun unregisterEmptyActvityObserver(observer: () -> Unit) {
+        emptyActivityObservers.remove(observer)
     }
 
     fun isAppForeground() = touchCounter > 0
@@ -125,11 +144,6 @@ object ActivityManager {
 
     fun finishOther(activity: Activity) {
         activities.filter { it.get() != activity }
-                .forEach { it.get()?.finish() }
-    }
-
-    fun finishOther(vararg cls: Class<Activity>) {
-        activities.filter { !cls.contains(it.get()?.javaClass) }
                 .forEach { it.get()?.finish() }
     }
 }

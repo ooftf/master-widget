@@ -1,1 +1,1 @@
-include ':app', ':LibSuspendWindow', ':LibToolbar', ':LibDialog', ':LibDevEye'
+include ':app', ':LibSuspendWindow', ':LibToolbar', ':LibDialog', ':LibDevEye', ':LibActivityManager'
