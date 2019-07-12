@@ -69,17 +69,17 @@ public class MasterToolbar extends ConstraintLayout {
         rightContainer = findViewById(R.id.rightContainer);
     }
 
-    MasterToolbar setTitle(CharSequence textView) {
+    public MasterToolbar setTitle(CharSequence textView) {
         title.setText(textView);
         return this;
     }
 
-    MasterToolbar setTitleSize(int sp) {
+    public MasterToolbar setTitleSize(int sp) {
         title.setTextSize(sp);
         return this;
     }
 
-    MasterToolbar setTitleColor(int color) {
+    public MasterToolbar setTitleColor(int color) {
         title.setTextColor(color);
         return this;
     }
@@ -90,31 +90,31 @@ public class MasterToolbar extends ConstraintLayout {
      * @param text
      * @return
      */
-    MasterToolbar setLeftText(CharSequence text) {
+    public MasterToolbar setLeftText(CharSequence text) {
         checkLeftButton();
         leftDefaultButton.setText(text);
         return this;
     }
 
-    MasterToolbar setLeftIcon(Drawable drawable) {
+    public MasterToolbar setLeftIcon(Drawable drawable) {
         checkLeftButton();
         leftDefaultButton.setLeftIcon(drawable);
         return this;
     }
 
-    MasterToolbar setLeftIcon(@DrawableRes int resId) {
+    public MasterToolbar setLeftIcon(@DrawableRes int resId) {
         checkLeftButton();
         leftDefaultButton.setLeftIcon(resId);
         return this;
     }
 
-    MasterToolbar setLeftTextColor(int color) {
+    public MasterToolbar setLeftTextColor(int color) {
         checkLeftButton();
         leftDefaultButton.setTextColor(color);
         return this;
     }
 
-    MasterToolbar setLeftClickListener(View.OnClickListener listener) {
+    public MasterToolbar setLeftClickListener(View.OnClickListener listener) {
         checkLeftButton();
         leftDefaultButton.setOnClickListener(listener);
         return this;
@@ -151,31 +151,31 @@ public class MasterToolbar extends ConstraintLayout {
         return rightDefaultButton;
     }
 
-    MasterToolbar setRightText(CharSequence text) {
+    public MasterToolbar setRightText(CharSequence text) {
         checkRightButton();
         rightDefaultButton.setText(text);
         return this;
     }
 
-    MasterToolbar setRightIcon(Drawable drawable) {
+    public MasterToolbar setRightIcon(Drawable drawable) {
         checkRightButton();
         rightDefaultButton.setRightIcon(drawable);
         return this;
     }
 
-    MasterToolbar setRightIcon(@DrawableRes int resId) {
+    public MasterToolbar setRightIcon(@DrawableRes int resId) {
         checkRightButton();
         rightDefaultButton.setRightIcon(resId);
         return this;
     }
 
-    MasterToolbar setRightTextColor(int color) {
+    public MasterToolbar setRightTextColor(int color) {
         checkRightButton();
         rightDefaultButton.setTextColor(color);
         return this;
     }
 
-    MasterToolbar setRightClickListener(View.OnClickListener listener) {
+    public MasterToolbar setRightClickListener(View.OnClickListener listener) {
         checkRightButton();
         rightDefaultButton.setOnClickListener(listener);
         return this;
@@ -195,12 +195,12 @@ public class MasterToolbar extends ConstraintLayout {
     }
 
 
-    MasterToolbar addItemLeft(ToolbarItem item) {
+    public MasterToolbar addItemLeft(ToolbarItem item) {
         leftContainer.addView(item);
         return this;
     }
 
-    MasterToolbar addItemRight(ToolbarItem item) {
+    public MasterToolbar addItemRight(ToolbarItem item) {
         rightContainer.addView(item);
         return this;
     }
