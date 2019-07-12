@@ -119,6 +119,7 @@ public class MasterToolbar extends ConstraintLayout {
         leftDefaultButton.setOnClickListener(listener);
         return this;
     }
+
     public ToolbarItem getLeftDefaultButton() {
         return leftDefaultButton;
     }
@@ -132,9 +133,13 @@ public class MasterToolbar extends ConstraintLayout {
                     activity.finish();
                 }
             });
-            leftDefaultButton.setPadding(DensityUtil.dp2px(16),leftDefaultButton.getPaddingTop(), leftDefaultButton.getPaddingRight(),leftDefaultButton.getPaddingBottom());
+            leftDefaultButton.setPadding(DensityUtil.dp2px(16), leftDefaultButton.getPaddingTop(), leftDefaultButton.getPaddingRight(), leftDefaultButton.getPaddingBottom());
             leftContainer.addView(leftDefaultButton, 0);
         }
+    }
+
+    public TextView getTitleView() {
+        return title;
     }
 
     /**
@@ -169,6 +174,7 @@ public class MasterToolbar extends ConstraintLayout {
         rightDefaultButton.setTextColor(color);
         return this;
     }
+
     MasterToolbar setRightClickListener(View.OnClickListener listener) {
         checkRightButton();
         rightDefaultButton.setOnClickListener(listener);
@@ -178,7 +184,7 @@ public class MasterToolbar extends ConstraintLayout {
     protected void checkRightButton() {
         if (rightDefaultButton == null) {
             rightDefaultButton = newDefaultToolbarItem();
-            rightDefaultButton.setPadding(rightDefaultButton.getPaddingLeft(),rightDefaultButton.getPaddingTop(), DensityUtil.dp2px(16),rightDefaultButton.getPaddingBottom());
+            rightDefaultButton.setPadding(rightDefaultButton.getPaddingLeft(), rightDefaultButton.getPaddingTop(), DensityUtil.dp2px(16), rightDefaultButton.getPaddingBottom());
             rightContainer.addView(rightDefaultButton, rightContainer.getChildCount());
         }
     }

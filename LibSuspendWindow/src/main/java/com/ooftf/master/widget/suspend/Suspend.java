@@ -14,11 +14,19 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Suspend {
     static Application application;
     static ThreadPoolExecutor executor;
+    static SuspendConfig config;
+
+    public static void init(Application app, SuspendConfig config, ThreadPoolExecutor executor) {
+        application = app;
+        Suspend.config = config;
+        Suspend.executor = executor;
+        if (Suspend.config.isBindActivity) {
+            ActivityManager.INSTANCE.init(application);
+        }
+        SuspendWindow.getInstance().startShow();
+    }
 
     public static void init(Application app, ThreadPoolExecutor executor) {
-        application = app;
-        Suspend.executor = executor;
-        ActivityManager.INSTANCE.init(application);
-        SuspendWindow.getInstance().startShow();
+        init(app, new SuspendConfig(), executor);
     }
 }

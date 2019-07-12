@@ -30,7 +30,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'master-widget-dev-eye' // bintray创建的package
-    publishVersion = '1.0.3'//-snapshot
+    publishVersion = '1.0.4'//-snapshot
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()
@@ -48,7 +48,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.ooftf:master-widget-suspend-window:1.1.0'
+    implementation 'com.ooftf:master-widget-suspend-window:1.1.1'
     implementation 'com.ooftf:master-widget-dialog:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

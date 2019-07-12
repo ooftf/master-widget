@@ -108,21 +108,31 @@ public class SuspendWindow {
                     if (!move) {
                         v.performClick();
                     } else {
-                        reviseLocation(view);
+                        if (Suspend.config.isKeepSide) {
+                            reviseLocation(view);
+                        }
                     }
                 }
                 return true;
             }
         });
-        ActivityManager.INSTANCE.registerBackgroundObserver(() -> {
-            view.setVisibility(View.GONE);
-            return null;
-        });
-        ActivityManager.INSTANCE.registerForegroundObserver(() -> {
+        if (Suspend.config.isBindActivity()) {
+            ActivityManager.INSTANCE.registerBackgroundObserver(() -> {
+                view.setVisibility(View.GONE);
+                return null;
+            });
+            ActivityManager.INSTANCE.registerForegroundObserver(() -> {
 
-            view.setVisibility(View.VISIBLE);
-            return null;
-        });
+                view.setVisibility(View.VISIBLE);
+                return null;
+            });
+            if (ActivityManager.INSTANCE.isAppForeground()) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.GONE);
+            }
+
+        }
     }
 
     public void startShow() {
