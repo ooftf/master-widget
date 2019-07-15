@@ -133,7 +133,7 @@ public class MasterToolbar extends ConstraintLayout {
                     activity.finish();
                 }
             });
-            leftDefaultButton.setPadding(DensityUtil.dp2px(16), leftDefaultButton.getPaddingTop(), leftDefaultButton.getPaddingRight(), leftDefaultButton.getPaddingBottom());
+            leftDefaultButton.setPadding(DensityUtil.dp2px(16), DensityUtil.dp2px(8), DensityUtil.dp2px(8), DensityUtil.dp2px(8));
             leftContainer.addView(leftDefaultButton, 0);
         }
     }
@@ -184,7 +184,7 @@ public class MasterToolbar extends ConstraintLayout {
     protected void checkRightButton() {
         if (rightDefaultButton == null) {
             rightDefaultButton = newDefaultToolbarItem();
-            rightDefaultButton.setPadding(rightDefaultButton.getPaddingLeft(), rightDefaultButton.getPaddingTop(), DensityUtil.dp2px(16), rightDefaultButton.getPaddingBottom());
+            rightDefaultButton.setPadding(DensityUtil.dp2px(8), DensityUtil.dp2px(8), DensityUtil.dp2px(16), DensityUtil.dp2px(8));
             rightContainer.addView(rightDefaultButton, rightContainer.getChildCount());
         }
     }
