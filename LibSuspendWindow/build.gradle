@@ -29,7 +29,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'master-widget-suspend-window' // bintray创建的package
-    publishVersion = '1.1.1'//-snapshot
+    publishVersion = '1.1.2'//-snapshot
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()

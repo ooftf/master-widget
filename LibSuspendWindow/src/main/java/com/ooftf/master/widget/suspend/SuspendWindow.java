@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 
 import com.ooftf.master.unit.am.ActivityManager;
 
@@ -65,6 +66,7 @@ public class SuspendWindow {
             LayoutInflater layoutInflater = LayoutInflater.from(Suspend.application);
             view = layoutInflater.inflate(R.layout.window_suspend, null);
             isCreated = true;
+            imageView = view.findViewById(R.id.image);
             new Handler(Looper.getMainLooper()).post(() -> {
                 for (Runnable runnable : onCreateRunnable) {
                     runnable.run();
@@ -73,6 +75,12 @@ public class SuspendWindow {
                 onCreate();
             });
         });
+    }
+
+    ImageView imageView;
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     void onCreate() {
