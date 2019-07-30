@@ -1,6 +1,9 @@
 package com.ooftf.master.widget.eye;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.ooftf.master.widget.dialog.ui.ListDialog;
@@ -54,7 +57,13 @@ public class DevEye {
                                 new LogDialog(topActivity).setData(queue.subList(0, queue.size())).show();
                                 break;
                             case 2:
-                                AppUtils.launchAppDetailsSettings(application, application.getPackageName());
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    ActivityManager am = (ActivityManager) application.getSystemService(Context.ACTIVITY_SERVICE);
+                                    am.clearApplicationUserData();
+                                } else {
+                                    Toast.makeText(application, "暂时只支持API19+", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case 3:
                                 AppUtils.launchAppDetailsSettings(application, application.getPackageName());
