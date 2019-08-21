@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.BindingAdapter;
 
 import com.ooftf.master.widget.toolbar.R;
 import com.ooftf.master.widget.toolbar.util.ContextUtils;
@@ -58,6 +61,12 @@ public class MasterToolbar extends ConstraintLayout {
         }
         if (typedArray.hasValue(R.styleable.MasterToolbar_right_icon)) {
             setRightIcon(typedArray.getDrawable(R.styleable.MasterToolbar_right_icon));
+        }
+        if (typedArray.hasValue(R.styleable.MasterToolbar_rightTextColor)) {
+            setRightTextColor(typedArray.getColor(R.styleable.MasterToolbar_rightTextColor, ContextCompat.getColor(getContext(), R.color.font_black)));
+        }
+        if (typedArray.hasValue(R.styleable.MasterToolbar_leftTextColor)) {
+            setLeftTextColor(typedArray.getColor(R.styleable.MasterToolbar_leftTextColor, ContextCompat.getColor(getContext(), R.color.font_black)));
         }
         typedArray.recycle();
     }
@@ -203,5 +212,77 @@ public class MasterToolbar extends ConstraintLayout {
     public MasterToolbar addItemRight(ToolbarItem item) {
         rightContainer.addView(item);
         return this;
+    }
+
+    /**
+     * @param toolbar
+     * @param text
+     */
+    @BindingAdapter(value = "rightText", requireAll = false)
+    public static void setToolbarRightText(MasterToolbar toolbar, String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        toolbar.setRightText(text);
+    }
+
+    /**
+     * @param toolbar
+     * @param color
+     */
+    @BindingAdapter(value = "rightTextColor", requireAll = false)
+    public static void setToolbarRightTextColor(MasterToolbar toolbar, int color) {
+        if (color <= 0) {
+            return;
+        }
+        toolbar.setRightTextColor(color);
+    }
+
+    /**
+     * @param toolbar
+     * @param listener
+     */
+    @BindingAdapter(value = "rightClickListener", requireAll = false)
+    public static void setToolbarRightClickListener(MasterToolbar toolbar, View.OnClickListener listener) {
+        if (listener == null) {
+            return;
+        }
+        toolbar.setRightClickListener(listener);
+    }
+
+    /**
+     * @param toolbar
+     * @param text
+     */
+    @BindingAdapter(value = "leftText", requireAll = false)
+    public static void setToolbarLeftText(MasterToolbar toolbar, String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        toolbar.setLeftText(text);
+    }
+
+    /**
+     * @param toolbar
+     * @param color
+     */
+    @BindingAdapter(value = "leftTextColor", requireAll = false)
+    public static void setToolbarLeftTextColor(MasterToolbar toolbar, int color) {
+        if (color <= 0) {
+            return;
+        }
+        toolbar.setLeftTextColor(color);
+    }
+
+    /**
+     * @param toolbar
+     * @param listener
+     */
+    @BindingAdapter(value = "leftClickListener", requireAll = false)
+    public static void setToolbarLeftClickListener(MasterToolbar toolbar, View.OnClickListener listener) {
+        if (listener == null) {
+            return;
+        }
+        toolbar.setLeftClickListener(listener);
     }
 }

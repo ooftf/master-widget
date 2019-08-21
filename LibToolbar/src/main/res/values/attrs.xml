@@ -6,5 +6,7 @@
         <attr name="left_text" format="string|reference" />
         <attr name="right_icon" format="reference" />
         <attr name="right_text" format="string|reference" />
+        <attr name="rightTextColor" format="color" />
+        <attr name="leftTextColor" format="color" />
     </declare-styleable>
 </resources>
