@@ -2,6 +2,7 @@ package com.ooftf.master.widget.toolbar.official;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -47,6 +49,10 @@ public class ToolbarPlus extends Toolbar {
         super(context, attrs, defStyleAttr);
     }
 
+    {
+        setTitleTextColor(getDefaultTitleTextColor());
+    }
+
     @Override
     public void setTitle(CharSequence title) {
         if (isTitleCenter) {
@@ -58,11 +64,25 @@ public class ToolbarPlus extends Toolbar {
         }
     }
 
+    int titleTextColor;
+
+    @Override
+    public void setTitleTextColor(int color) {
+        titleTextColor = color;
+        if (isTitleCenter&&titleText!=null) {
+            titleText.setTextColor(color);
+        } else {
+            super.setTitleTextColor(color);
+        }
+
+
+    }
+
     private void checkTitleView() {
         if (titleText == null) {
             titleText = new TextView(getContext());
             titleText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
-            titleText.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            titleText.setTextColor(titleTextColor);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER;
             titleText.setGravity(Gravity.CENTER);
@@ -92,7 +112,7 @@ public class ToolbarPlus extends Toolbar {
          */
         if (!(getParent() instanceof CollapsingToolbarLayout)) {
             if (getBackground() == null) {
-                setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+                setBackgroundColor(getDefaultBackgroundColor());
             }
             isTitleCenter = true;
             // 这个判断是为了防止二次onAttachedToWindow  会导致title设置为空
@@ -101,6 +121,14 @@ public class ToolbarPlus extends Toolbar {
             }
 
         }
+    }
+
+    protected int getDefaultBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.white);
+    }
+
+    protected int getDefaultTitleTextColor() {
+        return ContextCompat.getColor(getContext(), R.color.white);
     }
 
     public void addMenuItem(MenuItem item) {
@@ -165,6 +193,22 @@ public class ToolbarPlus extends Toolbar {
                 setLayoutParams(layoutParams);
             }
         }
+    }
+
+
+    public ToolbarPlus addRightMenu(String text) {
+        this.getMenu().add(text).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return this;
+    }
+
+    public ToolbarPlus addRightMenu(Drawable icon) {
+        this.getMenu().add("").setIcon(icon).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return this;
+    }
+
+    public ToolbarPlus addRightMenu(@DrawableRes int iconRes) {
+        this.getMenu().add("").setIcon(iconRes).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return this;
     }
 
     @Keep
