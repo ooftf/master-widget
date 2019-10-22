@@ -20,9 +20,14 @@ import androidx.databinding.BindingAdapter;
  */
 public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
-    int errorLayoutId = NO_ID;
-    int loadLayoutId = NO_ID;
-    int emptyLayoutId = NO_ID;
+    static int defaultErrorLayoutId = NO_ID;
+    static int defaultLoadLayoutId = NO_ID;
+    static int defaultEmptyLayoutId = NO_ID;
+
+    int errorLayoutId = defaultErrorLayoutId;
+    int loadLayoutId = defaultLoadLayoutId;
+    int emptyLayoutId = defaultEmptyLayoutId;
+
     View errorLayout;
     View loadLayout;
     View emptyLayout;
@@ -42,9 +47,9 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     private void obtainAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.StateLayoutSwitcher);
-        errorLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_error_layout, NO_ID);
-        loadLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_loading_layout, NO_ID);
-        emptyLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_empty_layout, NO_ID);
+        errorLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_error_layout, defaultErrorLayoutId);
+        loadLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_loading_layout, defaultLoadLayoutId);
+        emptyLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_empty_layout, defaultEmptyLayoutId);
 
         refreshId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_error_refresh, R.id.sls_error_refresh);
         emptyActionId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_empty_action, R.id.sls_empty_action);
@@ -211,15 +216,15 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
     }
 
 
-    public void setErrorLayoutId(int errorLayoutId) {
-        this.errorLayoutId = errorLayoutId;
+    public static void setDefaultErrorLayoutId(int errorLayoutId) {
+        defaultErrorLayoutId = errorLayoutId;
     }
 
-    public void setLoadLayoutId(int loadLayoutId) {
-        this.loadLayoutId = loadLayoutId;
+    public static void setDefaultLoadLayoutId(int loadLayoutId) {
+        defaultLoadLayoutId = loadLayoutId;
     }
 
-    public void setEmptyLayoutId(int emptyLayoutId) {
-        this.emptyLayoutId = emptyLayoutId;
+    public static void setDefaultEmptyLayoutId(int emptyLayoutId) {
+        defaultEmptyLayoutId = emptyLayoutId;
     }
 }
