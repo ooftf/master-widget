@@ -23,6 +23,9 @@ public class Suspend {
         if (Suspend.config.isBindActivity) {
             ActivityManager.INSTANCE.init(application);
         }
+    }
+
+    public static void show() {
         SuspendWindow.getInstance().startShow();
     }
 
