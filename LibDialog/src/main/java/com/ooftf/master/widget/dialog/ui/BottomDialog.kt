@@ -1,4 +1,4 @@
-package com.ooftf.service.widget.dialog
+package com.ooftf.master.widget.dialog.ui
 
 import android.app.Activity
 import android.view.Gravity

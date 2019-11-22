@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.ooftf.master.widget.dialog.delegate.ListDialogDelegate;
 import com.ooftf.master.widget.dialog.inteface.DialogOnItemClickListener;
 import com.ooftf.master.widget.dialog.inteface.ListDialogInterface;
-import com.ooftf.service.widget.dialog.BottomDialog;
 
 import org.jetbrains.annotations.NotNull;
 
