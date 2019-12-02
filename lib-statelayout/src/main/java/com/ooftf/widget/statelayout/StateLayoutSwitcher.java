@@ -159,6 +159,9 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
 
     private void showView(View except) {
+        if (except == null) {
+            return;
+        }
         if (errorLayout != null && except != errorLayout) {
             errorLayout.setVisibility(View.GONE);
         }
@@ -172,10 +175,7 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         if (successLayout != null && except != successLayout) {
             successLayout.setVisibility(View.GONE);
         }
-        if (except != null) {
-            except.setVisibility(View.VISIBLE);
-        }
-
+        except.setVisibility(View.VISIBLE);
     }
 
     @BindingAdapter(value = {"onRetryListener"}, requireAll = false)
