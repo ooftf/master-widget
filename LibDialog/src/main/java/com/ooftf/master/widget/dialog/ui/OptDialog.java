@@ -22,6 +22,7 @@ public class OptDialog extends BaseDialog {
     private TextView positive;
     private TextView negative;
     private View line;
+
     public OptDialog(Activity activity) {
         super(activity, R.style.master_DialogTheme_Transparent);
         this.activity = activity;
@@ -29,12 +30,12 @@ public class OptDialog extends BaseDialog {
     }
 
     private void init() {
-        View root = LayoutInflater.from(activity).inflate(R.layout.master_dialog_opt, (ViewGroup) getWindow().getDecorView());
-        title = root.findViewById(R.id.title);
-        content = root.findViewById(R.id.content);
-        positive = root.findViewById(R.id.positive);
-        negative = root.findViewById(R.id.negative);
-        line = root.findViewById(R.id.line);
+        setContentView(R.layout.master_dialog_opt);
+        title = findViewById(R.id.title);
+        content = findViewById(R.id.content);
+        positive = findViewById(R.id.positive);
+        negative = findViewById(R.id.negative);
+        line = findViewById(R.id.line);
         title.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
         negative.setVisibility(View.GONE);
@@ -54,10 +55,12 @@ public class OptDialog extends BaseDialog {
         content.setText(text);
         return this;
     }
-    public OptDialog  setCancelableChain(boolean cancelable){
+
+    public OptDialog setCancelableChain(boolean cancelable) {
         super.setCancelable(cancelable);
         return this;
     }
+
     public OptDialog setPositiveText(CharSequence text) {
 
         setPositiveVisibility(View.VISIBLE);
@@ -67,6 +70,11 @@ public class OptDialog extends BaseDialog {
 
     public OptDialog setPositiveColor(int color) {
         positive.setTextColor(color);
+        return this;
+    }
+
+    public OptDialog setContentGravity(int gravity) {
+        content.setGravity(gravity);
         return this;
     }
 

@@ -34,7 +34,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '0.0.1'
+    publishVersion = '0.0.3'
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()

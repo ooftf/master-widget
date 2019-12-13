@@ -17,32 +17,31 @@ import com.bumptech.glide.Glide
  * @date 2019/12/12
  */
 object DataBindingAdapter {
+    @JvmStatic
     @BindingAdapter(value = ["exOnClick"], requireAll = false)
     fun setOnClick(view: View, listener: View.OnClickListener?) {
         listener?.let {
             view.setOnClickListener(AntiOnClickListener(it))
         }
     }
-
+    @JvmStatic
     @BindingAdapter(value = ["exUrl"], requireAll = false)
     fun setUrl(imageView: ImageView, url: String?) {
-        if (url != null) {
-            Glide.with(imageView).load(url).into(imageView)
-        }
+        Glide.with(imageView).load(url).into(imageView)
     }
-
+    @JvmStatic
     @BindingAdapter(value = ["exSrc"])
     fun setImageViewResource(imageView: ImageView, resource: Drawable?) {
         imageView.setImageDrawable(resource)
     }
-
+    @JvmStatic
     @BindingAdapter(value = ["exBackgroundTintColor"], requireAll = false)
     fun setBackgroundTintColor(view: View, color: Int) {
         if (color != 0 && view.background != null) {
             DrawableCompat.setTint(view.background.mutate(), color)
         }
     }
-
+    @JvmStatic
     @BindingAdapter(value = ["exMaxInt"], requireAll = false)
     fun setMaxInt(textView: TextView, max: Int) {
         textView.addTextChangedListener(object : TextWatcher {

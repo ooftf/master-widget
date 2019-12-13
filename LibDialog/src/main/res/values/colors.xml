@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="master_background">#FAFAFA</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="master_background">#FFFFFF</color>
     <color name="master_translucent">#11000000</color>
     <color name="master_transparent">#00000000</color>
+    <color name="colorPrimary" tools:ignore="ResourceName">#03A9F4</color>
 </resources>
