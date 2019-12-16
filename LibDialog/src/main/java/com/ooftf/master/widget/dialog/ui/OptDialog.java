@@ -1,9 +1,7 @@
 package com.ooftf.master.widget.dialog.ui;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ooftf.master.widget.dialog.R;
@@ -30,7 +28,9 @@ public class OptDialog extends BaseDialog {
     }
 
     private void init() {
-        setContentView(R.layout.master_dialog_opt);
+        setContentView(getLayoutId());
+        //设置Window宽高填充屏幕
+        setWidthPercent(0.75f);
         title = findViewById(R.id.title);
         content = findViewById(R.id.content);
         positive = findViewById(R.id.positive);
@@ -42,6 +42,10 @@ public class OptDialog extends BaseDialog {
         line.setVisibility(View.GONE);
         positive.setOnClickListener(v -> dismiss());
         negative.setOnClickListener(v -> dismiss());
+    }
+
+    private int getLayoutId() {
+        return R.layout.master_dialog_opt;
     }
 
     public OptDialog setTitleText(CharSequence text) {

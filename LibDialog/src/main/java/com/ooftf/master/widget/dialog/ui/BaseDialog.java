@@ -103,6 +103,19 @@ public class BaseDialog extends Dialog {
         getWindow().setAttributes(attributes);
     }
 
+
+    public void setWidthMatchParent() {
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+        getWindow().setAttributes(attributes);
+    }
+
+    public void setHeightMatchParent() {
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+        getWindow().setAttributes(attributes);
+    }
+
     /**
      * 必须在设置完 View 之后调用
      *
