@@ -24,16 +24,33 @@ object DataBindingAdapter {
             view.setOnClickListener(AntiOnClickListener(it))
         }
     }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exRoutePath"], requireAll = false)
+    fun exRoutePath(view: View, path: String?) {
+        path?.let {
+            view.setOnClickListener {
+                try {
+                    com.alibaba.android.arouter.launcher.ARouter.getInstance().build(path).navigation()
+                } catch (e: ClassNotFoundException) {
+                    throw Exception("exStartPath   只支持ARouter 路由系统")
+                }
+            }
+        }
+    }
+
     @JvmStatic
     @BindingAdapter(value = ["exUrl"], requireAll = false)
     fun setUrl(imageView: ImageView, url: String?) {
         Glide.with(imageView).load(url).into(imageView)
     }
+
     @JvmStatic
     @BindingAdapter(value = ["exSrc"])
     fun setImageViewResource(imageView: ImageView, resource: Drawable?) {
         imageView.setImageDrawable(resource)
     }
+
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundTintColor"], requireAll = false)
     fun setBackgroundTintColor(view: View, color: Int) {
@@ -41,6 +58,7 @@ object DataBindingAdapter {
             DrawableCompat.setTint(view.background.mutate(), color)
         }
     }
+
     @JvmStatic
     @BindingAdapter(value = ["exMaxInt"], requireAll = false)
     fun setMaxInt(textView: TextView, max: Int) {
