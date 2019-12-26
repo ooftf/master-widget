@@ -33,7 +33,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'master-widget-dialog' // bintray创建的package
-    publishVersion = '1.0.7'//0.0.1-snapshot
+    publishVersion = '1.0.8'//0.0.1-snapshot
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()

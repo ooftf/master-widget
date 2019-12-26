@@ -47,8 +47,19 @@ object DataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exSrc"])
-    fun setImageViewResource(imageView: ImageView, resource: Drawable?) {
+    fun setImageViewDrawable(imageView: ImageView, resource: Drawable?) {
         imageView.setImageDrawable(resource)
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exImageResource"])
+    fun setImageViewResource(imageView: ImageView, resource: Int?) {
+        if (resource == null || resource == 0) {
+            imageView.setImageDrawable(null)
+        } else {
+            imageView.setImageResource(resource)
+        }
+
     }
 
     @JvmStatic

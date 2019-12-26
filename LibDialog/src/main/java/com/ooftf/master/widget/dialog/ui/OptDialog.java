@@ -44,7 +44,7 @@ public class OptDialog extends BaseDialog {
         negative.setOnClickListener(v -> dismiss());
     }
 
-    private int getLayoutId() {
+    protected int getLayoutId() {
         return R.layout.master_dialog_opt;
     }
 
