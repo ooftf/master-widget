@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -58,6 +59,15 @@ object DataBindingAdapter {
             imageView.setImageDrawable(null)
         } else {
             imageView.setImageResource(resource)
+        }
+
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exTextColorId"])
+    fun setTextColorResource(textView: TextView, resource: Int?) {
+        if (resource != null && resource != 0&& resource!=View.NO_ID) {
+            textView.setTextColor(ContextCompat.getColor(textView.context,resource))
         }
 
     }
