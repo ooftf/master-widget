@@ -1,6 +1,10 @@
 package com.ooftf.databinding.extensions
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -40,6 +44,35 @@ object DataBindingAdapter {
         }
     }
 
+
+    @JvmStatic
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = false)
+    fun setBackgroundDrawable(view: View, color: Int, radius: Float) {
+        var drawable = GradientDrawable()
+        drawable.setColor(color)
+        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        view.background = drawable
+    }
+    @JvmStatic
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = false)
+    fun setBackgroundDrawable(view: View, color: String, radius: Float) {
+        var drawable = GradientDrawable()
+        drawable.setColor(Color.parseColor(color))
+        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        view.background = drawable
+    }
+    @JvmStatic
+    @BindingAdapter(value = ["exBackgroundColorId", "exBackgroundRadius"], requireAll = false)
+    fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Float) {
+        var drawable = GradientDrawable()
+        drawable.setColor(ContextCompat.getColor(view.context,colorId))
+        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        view.background = drawable
+    }
+
+
+
+
     @JvmStatic
     @BindingAdapter(value = ["exUrl"], requireAll = false)
     fun setUrl(imageView: ImageView, url: String?) {
@@ -64,10 +97,22 @@ object DataBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter(value = ["exTextStyle"])
+    fun exTextStyle(text: TextView, resource: Int?) {
+        if (resource == null || resource == 0) {
+            text.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        } else if (resource > 0) {
+            text.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        } else {
+            text.typeface = Typeface.defaultFromStyle(Typeface.ITALIC)
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["exTextColorId"])
     fun setTextColorResource(textView: TextView, resource: Int?) {
-        if (resource != null && resource != 0&& resource!=View.NO_ID) {
-            textView.setTextColor(ContextCompat.getColor(textView.context,resource))
+        if (resource != null && resource != 0 && resource != View.NO_ID) {
+            textView.setTextColor(ContextCompat.getColor(textView.context, resource))
         }
 
     }
