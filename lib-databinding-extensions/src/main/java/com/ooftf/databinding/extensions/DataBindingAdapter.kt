@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.StateSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,19 +36,19 @@ object DataBindingAdapter {
     @BindingAdapter(value = ["exRoutePath"], requireAll = false)
     fun exRoutePath(view: View, path: String?) {
         path?.let {
-            view.setOnClickListener {
+            view.setOnClickListener(AntiOnClickListener(View.OnClickListener {
                 try {
                     com.alibaba.android.arouter.launcher.ARouter.getInstance().build(path).navigation()
                 } catch (e: ClassNotFoundException) {
                     throw Exception("exStartPath   只支持ARouter 路由系统")
                 }
-            }
+            }))
         }
     }
 
 
     @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = false)
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
     fun setBackgroundDrawable(view: View, color: Int, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(color)
@@ -54,7 +56,7 @@ object DataBindingAdapter {
         view.background = drawable
     }
     @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = false)
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
     fun setBackgroundDrawable(view: View, color: String, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(Color.parseColor(color))
@@ -62,14 +64,13 @@ object DataBindingAdapter {
         view.background = drawable
     }
     @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColorId", "exBackgroundRadius"], requireAll = false)
+    @BindingAdapter(value = ["exBackgroundColorId", "exBackgroundRadius"], requireAll = true)
     fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(ContextCompat.getColor(view.context,colorId))
         drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
         view.background = drawable
     }
-
 
 
 
