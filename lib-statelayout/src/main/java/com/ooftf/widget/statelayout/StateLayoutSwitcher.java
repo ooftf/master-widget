@@ -47,10 +47,6 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         obtainAttrs(attrs);
     }
 
-    {
-
-    }
-
     Runnable refresh = new Runnable() {
         @Override
         public void run() {
@@ -64,14 +60,14 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     @Override
     protected void onDetachedFromWindow() {
-        register(refresh);
+        unRegister(refresh);
         super.onDetachedFromWindow();
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        unRegister(refresh);
+        register(refresh);
     }
 
     private void obtainAttrs(AttributeSet attrs) {
