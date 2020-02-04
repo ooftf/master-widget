@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.BindingAdapter;
 
+import java.util.ArrayList;
+
 /**
  * @author ooftf
  * @email 994749769@qq.com
@@ -43,6 +45,33 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
     public StateLayoutSwitcher(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         obtainAttrs(attrs);
+    }
+
+    {
+
+    }
+
+    Runnable refresh = new Runnable() {
+        @Override
+        public void run() {
+            if (errorLayout != null && errorLayout.getVisibility() == VISIBLE) {
+                if (onRetryListener != null) {
+                    onRetryListener.onRetry();
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDetachedFromWindow() {
+        register(refresh);
+        super.onDetachedFromWindow();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        unRegister(refresh);
     }
 
     private void obtainAttrs(AttributeSet attrs) {
@@ -226,5 +255,22 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     public static void setDefaultEmptyLayoutId(int emptyLayoutId) {
         defaultEmptyLayoutId = emptyLayoutId;
+    }
+
+    public static void notifyReConnection() {
+        for (Runnable runnable : reConnectionListener) {
+            runnable.run();
+        }
+    }
+
+    static ArrayList<Runnable> reConnectionListener = new ArrayList<>();
+
+    static void register(Runnable runnable) {
+        reConnectionListener.add(runnable);
+    }
+
+
+    static void unRegister(Runnable runnable) {
+        reConnectionListener.remove(runnable);
     }
 }
