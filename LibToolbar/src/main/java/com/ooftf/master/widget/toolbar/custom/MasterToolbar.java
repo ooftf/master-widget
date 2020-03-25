@@ -3,6 +3,7 @@ package com.ooftf.master.widget.toolbar.custom;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -70,6 +71,7 @@ public class MasterToolbar extends ConstraintLayout {
         } else {
             setRightText(getDefaultRightText());
         }
+        setTitleBold(typedArray.getBoolean(R.styleable.MasterToolbar_titleBold, false));
 
         if (typedArray.hasValue(R.styleable.MasterToolbar_leftIcon)) {
             setLeftIcon(typedArray.getDrawable(R.styleable.MasterToolbar_leftIcon));
@@ -104,6 +106,15 @@ public class MasterToolbar extends ConstraintLayout {
         }
 
         typedArray.recycle();
+    }
+
+    private void setTitleBold(boolean aBoolean) {
+        if (aBoolean) {
+            title.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        } else {
+            title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
+
     }
 
     /**
