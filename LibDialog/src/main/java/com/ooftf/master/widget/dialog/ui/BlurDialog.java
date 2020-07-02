@@ -34,7 +34,7 @@ public class BlurDialog extends BaseDialog {
         rootView.setBackgroundColor(getContext().getResources().getColor(R.color.master_translucent));
         super.setContentView(rootView);
         setGravity(Gravity.CENTER);
-        super.setWidth(getWindowWidth());
+        super.setWidth(getScreenWindowWidth());
         super.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         setInOutAnimations(R.style.master_WindowAnimAlpha);
         rootView.setOnClickListener(v -> {
