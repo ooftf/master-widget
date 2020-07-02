@@ -69,7 +69,7 @@ open class BaseDialog : Dialog {
      * @param percent
      */
     fun setWidthPercent(percent: Float) {
-        setWidth((getScreenWindowHeight() * percent).toInt())
+        setWidth((getScreenWindowWidth() * percent).toInt())
     }
 
     /**
