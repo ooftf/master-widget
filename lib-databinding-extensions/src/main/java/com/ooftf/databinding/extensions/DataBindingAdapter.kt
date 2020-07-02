@@ -1,22 +1,16 @@
 package com.ooftf.databinding.extensions
 
-import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.util.StateSet
+import android.view.TouchDelegate
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
 
 /**
  * @author ooftf
@@ -47,107 +41,24 @@ object DataBindingAdapter {
     }
 
 
-    @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawable(view: View, color: Int, radius: Float) {
-        var drawable = GradientDrawable()
-        drawable.setColor(color)
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
-        view.background = drawable
-    }
-    @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawable(view: View, color: String, radius: Float) {
-        var drawable = GradientDrawable()
-        drawable.setColor(Color.parseColor(color))
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
-        view.background = drawable
-    }
-    @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColorId", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Float) {
-        var drawable = GradientDrawable()
-        drawable.setColor(ContextCompat.getColor(view.context,colorId))
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
-        view.background = drawable
-    }
-
-
 
     @JvmStatic
-    @BindingAdapter(value = ["exUrl"], requireAll = false)
-    fun setUrl(imageView: ImageView, url: String?) {
-        Glide.with(imageView).load(url).into(imageView)
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exSrc"])
-    fun setImageViewDrawable(imageView: ImageView, resource: Drawable?) {
-        imageView.setImageDrawable(resource)
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exImageResource"])
-    fun setImageViewResource(imageView: ImageView, resource: Int?) {
-        if (resource == null || resource == 0) {
-            imageView.setImageDrawable(null)
-        } else {
-            imageView.setImageResource(resource)
-        }
-
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exTextStyle"])
-    fun exTextStyle(text: TextView, resource: Int?) {
-        if (resource == null || resource == 0) {
-            text.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        } else if (resource > 0) {
-            text.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-        } else {
-            text.typeface = Typeface.defaultFromStyle(Typeface.ITALIC)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exTextColorId"])
-    fun setTextColorResource(textView: TextView, resource: Int?) {
-        if (resource != null && resource != 0 && resource != View.NO_ID) {
-            textView.setTextColor(ContextCompat.getColor(textView.context, resource))
-        }
-
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exBackgroundTintColor"], requireAll = false)
-    fun setBackgroundTintColor(view: View, color: Int) {
-        if (color != 0 && view.background != null) {
-            DrawableCompat.setTint(view.background.mutate(), color)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exMaxInt"], requireAll = false)
-    fun setMaxInt(textView: TextView, max: Int) {
-        textView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                val s1 = s.toString()
-                val anInt = getInt(s1)
-                if (anInt > max) {
-                    textView.text = max.toString()
-                }
+    @BindingAdapter(value = ["exClickAreaExpand"])
+    fun setClickAreaExpand(view: View, expandDp: Int) {
+        (view.parent as? View)?.let { parentView ->
+            val expandPx = DensityUtil.dip2px(view.context, expandDp.toFloat()).toInt()
+            parentView.post {
+                val rect = Rect();
+                view.getHitRect(rect);
+                rect.top -= expandPx;
+                rect.bottom += expandPx;
+                rect.left -= expandPx;
+                rect.right += expandPx;
+                parentView.touchDelegate = TouchDelegate(rect, view);
             }
-        })
+        }
+
     }
 
-    fun getInt(value: String): Int {
-        return try {
-            Integer.valueOf(value)
-        } catch (e: Exception) {
-            Log.e("stringUtil", "$value--> Integer is error")
-            0
-        }
-    }
+
 }

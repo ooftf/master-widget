@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -324,6 +323,16 @@ public class MasterToolbar extends ConstraintLayout {
 
     protected float getDefaultHeightPx() {
         return DensityUtil.dp2px(getDefaultHeight());
+    }
+
+
+    /**
+     * @param toolbar
+     * @param text
+     */
+    @BindingAdapter(value = "title", requireAll = false)
+    public static void setToolbarTitle(MasterToolbar toolbar, String text) {
+        toolbar.setTitle(text);
     }
 
     /**
