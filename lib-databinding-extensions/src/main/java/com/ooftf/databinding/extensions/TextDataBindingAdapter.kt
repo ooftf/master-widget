@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 
 /**
@@ -56,10 +55,12 @@ object TextDataBindingAdapter {
 
     val TEXT_CHANGED_LISTENER_ID = View.generateViewId()
 
+    /**
+     * exMaxInt  修改为
+     */
     @JvmStatic
-    @BindingAdapter(value = ["exMaxInt"], requireAll = false)
+    @BindingAdapter(value = ["exTextMax"], requireAll = false)
     fun setMaxInt(textView: TextView, max: Int) {
-
         (textView.getTag(TEXT_CHANGED_LISTENER_ID) as? TextWatcher)?.let {
             textView.removeTextChangedListener(it)
         }
@@ -90,7 +91,7 @@ object TextDataBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["exFlag"])
+    @BindingAdapter(value = ["exTextFlag"])
     fun setTextFlags(view: TextView, flag: Int) {
         view.paint.flags = flag
     }
