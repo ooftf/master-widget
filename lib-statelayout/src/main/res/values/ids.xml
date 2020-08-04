@@ -2,4 +2,7 @@
 <resources>
     <item name="sls_error_refresh" type="id" />
     <item name="sls_empty_action" type="id" />
+    <item name="sls_first_action" type="id" />
+    <item name="sls_second_action" type="id" />
+    <item name="sls_third_action" type="id" />
 </resources>

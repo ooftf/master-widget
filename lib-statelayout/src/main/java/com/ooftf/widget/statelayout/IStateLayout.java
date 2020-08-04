@@ -14,9 +14,17 @@ public interface IStateLayout {
 
     void switchToSuccess();
 
+    void switchToUndefinedFirst();
+
+    void switchToUndefinedSecond();
+
+    void switchToUndefinedThird();
+
     int STATE_SUCCESS = 0;
     int STATE_LOAD = 1;
     int STATE_EMPTY = 2;
     int STATE_ERROR = 3;
-
+    int STATE_UNDEFINED_FIRST = 10;
+    int STATE_UNDEFINED_SECOND = 11;
+    int STATE_UNDEFINED_THIRD = 12;
 }
