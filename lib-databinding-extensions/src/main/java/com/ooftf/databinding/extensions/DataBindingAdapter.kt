@@ -1,16 +1,15 @@
 package com.ooftf.databinding.extensions
 
-import android.graphics.Color
 import android.graphics.Rect
-import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.TouchDelegate
 import android.view.View
+import android.widget.RadioButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author ooftf
@@ -41,7 +40,6 @@ object DataBindingAdapter {
     }
 
 
-
     @JvmStatic
     @BindingAdapter(value = ["exClickAreaExpand"])
     fun setClickAreaExpand(view: View, expandDp: Int) {
@@ -58,6 +56,28 @@ object DataBindingAdapter {
             }
         }
 
+    }
+
+    /**
+     * @{viewModel.itemsDelivery.size()}
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["exChecked"])
+    fun setChecked(view: RadioButton, checked: Boolean?) {
+        if (checked != null) {
+            view.isChecked = checked
+        }
+    }
+
+    /**
+     * @{viewModel.itemsDelivery.size()}
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["exSpanCount"])
+    fun setSpanCount(view: RecyclerView, spanCount: Int?) {
+        if (spanCount != null && spanCount > 0) {
+            (view.layoutManager as? GridLayoutManager)?.spanCount = spanCount
+        }
     }
 
 

@@ -95,4 +95,39 @@ object TextDataBindingAdapter {
     fun setTextFlags(view: TextView, flag: Int) {
         view.paint.flags = flag
     }
+
+    val ID = View.generateViewId()
+
+    /**
+     * @{viewModel.itemsDelivery.size()}
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["exDefault"])
+    fun setDefaultValue(view: TextView, text: String?) {
+        if (view.text.isEmpty()) {
+            view.text = text
+        }
+        var tag = view.getTag(ID)
+        if (tag !is TextWatcher) {
+            tag = TheTextWatcher(text)
+            view.setTag(ID, tag)
+        }
+        (tag as TheTextWatcher).default = text
+
+    }
+
+    class TheTextWatcher(var default: String?) : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            if (s.toString().isEmpty() && !default.isNullOrEmpty()) {
+                s.append(default)
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+    }
 }
