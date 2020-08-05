@@ -218,9 +218,6 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     @Override
     public void switchToUndefinedFirst() {
-        if (blocking) {
-            return;
-        }
         if (firstLayoutId != NO_ID && firstLayout == null) {
             firstLayout = LayoutInflater.from(getContext()).inflate(firstLayoutId, this, false);
             View action = firstLayout.findViewById(firstActionId);
@@ -238,9 +235,6 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     @Override
     public void switchToUndefinedSecond() {
-        if (blocking) {
-            return;
-        }
         if (secondLayoutId != NO_ID && secondLayout == null) {
             secondLayout = LayoutInflater.from(getContext()).inflate(secondLayoutId, this, false);
             View action = secondLayout.findViewById(secondActionId);
@@ -258,9 +252,6 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     @Override
     public void switchToUndefinedThird() {
-        if (blocking) {
-            return;
-        }
         if (thirdLayoutId != NO_ID && thirdLayout == null) {
             thirdLayout = LayoutInflater.from(getContext()).inflate(thirdLayoutId, this, false);
             View action = thirdLayout.findViewById(thirdActionId);

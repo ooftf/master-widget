@@ -96,7 +96,7 @@ object TextDataBindingAdapter {
         view.paint.flags = flag
     }
 
-    val ID = View.generateViewId()
+    val ID = R.id.tag_id
 
     /**
      * @{viewModel.itemsDelivery.size()}
@@ -108,11 +108,12 @@ object TextDataBindingAdapter {
             view.text = text
         }
         var tag = view.getTag(ID)
-        if (tag !is TextWatcher) {
+        if (tag !is TheTextWatcher) {
             tag = TheTextWatcher(text)
+            view.addTextChangedListener(tag)
             view.setTag(ID, tag)
         }
-        (tag as TheTextWatcher).default = text
+        tag.default = text
 
     }
 
