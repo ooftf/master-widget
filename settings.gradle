@@ -1,2 +1,3 @@
+include ':lib-kv-layout'
 include ':lib-behavior'
 include ':app', ':LibSuspendWindow', ':LibToolbar', ':LibDialog', ':LibDevEye', ':LibActivityManager', ':lib-statelayout', ':lib-databinding-extensions'

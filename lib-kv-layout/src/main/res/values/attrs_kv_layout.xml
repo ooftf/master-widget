@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KvLayout">
+        <attr name="kl_key" format="string" />
+        <attr name="kl_value" format="string" />
+        <attr name="kl_hint" format="string" />
+        <attr name="kl_keyWidth" format="dimension" />
+        <attr name="kl_TextSize" format="dimension" />
+        <attr name="kl_paddingVertical" format="dimension" />
+        <attr name="kl_paddingHorizontal" format="dimension" />
+        <attr name="kl_keyTextColor" format="color" />
+        <attr name="kl_valueTextColor" format="color" />
+        <attr name="kl_showEndIcon" format="boolean" />
+        <attr name="kl_showDivider" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="KvEditLayout">
+        <attr name="kel_key" format="string" />
+        <attr name="kel_value" format="string" />
+        <attr name="kel_hint" format="string" />
+        <attr name="kel_keyWidth" format="dimension" />
+        <attr name="kel_valueNumberDecimal" format="boolean" />
+        <attr name="kel_TextSize" format="dimension" />
+        <attr name="kel_paddingVertical" format="dimension" />
+        <attr name="kel_paddingHorizontal" format="dimension" />
+        <attr name="kel_keyTextColor" format="color" />
+        <attr name="kel_valueTextColor" format="color" />
+        <attr name="kel_edit" format="boolean" />
+        <attr name="kel_showEndIcon" format="boolean" />
+        <attr name="kel_showDivider" format="boolean" />
+        <attr name="kel_indentation" format="dimension" />
+    </declare-styleable>
+</resources>
