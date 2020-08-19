@@ -16,7 +16,7 @@ public class CopyUtil {
         //创建ClipData对象
         //第一个参数只是一个标记，随便传入。
         //第二个参数是要复制到剪贴版的内容
-        ClipData clip = ClipData.newPlainText("simple text", "要复制的内容");
+        ClipData clip = ClipData.newPlainText("simple text", message);
         //传入clipdata对象.
         clipboard.setPrimaryClip(clip);
     }
