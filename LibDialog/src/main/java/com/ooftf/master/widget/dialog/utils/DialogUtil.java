@@ -1,7 +1,11 @@
 package com.ooftf.master.widget.dialog.utils;
 
 import android.app.Activity;
+import android.os.IBinder;
 import android.view.View;
+import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -26,14 +30,20 @@ public class DialogUtil {
         return null;
     }
 
-    public static boolean isHasDialog(Activity activity) {
+    public static boolean isHasDialog(@NonNull Activity activity) {
+        IBinder token = ((WindowManager.LayoutParams) activity.getWindow().getDecorView().getLayoutParams()).token;
         ArrayList<View> windowViews = getWindowViews();
+        if (windowViews == null) {
+            return false;
+        }
         int count = 0;
         for (View view : windowViews) {
-            if (view.toString().contains(activity.getClass().getSimpleName())) {
-                count++;
-                if (count > 1) {
-                    return true;
+            if (view.getLayoutParams() instanceof WindowManager.LayoutParams) {
+                if (((WindowManager.LayoutParams) view.getLayoutParams()).token == token) {
+                    count++;
+                    if (count > 1) {
+                        return true;
+                    }
                 }
             }
         }
