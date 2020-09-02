@@ -1,6 +1,7 @@
 package com.ooftf.master.widget.dialog.utils;
 
 import android.app.Activity;
+import android.nfc.Tag;
 import android.os.IBinder;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,8 +31,38 @@ public class DialogUtil {
         return null;
     }
 
+    public static boolean isHasDialogByTag(@NonNull Activity activity, @NonNull String tag) {
+        WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) activity.getWindow().getDecorView().getLayoutParams();
+        if (layoutParams == null) {
+            return false;
+        }
+        IBinder token = layoutParams.token;
+        if (token == null) {
+            return false;
+        }
+        ArrayList<View> windowViews = getWindowViews();
+        if (windowViews == null) {
+            return false;
+        }
+        for (View view : windowViews) {
+            if (view.getLayoutParams() instanceof WindowManager.LayoutParams) {
+                if (((WindowManager.LayoutParams) view.getLayoutParams()).token == token && view.getTag() == tag) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean isHasDialog(@NonNull Activity activity) {
-        IBinder token = ((WindowManager.LayoutParams) activity.getWindow().getDecorView().getLayoutParams()).token;
+        WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) activity.getWindow().getDecorView().getLayoutParams();
+        if (layoutParams == null) {
+            return false;
+        }
+        IBinder token = layoutParams.token;
+        if (token == null) {
+            return false;
+        }
         ArrayList<View> windowViews = getWindowViews();
         if (windowViews == null) {
             return false;

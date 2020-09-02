@@ -26,7 +26,7 @@ class LogDialog extends BaseDialog {
 
     public LogDialog(@NonNull Context context) {
         super(context, R.style.master_DialogTheme_Transparent);
-        setContentView(R.layout.suspend_dialog_show_log);
+        setContentView(R.layout.dev_eye_dialog_show_log);
         setWidthPercent(1f);
         setHeightPercent(1f);
         recyclerView = findViewById(R.id.recycler_view);
@@ -35,7 +35,7 @@ class LogDialog extends BaseDialog {
             @NonNull
             @Override
             public TheViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                TheViewHolder theViewHolder = new TheViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.suspend_item_show_log, parent, false));
+                TheViewHolder theViewHolder = new TheViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.dev_eye_item_show_log, parent, false));
                 theViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -79,7 +79,17 @@ class LogDialog extends BaseDialog {
 
     public LogDialog setData(List<String> data) {
         this.data = data;
-        recyclerView.getAdapter().notifyDataSetChanged();
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
         return this;
+    }
+
+    public void notifyDataSetChanged(){
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
     }
 }
