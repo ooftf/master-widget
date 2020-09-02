@@ -42,8 +42,9 @@ object DevEye {
             add(ItemAction("显示当前LOG") {
                 LogDialog(sProvider!!.topActivity).apply {
                     setData(LogKnife.queue)
-                    val listener = {
-                        notifyDataSetChanged()
+                    val listener = { item: LogParser ->
+                        data.add(item)
+                        notifyItemInserted(0)
                     }
                     LogKnife.registerDataChange(listener)
                     setOnDismissListener {

@@ -18,36 +18,38 @@ import kotlin.collections.ArrayList
  * @date 2020/9/1
  */
 object LogKnife {
-    var queue = Vector<String>()
+    var queue = Vector<LogParser>()
     const val cacheSize = 200
-    val MESSAGE_PUBLISH_LOG = 4896
-    var isRunning = true
-    val internalHandler = object : Handler(Looper.getMainLooper()) {
+    const val MESSAGE_PUBLISH_LOG = 4896
+    private var isRunning = true
+    private val internalHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message?) {
             if (msg?.what == MESSAGE_PUBLISH_LOG) {
                 while (queue.size >= cacheSize) {
                     //queue.poll()
-                    queue.removeAt(queue.size-1)
+                    queue.removeAt(queue.size - 1)
                 }
                 //queue.offer(msg.obj.toString())
-                queue.add(0,msg.obj.toString())
-                dataChangeListener.forEach { it() }
+                LogParser(msg.obj.toString()).let { letIt ->
+                    queue.add(0, letIt)
+                    dataChangeListener.forEach { it(letIt) }
+                }
             }
         }
     }
 
     init {
-        GlobalScope.launch (Dispatchers.IO){
+        GlobalScope.launch(Dispatchers.IO) {
             obtainLog()
         }
     }
 
-    var dataChangeListener = ArrayList<() -> Unit>();
-    fun registerDataChange(listener: () -> Unit) {
+    var dataChangeListener = ArrayList<(LogParser) -> Unit>();
+    fun registerDataChange(listener: (LogParser) -> Unit) {
         dataChangeListener.add(listener)
     }
 
-    fun unregisterDataChange(listener: () -> Unit) {
+    fun unregisterDataChange(listener: (LogParser) -> Unit) {
         dataChangeListener.remove(listener)
     }
 
@@ -58,9 +60,12 @@ object LogKnife {
         val reader = InputStreamReader(iStream);
         val br = BufferedReader(reader);
 
-        var log: String
+        var log: String?
         while (br.readLine().also { log = it } != null && isRunning) {
-            var message = Message.obtain();
+            if (log == null) {
+                continue
+            }
+            val message = Message.obtain();
             message.what = MESSAGE_PUBLISH_LOG;
             message.obj = log;
             internalHandler.sendMessage(message);
