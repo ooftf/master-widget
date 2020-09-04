@@ -1,12 +1,12 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.CallSuper
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.chaitai.libbase.BR
+import com.ooftf.arch.frame.mvvm.BR
+import com.ooftf.arch.frame.mvvm.vm.BaseViewModel
 import com.ooftf.mapping.lib.ui.BaseLiveDataObserve
 import java.lang.reflect.ParameterizedType
 
@@ -25,14 +25,19 @@ abstract class BaseMvvmActivity<B : ViewDataBinding, V : BaseViewModel> : BaseAc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindLayout()
-        viewModel = ViewModelProvider(this, getViewModelFactory()).get(getVClass())
+        val viewModelFactory = getViewModelFactory()
+        viewModel = if (viewModelFactory == null) {
+            ViewModelProvider(this).get(getVClass())
+        } else {
+            ViewModelProvider(this, viewModelFactory).get(getVClass())
+        }
         binding.setVariable(getVariableId(), viewModel)
         binding.lifecycleOwner = this
         baseLiveDataObserve = viewModel.baseLiveData.attach(this, this)
     }
 
-    open fun getViewModelFactory(): ViewModelProvider.Factory {
-        return defaultViewModelProviderFactory
+    open fun getViewModelFactory(): ViewModelProvider.Factory? {
+        return null
     }
 
 

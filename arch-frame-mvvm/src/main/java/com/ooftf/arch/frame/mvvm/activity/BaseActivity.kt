@@ -1,4 +1,4 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,14 +9,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.chaitai.libbase.R
-import com.chaitai.libbase.engine.PostcardSerializable
 import com.gyf.immersionbar.ImmersionBar
+import com.ooftf.arch.frame.mvvm.R
 import com.ooftf.arch.frame.mvvm.utils.PostcardSerializable
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
@@ -31,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
     private val defaultRequestCode = 837
     var successIntent: Bundle? = null
     var failIntent: Bundle? = null
-
+    private var mToast: Toast? = null
 
     val provider: LifecycleProvider<Lifecycle.Event> by lazy {
         AndroidLifecycle.createLifecycleProvider(this)
@@ -60,9 +60,9 @@ open class BaseActivity : AppCompatActivity() {
                 @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
                 fun create() {
                     ImmersionBar.with(this@BaseActivity).statusBarDarkFont(isDarkFont())
-                        .navigationBarColorInt(Color.WHITE)
-                        .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-                        .init()
+                            .navigationBarColorInt(Color.WHITE)
+                            .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                            .init()
                     var list: MutableList<View> = ArrayList()
                     getToolbarId().forEach {
                         findViewById<View>(it)?.let { it ->
@@ -144,29 +144,29 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun showDialogMessage(
-        message: CharSequence,
-        listener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() }
+            message: CharSequence,
+            listener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() }
     ) {
         showDialogMessage(message, "确定", listener)
     }
 
     fun showDialogMessage(message: CharSequence) {
         showDialogMessage(
-            message,
-            "确定",
-            DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() })
+                message,
+                "确定",
+                DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() })
     }
 
     fun showDialogMessage(
-        message: CharSequence,
-        positiveText: CharSequence = "确定",
-        positiveListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() }
+            message: CharSequence,
+            positiveText: CharSequence = "确定",
+            positiveListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which -> dialog?.dismiss() }
     ) {
         AlertDialog
-            .Builder(this)
-            .setMessage(message)
-            .setPositiveButton(positiveText, positiveListener)
-            .show()
+                .Builder(this)
+                .setMessage(message)
+                .setPositiveButton(positiveText, positiveListener)
+                .show()
     }
 
     private var mActivityResultCallback: ForResultCallback? = null
@@ -190,10 +190,20 @@ open class BaseActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     fun delayFinish(mil: Long) {
         Observable.timer(mil, TimeUnit.MILLISECONDS)
-            .bindDestroy()
-            .subscribe {
-                finish()
-            }
+                .bindDestroy()
+                .subscribe {
+                    finish()
+                }
+    }
+
+    fun toast(content: String, duration: Int = Toast.LENGTH_SHORT) {
+        mToast?.cancel()
+        mToast = Toast.makeText(this.application, content, duration)
+        mToast?.show()
+    }
+
+    fun toast(content: String) {
+        toast(content, Toast.LENGTH_SHORT)
     }
 
     companion object {

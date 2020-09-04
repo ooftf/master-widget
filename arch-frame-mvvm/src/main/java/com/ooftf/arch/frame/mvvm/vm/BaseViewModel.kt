@@ -1,8 +1,7 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.vm;
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
 import com.ooftf.mapping.lib.ui.BaseLiveData
 import io.reactivex.disposables.CompositeDisposable
 

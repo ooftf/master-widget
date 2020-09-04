@@ -1,4 +1,4 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.fragment
 
 import android.content.Context
 import android.content.res.Configuration
@@ -7,10 +7,11 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
-import com.chaitai.libbase.R
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.SimpleImmersionOwner
 import com.gyf.immersionbar.components.SimpleImmersionProxy
+import com.ooftf.arch.frame.mvvm.R
+import com.ooftf.arch.frame.mvvm.activity.BaseActivity
 
 /**
  * Created by master on 2016/4/12.
@@ -42,7 +43,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionO
 
     fun toast(content: String) {
         mToast?.cancel()
-        mToast = Toast.makeText(BaseApp.instance, content, Toast.LENGTH_SHORT)
+        mToast = Toast.makeText(context?.applicationContext, content, Toast.LENGTH_SHORT)
         mToast?.setGravity(Gravity.CENTER,0,0)
         mToast?.show()
     }

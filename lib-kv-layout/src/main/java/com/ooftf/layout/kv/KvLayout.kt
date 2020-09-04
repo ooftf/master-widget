@@ -21,13 +21,13 @@ import kotlinx.android.synthetic.main.layout_kv.view.*
  * @date 2020/2/6
  */
 class KvLayout : ConstraintLayout {
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         obtainAttrs(attrs)
     }
 
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
             context,
             attrs,
             defStyleAttr
@@ -37,7 +37,7 @@ class KvLayout : ConstraintLayout {
 
 
     constructor(
-            context: Context?,
+            context: Context,
             attrs: AttributeSet?,
             defStyleAttr: Int,
             defStyleRes: Int

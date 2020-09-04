@@ -1,4 +1,4 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

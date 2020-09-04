@@ -1,4 +1,4 @@
-package com.ooftf.arch.frame.mvvm;
+package com.ooftf.arch.frame.mvvm.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,9 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-
-import com.chaitai.libbase.utils.LifecycleUtil;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

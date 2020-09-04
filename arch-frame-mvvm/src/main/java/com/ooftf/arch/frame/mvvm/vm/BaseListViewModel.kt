@@ -1,9 +1,8 @@
-package com.chaitai.libbase.base
-
+package com.ooftf.arch.frame.mvvm.vm
 import android.app.Application
 import android.view.View
-import com.chaitai.libbase.BR
-import com.chaitai.libbase.engine.ObservableArrayListPro
+import com.ooftf.arch.frame.mvvm.BR
+import com.ooftf.arch.frame.mvvm.utils.ObservableArrayListPro
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 /**

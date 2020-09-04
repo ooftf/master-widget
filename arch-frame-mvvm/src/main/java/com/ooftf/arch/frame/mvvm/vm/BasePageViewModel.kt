@@ -1,4 +1,4 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.vm;
 
 import android.app.Application
 

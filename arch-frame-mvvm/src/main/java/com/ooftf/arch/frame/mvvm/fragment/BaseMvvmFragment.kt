@@ -1,11 +1,12 @@
-package com.chaitai.libbase.base
+package com.ooftf.arch.frame.mvvm.fragment
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.chaitai.libbase.BR
+import com.ooftf.arch.frame.mvvm.BR
+import com.ooftf.arch.frame.mvvm.vm.BaseViewModel
 import com.ooftf.mapping.lib.ui.BaseLiveDataObserve
 import java.lang.reflect.ParameterizedType
 
