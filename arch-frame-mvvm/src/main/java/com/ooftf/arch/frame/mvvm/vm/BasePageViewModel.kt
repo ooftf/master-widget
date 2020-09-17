@@ -11,11 +11,11 @@ import android.app.Application
 abstract class BasePageViewModel<T>(application: Application) : BaseListViewModel<T>(application) {
 
 
-    fun refresh() {
+    override fun refresh() {
         requestData(getStartPage())
     }
 
-    fun nextPage() {
+    override fun nextPage() {
         requestData(items.size / getPageCount() + getStartPage())
     }
 

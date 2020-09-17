@@ -3,6 +3,8 @@ import android.app.Application
 import android.view.View
 import com.ooftf.arch.frame.mvvm.BR
 import com.ooftf.arch.frame.mvvm.utils.ObservableArrayListPro
+import com.ooftf.mapping.lib.ui.ISmartLayoutData
+import com.ooftf.mapping.lib.ui.IStateLayoutData
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 /**

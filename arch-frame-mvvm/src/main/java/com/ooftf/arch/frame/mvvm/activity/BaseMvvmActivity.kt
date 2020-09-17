@@ -31,6 +31,7 @@ abstract class BaseMvvmActivity<B : ViewDataBinding, V : BaseViewModel> : BaseAc
         } else {
             ViewModelProvider(this, viewModelFactory).get(getVClass())
         }
+        viewModel.setLifecycleOwner(this)
         binding.setVariable(getVariableId(), viewModel)
         binding.lifecycleOwner = this
         baseLiveDataObserve = viewModel.baseLiveData.attach(this, this)

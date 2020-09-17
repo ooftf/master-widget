@@ -2,21 +2,13 @@ package com.ooftf.arch.frame.mvvm.utils
 
 import androidx.databinding.ObservableArrayList
 
-import okhttp3.internal.notify
-
 class ObservableArrayListPro<T> : ObservableArrayList<T>() {
     fun notifyChange(item: T) {
-        val index = indexOf(item)
-        if (remove(item)) {
-            add(index, item)
-        }
+        notifyChange(indexOf(item))
     }
 
     fun notifyChange(index: Int) {
-        val item = get(index)
-        if (remove(item)) {
-            add(index, item)
-        }
+        set(index, get(index))
     }
 
     fun notifyChange() {

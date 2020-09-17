@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
 
 
     defaultConfig {
@@ -34,7 +34,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()
@@ -49,12 +49,12 @@ tasks.withType(Javadoc) {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'com.alibaba:arouter-api:1.5.0'

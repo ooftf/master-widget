@@ -22,13 +22,14 @@ open class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFr
     lateinit var baseLiveDataObserve: BaseLiveDataObserve
     override fun onLoad(rootView: View) {
         viewModel = createViewModel()
+        viewModel.setLifecycleOwner(this)
         binding.setVariable(getVariableId(), viewModel)
         binding.lifecycleOwner = this
         baseLiveDataObserve = viewModel.baseLiveData.attach(this)
     }
 
     open fun createViewModel() =
-        ViewModelProvider(this, getViewModelFactory()).get(getVClass())
+            ViewModelProvider(this, getViewModelFactory()).get(getVClass())
 
     override fun getLayoutId(): Int {
         return 0
@@ -61,10 +62,10 @@ open class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFr
     override fun getContentView(inflater: LayoutInflater, container: ViewGroup?): View {
         val bClass = getBClass()
         val method = bClass.getMethod(
-            "inflate",
-            LayoutInflater::class.java,
-            ViewGroup::class.java,
-            Boolean::class.java
+                "inflate",
+                LayoutInflater::class.java,
+                ViewGroup::class.java,
+                Boolean::class.java
         )
         binding = method.invoke(null, inflater, container, false) as B
         return binding.root

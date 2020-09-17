@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.ooftf.databinding.extensions.empty.EmptyTextWatcher
 
 /**
  * @author ooftf
@@ -117,18 +118,11 @@ object TextDataBindingAdapter {
 
     }
 
-    class TheTextWatcher(var default: String?) : TextWatcher {
+    class TheTextWatcher(var default: String?) : EmptyTextWatcher() {
         override fun afterTextChanged(s: Editable) {
             if (s.toString().isEmpty() && !default.isNullOrEmpty()) {
                 s.append(default)
             }
         }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-
     }
 }

@@ -1,5 +1,8 @@
 package com.ooftf.databinding.extensions
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Rect
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +10,7 @@ import android.view.TouchDelegate
 import android.view.View
 import android.widget.RadioButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -79,6 +83,28 @@ object DataBindingAdapter {
             (view.layoutManager as? GridLayoutManager)?.spanCount = spanCount
         }
     }
+    /**
+     * 复制文本
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["exCopy"], requireAll = false)
+    fun setCopyContent(view: View, content: String?) {
+        view.setOnClickListener{
+            //获取到服务
+            try {
+                val systemService =
+                        it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                //创建ClipData
+                val newPlainText = ClipData.newPlainText("Label", content)
+                //设置到剪贴板中
+                systemService.setPrimaryClip(newPlainText)
+                Toast.makeText(it.context.applicationContext,"复制成功", Toast.LENGTH_SHORT).show()
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                Toast.makeText(it.context.applicationContext,"复制失败", Toast.LENGTH_SHORT).show()
+            }
+        }
 
+    }
 
 }
