@@ -9,7 +9,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.ooftf.databinding.extensions.empty.DecimalTextWatcher
 import com.ooftf.databinding.extensions.empty.EmptyTextWatcher
+import java.math.RoundingMode
 
 /**
  * @author ooftf
@@ -124,5 +126,29 @@ object TextDataBindingAdapter {
                 s.append(default)
             }
         }
+    }
+
+    /**
+     * @{viewModel.itemsDelivery.size()}
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["exNumFormat"])
+    fun setDecimal(view: TextView, pattern: String?, roundingMode: RoundingMode = RoundingMode.DOWN) {
+        var tag = view.getTag(R.id.tag_decimal_watcher)
+        if (pattern == null) {
+            view.setTag(R.id.tag_decimal_watcher, null)
+            (tag as? DecimalTextWatcher)?.let {
+                view.removeTextChangedListener(it)
+            }
+            return
+        }
+        if (tag !is DecimalTextWatcher) {
+            tag = DecimalTextWatcher(pattern, roundingMode, view)
+            view.setTag(R.id.tag_decimal_watcher, tag)
+            view.addTextChangedListener(tag)
+        }
+        tag.pattern = pattern
+        tag.rm = roundingMode
+        view.text = view.text
     }
 }
