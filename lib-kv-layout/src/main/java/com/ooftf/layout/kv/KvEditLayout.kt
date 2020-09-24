@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import com.ooftf.basic.utils.DensityUtil
 import kotlinx.android.synthetic.main.layout_kv.view.*
 
 
@@ -63,7 +64,7 @@ class KvEditLayout : ConstraintLayout {
                 setKeyWidth(
                     getDimension(
                         R.styleable.KvEditLayout_kel_keyWidth,
-                        DensityUtil.dip2px(context, 100f)
+                        DensityUtil.dip2px(100f)
                     )
                 )
                 setTextSize(
@@ -76,13 +77,13 @@ class KvEditLayout : ConstraintLayout {
                 setPaddingHorizontal(
                     getDimension(
                         R.styleable.KvEditLayout_kel_paddingHorizontal,
-                        DensityUtil.dip2px(context, 16f)
+                        DensityUtil.dip2px( 16f)
                     ).toInt()
                 )
                 setPaddingVertical(
                     getDimension(
                         R.styleable.KvEditLayout_kel_paddingVertical,
-                        DensityUtil.dip2px(context, 16f)
+                        DensityUtil.dip2px(16f)
                     ).toInt()
                 )
 

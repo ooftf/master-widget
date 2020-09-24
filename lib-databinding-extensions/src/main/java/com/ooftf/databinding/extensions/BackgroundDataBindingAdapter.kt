@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
+import com.ooftf.basic.utils.DensityUtil
 
 /**
  * @author ooftf
@@ -19,7 +20,7 @@ object BackgroundDataBindingAdapter {
     fun setBackgroundDrawable(view: View, color: Int, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(color)
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius)
         view.background = drawable
     }
 
@@ -28,7 +29,7 @@ object BackgroundDataBindingAdapter {
     fun setBackgroundDrawable(view: View, color: String, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(Color.parseColor(color))
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius)
         view.background = drawable
     }
 
@@ -37,7 +38,7 @@ object BackgroundDataBindingAdapter {
     fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Float) {
         var drawable = GradientDrawable()
         drawable.setColor(ContextCompat.getColor(view.context, colorId))
-        drawable.cornerRadius = DensityUtil.dip2px(view.context, radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius)
         view.background = drawable
     }
 

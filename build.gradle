@@ -10,7 +10,7 @@ buildscript {
                 'compileSdk' : 29,
                 'minSdk'     : 19,
                 'targetSdk'  : 26,
-                'support'    : '1.0.0',
+                'support'    : '1.2.1',
                 'butterknife': "10.1.0",
                 'arouter'    : "1.2.1",
                 'glide'      : "4.8.0",
@@ -56,11 +56,11 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenLocal()
-        maven { url "https://jitpack.io" }
         maven {
             url "https://dl.bintray.com/ooftf/maven"
         }
+        mavenLocal()
+        maven { url "https://jitpack.io" }
     }
 }
 

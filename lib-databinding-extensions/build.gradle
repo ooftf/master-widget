@@ -24,17 +24,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled true
+    buildFeatures{
+        dataBinding true
     }
-
 }
 publish {
     repoName = 'maven'
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     desc = 'nothing'
     bintrayUser = 'ooftf'
     bintrayKey = LocalBintrayKey()
@@ -58,6 +57,7 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'com.alibaba:arouter-api:1.5.0'
+    api 'com.ooftf:basic:0.0.2'
 }
 repositories {
     mavenCentral()

@@ -4,8 +4,8 @@ import android.text.Spanned
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.InverseBindingListener
+import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.databinding.extensions.R
-import com.ooftf.databinding.extensions.empty.EmptyTextWatcher
 
 /**
  *

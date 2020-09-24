@@ -15,9 +15,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 
+import com.ooftf.basic.utils.ContextExtendKt;
+import com.ooftf.basic.utils.DensityUtil;
 import com.ooftf.master.widget.toolbar.R;
-import com.ooftf.master.widget.toolbar.util.ContextUtils;
-import com.ooftf.master.widget.toolbar.util.DensityUtil;
 
 /**
  * @author ooftf
@@ -94,12 +94,12 @@ public class MasterToolbar extends ConstraintLayout {
         }
 
         if (typedArray.hasValue(R.styleable.MasterToolbar_rightTextSize)) {
-            setRightTextSize(DensityUtil.px2sp(typedArray.getDimension(R.styleable.MasterToolbar_rightTextSize, 0)));
+            setRightTextSize(DensityUtil.INSTANCE.px2sp(typedArray.getDimension(R.styleable.MasterToolbar_rightTextSize, 0)));
         } else {
             setRightTextSize(getDefaultRightTextSize());
         }
         if (typedArray.hasValue(R.styleable.MasterToolbar_leftTextSize)) {
-            setLeftTextSize(DensityUtil.px2sp(typedArray.getDimension(R.styleable.MasterToolbar_leftTextSize, 0)));
+            setLeftTextSize(DensityUtil.INSTANCE.px2sp(typedArray.getDimension(R.styleable.MasterToolbar_leftTextSize, 0)));
         } else {
             setLeftTextSize(getDefaultLeftTextSize());
         }
@@ -231,12 +231,12 @@ public class MasterToolbar extends ConstraintLayout {
         if (leftDefaultButton == null) {
             leftDefaultButton = newDefaultToolbarItem();
             leftDefaultButton.setOnClickListener(v -> {
-                Activity activity = ContextUtils.toActivity(getContext());
+                Activity activity = ContextExtendKt.getActivity(getContext());
                 if (activity != null) {
                     activity.finish();
                 }
             });
-            leftDefaultButton.setPadding(DensityUtil.dp2px(16), DensityUtil.dp2px(8), DensityUtil.dp2px(8), DensityUtil.dp2px(8));
+            leftDefaultButton.setPadding(DensityUtil.INSTANCE.dip2pxInt(16), DensityUtil.INSTANCE.dip2pxInt(8), DensityUtil.INSTANCE.dip2pxInt(8), DensityUtil.INSTANCE.dip2pxInt(8));
             leftContainer.addView(leftDefaultButton, 0);
         }
     }
@@ -282,7 +282,7 @@ public class MasterToolbar extends ConstraintLayout {
     protected void checkRightButton() {
         if (rightDefaultButton == null) {
             rightDefaultButton = newDefaultToolbarItem();
-            rightDefaultButton.setPadding(DensityUtil.dp2px(8), DensityUtil.dp2px(8), DensityUtil.dp2px(16), DensityUtil.dp2px(8));
+            rightDefaultButton.setPadding(DensityUtil.INSTANCE.dip2pxInt(8), DensityUtil.INSTANCE.dip2pxInt(8), DensityUtil.INSTANCE.dip2pxInt(16), DensityUtil.INSTANCE.dip2pxInt(8));
             rightContainer.addView(rightDefaultButton, rightContainer.getChildCount());
         }
     }
@@ -322,7 +322,7 @@ public class MasterToolbar extends ConstraintLayout {
     }
 
     protected float getDefaultHeightPx() {
-        return DensityUtil.dp2px(getDefaultHeight());
+        return DensityUtil.INSTANCE.dip2pxInt(getDefaultHeight());
     }
 
 

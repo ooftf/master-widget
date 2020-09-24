@@ -2,6 +2,7 @@ package com.ooftf.databinding.extensions.empty
 
 import android.text.Editable
 import android.widget.TextView
+import com.ooftf.basic.armor.EmptyTextWatcher
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -11,7 +12,7 @@ import java.text.DecimalFormat
  * @email 994749769@qq.com
  * @date 2020/9/23
  */
-class DecimalTextWatcher(var pattern: String, var rm: RoundingMode = RoundingMode.DOWN, textview: TextView) : EmptyTextWatcher(textview) {
+class DecimalTextWatcher(var pattern: String, var rm: RoundingMode = RoundingMode.HALF_EVEN, textview: TextView) : EmptyTextWatcher(textview) {
     override fun afterTextChanged(s: Editable) {
         val toString = s.toString()
         val resultString = newString(toString)

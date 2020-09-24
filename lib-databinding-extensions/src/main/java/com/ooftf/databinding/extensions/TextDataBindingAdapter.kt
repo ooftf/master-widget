@@ -9,8 +9,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.databinding.extensions.empty.DecimalTextWatcher
-import com.ooftf.databinding.extensions.empty.EmptyTextWatcher
 import java.math.RoundingMode
 
 /**
@@ -129,11 +129,11 @@ object TextDataBindingAdapter {
     }
 
     /**
-     * @{viewModel.itemsDelivery.size()}
+     *
      */
     @JvmStatic
-    @BindingAdapter(value = ["exNumFormat"])
-    fun setDecimal(view: TextView, pattern: String?, roundingMode: RoundingMode = RoundingMode.DOWN) {
+    @BindingAdapter(value = ["exNumFormat", "exNumFormatModel"], requireAll = false)
+    fun setDecimal(view: TextView, pattern: String?, roundingMode: RoundingMode = RoundingMode.HALF_EVEN) {
         var tag = view.getTag(R.id.tag_decimal_watcher)
         if (pattern == null) {
             view.setTag(R.id.tag_decimal_watcher, null)

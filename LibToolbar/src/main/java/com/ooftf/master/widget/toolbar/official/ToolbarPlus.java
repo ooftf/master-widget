@@ -22,8 +22,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.ooftf.basic.utils.ContextExtendKt;
 import com.ooftf.master.widget.toolbar.R;
-import com.ooftf.master.widget.toolbar.util.ContextUtils;
 
 import java.lang.reflect.Method;
 
@@ -93,7 +93,7 @@ public class ToolbarPlus extends Toolbar {
     }
 
     {
-        Activity activity = ContextUtils.toActivity(getContext());
+        Activity activity = ContextExtendKt.getActivity(getContext());
         if (activity != null) {
             setNavigationOnClickListener(v -> activity.finish());
         }

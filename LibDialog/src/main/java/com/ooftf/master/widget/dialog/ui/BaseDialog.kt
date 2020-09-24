@@ -11,9 +11,9 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
+import com.ooftf.basic.utils.getActivity
 import com.ooftf.master.widget.dialog.R
 import com.ooftf.master.widget.dialog.utils.BarUtils
-import com.ooftf.master.widget.dialog.utils.ContextUtils
 
 /**
  *
@@ -29,7 +29,7 @@ open class BaseDialog : Dialog {
     protected constructor(context: Context, cancelable: Boolean, cancelListener: DialogInterface.OnCancelListener?) : super(context, cancelable, cancelListener) {}
 
     val activity: Activity?
-        get() = ContextUtils.toActivity(context)
+        get() = context.getActivity()
 
     protected fun setBackground(drawable: Drawable?) {
         window?.decorView?.background = drawable

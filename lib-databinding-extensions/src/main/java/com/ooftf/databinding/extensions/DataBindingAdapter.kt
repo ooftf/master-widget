@@ -4,16 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Rect
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.TouchDelegate
 import android.view.View
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.ooftf.basic.utils.DensityUtil
 
 /**
  * @author ooftf
@@ -48,7 +44,7 @@ object DataBindingAdapter {
     @BindingAdapter(value = ["exClickAreaExpand"])
     fun setClickAreaExpand(view: View, expandDp: Int) {
         (view.parent as? View)?.let { parentView ->
-            val expandPx = DensityUtil.dip2px(view.context, expandDp.toFloat()).toInt()
+            val expandPx = DensityUtil.dip2px(expandDp.toFloat()).toInt()
             parentView.post {
                 val rect = Rect();
                 view.getHitRect(rect);
@@ -73,16 +69,6 @@ object DataBindingAdapter {
         }
     }
 
-    /**
-     * @{viewModel.itemsDelivery.size()}
-     */
-    @JvmStatic
-    @BindingAdapter(value = ["exSpanCount"])
-    fun setSpanCount(view: RecyclerView, spanCount: Int?) {
-        if (spanCount != null && spanCount > 0) {
-            (view.layoutManager as? GridLayoutManager)?.spanCount = spanCount
-        }
-    }
     /**
      * 复制文本
      */

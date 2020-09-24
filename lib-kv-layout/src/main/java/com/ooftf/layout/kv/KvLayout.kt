@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import com.ooftf.basic.utils.DensityUtil
 import kotlinx.android.synthetic.main.layout_kv.view.*
 
 
@@ -58,7 +59,7 @@ class KvLayout : ConstraintLayout {
                 setKeyWidth(
                         getDimension(
                                 R.styleable.KvLayout_kl_keyWidth,
-                                DensityUtil.dip2px(context, 100f)
+                                DensityUtil.dip2px( 100f)
                         )
                 )
                 setTextSize(
@@ -70,13 +71,13 @@ class KvLayout : ConstraintLayout {
                 setPaddingHorizontal(
                         getDimension(
                                 R.styleable.KvLayout_kl_paddingHorizontal,
-                                DensityUtil.dip2px(context, 16f)
+                                DensityUtil.dip2px( 16f)
                         ).toInt()
                 )
                 setPaddingVertical(
                         getDimension(
                                 R.styleable.KvLayout_kl_paddingVertical,
-                                DensityUtil.dip2px(context, 16f)
+                                DensityUtil.dip2px( 16f)
                         ).toInt()
                 )
 
