@@ -23,6 +23,10 @@ open class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFr
     override fun onLoad(rootView: View) {
         viewModel = createViewModel()
         viewModel.setLifecycleOwner(this)
+        activity?.let {
+            viewModel.setActivity(it)
+        }
+        viewModel.setFragment(this)
         binding.setVariable(getVariableId(), viewModel)
         binding.lifecycleOwner = this
         baseLiveDataObserve = viewModel.baseLiveData.attach(this)
