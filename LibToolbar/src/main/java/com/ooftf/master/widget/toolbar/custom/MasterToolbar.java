@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,16 @@ public class MasterToolbar extends ConstraintLayout {
     private void obtainAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MasterToolbar);
         setTitle(typedArray.getText(R.styleable.MasterToolbar_title));
+        setTitleBold(typedArray.getBoolean(R.styleable.MasterToolbar_titleBold, false));
+
+        if (typedArray.hasValue(R.styleable.MasterToolbar_titleSize)) {
+            setTitleSizePx(typedArray.getDimension(R.styleable.MasterToolbar_titleSize, 0));
+        }
+
+        if (typedArray.hasValue(R.styleable.MasterToolbar_titleColor)) {
+            setTitleColor(typedArray.getColor(R.styleable.MasterToolbar_titleColor, 0));
+        }
+
 
         if (typedArray.hasValue(R.styleable.MasterToolbar_leftText)) {
             setLeftText(typedArray.getText(R.styleable.MasterToolbar_leftText));
@@ -70,7 +81,6 @@ public class MasterToolbar extends ConstraintLayout {
         } else {
             setRightText(getDefaultRightText());
         }
-        setTitleBold(typedArray.getBoolean(R.styleable.MasterToolbar_titleBold, false));
 
         if (typedArray.hasValue(R.styleable.MasterToolbar_leftIcon)) {
             setLeftIcon(typedArray.getDrawable(R.styleable.MasterToolbar_leftIcon));
@@ -182,8 +192,13 @@ public class MasterToolbar extends ConstraintLayout {
         return this;
     }
 
-    public MasterToolbar setTitleSize(int sp) {
+    public MasterToolbar setTitleSize(float sp) {
         title.setTextSize(sp);
+        return this;
+    }
+
+    public MasterToolbar setTitleSizePx(float px) {
+        title.setTextSize(TypedValue.COMPLEX_UNIT_PX, px);
         return this;
     }
 
