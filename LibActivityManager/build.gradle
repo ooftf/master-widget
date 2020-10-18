@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'ooftf-publish'
 apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 29
