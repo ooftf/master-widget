@@ -31,7 +31,7 @@ publish {
     userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'arch-frame-mvvm' // bintray创建的package
-    publishVersion = '0.0.4'//-snapshot
+    publishVersion = '0.0.5'//-snapshot
     desc = 'nothing'
     website = 'https://github.com/ooftf/master-widget' //website
     bintrayUser = 'ooftf'
@@ -55,5 +55,5 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'
-    api 'com.ooftf:basic:0.0.4'
+    api 'com.ooftf:basic:0.0.4-beta'
 }

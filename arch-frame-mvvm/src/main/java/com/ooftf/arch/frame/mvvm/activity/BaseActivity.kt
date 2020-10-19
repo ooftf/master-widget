@@ -36,9 +36,15 @@ open class BaseActivity : AppCompatActivity() {
     val provider: LifecycleProvider<Lifecycle.Event> by lazy {
         AndroidLifecycle.createLifecycleProvider(this)
     }
-
+    val provider4: com.trello.rxlifecycle4.LifecycleProvider<Lifecycle.Event> by lazy {
+        com.trello.lifecycle4.android.lifecycle.AndroidLifecycle.createLifecycleProvider(this)
+    }
     fun <T> bindDestroy(): LifecycleTransformer<T> {
         return provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
+    }
+
+    fun <T> bindDestroy4(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
+        return provider4.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
     }
 
 
@@ -46,8 +52,16 @@ open class BaseActivity : AppCompatActivity() {
         return provider.bindToLifecycle()
     }
 
+    fun <T> bindAuto4(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
+        return provider4.bindToLifecycle()
+    }
+
     fun <T> Observable<T>.bindDestroy(): Observable<T> {
         return this.compose(this@BaseActivity.bindDestroy())
+    }
+
+    fun <T> io.reactivex.rxjava3.core.Observable<T>.bindDestroy(): io.reactivex.rxjava3.core.Observable<T> {
+        return this.compose(this@BaseActivity.bindDestroy4())
     }
 
     fun getBaseActivity(): BaseActivity {
