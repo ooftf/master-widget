@@ -18,10 +18,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.gyf.immersionbar.ImmersionBar
 import com.ooftf.arch.frame.mvvm.R
 import com.ooftf.arch.frame.mvvm.utils.PostcardSerializable
-import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
-import com.trello.rxlifecycle3.LifecycleProvider
-import com.trello.rxlifecycle3.LifecycleTransformer
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
 /**
@@ -33,35 +30,24 @@ open class BaseActivity : AppCompatActivity() {
     var failIntent: Bundle? = null
     private var mToast: Toast? = null
 
-    val provider: LifecycleProvider<Lifecycle.Event> by lazy {
-        AndroidLifecycle.createLifecycleProvider(this)
-    }
-    val provider4: com.trello.rxlifecycle4.LifecycleProvider<Lifecycle.Event> by lazy {
+    val provider: com.trello.rxlifecycle4.LifecycleProvider<Lifecycle.Event> by lazy {
         com.trello.lifecycle4.android.lifecycle.AndroidLifecycle.createLifecycleProvider(this)
     }
-    fun <T> bindDestroy(): LifecycleTransformer<T> {
+
+
+    fun <T> bindDestroy(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
         return provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
     }
 
-    fun <T> bindDestroy4(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
-        return provider4.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
-    }
 
 
-    fun <T> bindAuto(): LifecycleTransformer<T> {
+
+    fun <T> bindAuto(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
         return provider.bindToLifecycle()
     }
 
-    fun <T> bindAuto4(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
-        return provider4.bindToLifecycle()
-    }
-
-    fun <T> Observable<T>.bindDestroy(): Observable<T> {
-        return this.compose(this@BaseActivity.bindDestroy())
-    }
-
     fun <T> io.reactivex.rxjava3.core.Observable<T>.bindDestroy(): io.reactivex.rxjava3.core.Observable<T> {
-        return this.compose(this@BaseActivity.bindDestroy4())
+        return this.compose(this@BaseActivity.bindDestroy())
     }
 
     fun getBaseActivity(): BaseActivity {

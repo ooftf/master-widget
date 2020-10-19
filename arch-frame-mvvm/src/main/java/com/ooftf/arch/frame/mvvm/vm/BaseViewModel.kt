@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ooftf.mapping.lib.ui.BaseLiveData
 import com.ooftf.mapping.lib.ui.ISmartLayoutData
 import com.ooftf.mapping.lib.ui.IStateLayoutData
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
 /**
