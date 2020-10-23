@@ -30,15 +30,9 @@ android {
 
 }
 publish {
-    repoName = 'maven'
-    userOrg = 'ooftf'      // bintray注册的用户名
     groupId = 'com.ooftf'
     artifactId = 'master-widget-statelayout' // bintray创建的package
-    publishVersion = '1.1.1'
-    desc = 'nothing'
-    bintrayUser = 'ooftf'
-    bintrayKey = LocalBintrayKey()
-    dryRun = false
+    publishVersion = '1.1.2'
 }
 tasks.withType(Javadoc) {
     enabled = false
@@ -53,5 +47,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation deps.constraintLayout
-    implementation 'com.ooftf:basic:0.0.2'
+    implementation 'com.ooftf:basic:0.0.4'
 }

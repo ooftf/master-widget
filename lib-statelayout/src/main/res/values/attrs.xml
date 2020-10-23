@@ -12,7 +12,7 @@
         <attr name="second_action" format="reference" />
         <attr name="third_action" format="reference" />
         <attr name="empty_action" format="reference" />
-        <attr name="error_refresh" format="reference" />
+        <attr name="errorActionId" format="reference" />
         <attr name="block_reloading" format="boolean" />
     </declare-styleable>
 </resources>

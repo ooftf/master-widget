@@ -90,7 +90,7 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         thirdLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_third_layout, thirdLayoutId);
 
 
-        refreshId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_error_refresh, R.id.sls_error_refresh);
+        refreshId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_errorActionId, R.id.sls_error_refresh);
         emptyActionId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_empty_action, R.id.sls_empty_action);
 
         firstActionId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_first_action, R.id.sls_first_action);
@@ -101,6 +101,66 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         typedArray.recycle();
     }
 
+
+    public StateLayoutSwitcher setErrorLayoutId(int errorLayoutId) {
+        this.errorLayoutId = errorLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setLoadLayoutId(int loadLayoutId) {
+        this.loadLayoutId = loadLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setEmptyLayoutId(int emptyLayoutId) {
+        this.emptyLayoutId = emptyLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setFirstLayoutId(int firstLayoutId) {
+        this.firstLayoutId = firstLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setSecondLayoutId(int secondLayoutId) {
+        this.secondLayoutId = secondLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setThirdLayoutId(int thirdLayoutId) {
+        this.thirdLayoutId = thirdLayoutId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setRefreshActionId(int refreshId) {
+        this.refreshId = refreshId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setEmptyActionId(int emptyActionId) {
+        this.emptyActionId = emptyActionId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setFirstActionId(int firstActionId) {
+        this.firstActionId = firstActionId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setSecondActionId(int secondActionId) {
+        this.secondActionId = secondActionId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setThirdActionId(int thirdActionId) {
+        this.thirdActionId = thirdActionId;
+        return this;
+    }
+
+    public StateLayoutSwitcher setSuccessLayout(View successLayout) {
+        this.successLayout = successLayout;
+        return this;
+    }
     public StateLayoutSwitcher(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
