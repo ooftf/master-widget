@@ -61,7 +61,7 @@ open class BaseActivity : AppCompatActivity() {
                 fun create() {
                     ImmersionBar.with(this@BaseActivity).statusBarDarkFont(isDarkFont())
                             .navigationBarColorInt(Color.WHITE)
-                            .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                            .keyboardEnable(true, getKeyBordMode())
                             .init()
                     var list: MutableList<View> = ArrayList()
                     getToolbarId().forEach {
@@ -79,6 +79,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    open fun getKeyBordMode() = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     fun finishSuccess() {
         val successIntent = intent.getBundleExtra(INTENT_DATA_SUCCESS_INTENT)
         if (successIntent != null) {
