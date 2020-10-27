@@ -24,21 +24,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildFeatures{
         dataBinding true
     }
 }
 publish {
-    repoName = 'maven'
-    userOrg = 'ooftf'      // bintray注册的用户名
-    groupId = 'com.ooftf'
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.0.2'
-    desc = 'nothing'
-    bintrayUser = 'ooftf'
-    bintrayKey = LocalBintrayKey()
-    dryRun = false
-    repository='repository'
+    publishVersion = '1.0.4'
 }
 tasks.withType(Javadoc) {
     enabled = false
@@ -57,7 +53,7 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'com.alibaba:arouter-api:1.5.0'
-    api 'com.ooftf:basic:0.0.2'
+    api 'com.ooftf:basic:0.0.4'
 }
 repositories {
     mavenCentral()
