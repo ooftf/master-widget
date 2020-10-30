@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="8dp"
+        android:overScrollMode="never"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,12 +26,13 @@
     <TextView
         android:id="@+id/cancel"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/master_dialog_list_item_height"
         android:layout_gravity="bottom"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="取消"
         android:textColor="#212121"
+        android:textSize="@dimen/master_dialog_list_item_text_size"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.constraintlayout.widget.Group

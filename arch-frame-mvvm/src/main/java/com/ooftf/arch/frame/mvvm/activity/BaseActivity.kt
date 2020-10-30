@@ -18,6 +18,9 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.gyf.immersionbar.ImmersionBar
 import com.ooftf.arch.frame.mvvm.R
 import com.ooftf.arch.frame.mvvm.utils.PostcardSerializable
+import com.trello.lifecycle4.android.lifecycle.AndroidLifecycle
+import com.trello.rxlifecycle3.LifecycleProvider
+import com.trello.rxlifecycle4.LifecycleTransformer
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
@@ -31,25 +34,36 @@ open class BaseActivity : AppCompatActivity() {
     private var mToast: Toast? = null
 
     val provider: com.trello.rxlifecycle4.LifecycleProvider<Lifecycle.Event> by lazy {
-        com.trello.lifecycle4.android.lifecycle.AndroidLifecycle.createLifecycleProvider(this)
+        AndroidLifecycle.createLifecycleProvider(this)
     }
 
-
-    fun <T> bindDestroy(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
+    fun <T> bindDestroy(): LifecycleTransformer<T> {
         return provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
     }
 
-
-
-
-    fun <T> bindAuto(): com.trello.rxlifecycle4.LifecycleTransformer<T> {
+    fun <T> bindAuto(): LifecycleTransformer<T> {
         return provider.bindToLifecycle()
     }
 
-    fun <T> io.reactivex.rxjava3.core.Observable<T>.bindDestroy(): io.reactivex.rxjava3.core.Observable<T> {
+    fun <T> Observable<T>.bindDestroy(): Observable<T> {
         return this.compose(this@BaseActivity.bindDestroy())
     }
 
+
+    val providerCompat: LifecycleProvider<Lifecycle.Event> by lazy {
+        com.trello.lifecycle2.android.lifecycle.AndroidLifecycle.createLifecycleProvider(this)
+    }
+    fun <T> bindDestroyCompat(): com.trello.rxlifecycle3.LifecycleTransformer<T> {
+        return providerCompat.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
+    }
+
+    fun <T> bindAutoCompat(): com.trello.rxlifecycle3.LifecycleTransformer<T> {
+        return providerCompat.bindToLifecycle()
+    }
+
+    fun <T> io.reactivex.Observable<T>.bindDestroyCompat(): io.reactivex.Observable<T> {
+        return this.compose(this@BaseActivity.bindDestroyCompat())
+    }
     fun getBaseActivity(): BaseActivity {
         return this
     }

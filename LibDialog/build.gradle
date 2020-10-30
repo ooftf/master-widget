@@ -29,21 +29,8 @@ android {
 
 }
 publish {
-    repoName = 'maven'
-    userOrg = 'ooftf'      // bintray注册的用户名
-    groupId = 'com.ooftf'
     artifactId = 'master-widget-dialog' // bintray创建的package
-    publishVersion = '1.1.0'//0.0.1-snapshot
-    desc = 'nothing'
-    bintrayUser = 'ooftf'
-    bintrayKey = LocalBintrayKey()
-    dryRun = false
-}
-tasks.withType(Javadoc) {
-    enabled = false
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
+    publishVersion = '1.1.1'//0.0.1-snapshot
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
