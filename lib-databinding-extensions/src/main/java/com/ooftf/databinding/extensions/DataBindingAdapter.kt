@@ -3,10 +3,12 @@ package com.ooftf.databinding.extensions
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Rect
 import android.view.TouchDelegate
 import android.view.View
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.ooftf.basic.utils.DensityUtil
@@ -17,6 +19,16 @@ import com.ooftf.basic.utils.DensityUtil
  * @date 2019/12/12
  */
 object DataBindingAdapter {
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["exTextColor"])
+    fun setTextColor(view: TextView, color: String?) {
+        color?.let {
+            view.setTextColor(Color.parseColor(it))
+        }
+    }
+
     @JvmStatic
     @BindingAdapter(value = ["exOnClick"], requireAll = false)
     fun setOnClick(view: View, listener: View.OnClickListener?) {
@@ -75,7 +87,7 @@ object DataBindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["exCopy"], requireAll = false)
     fun setCopyContent(view: View, content: String?) {
-        view.setOnClickListener{
+        view.setOnClickListener {
             //获取到服务
             try {
                 val systemService =
@@ -84,10 +96,10 @@ object DataBindingAdapter {
                 val newPlainText = ClipData.newPlainText("Label", content)
                 //设置到剪贴板中
                 systemService.setPrimaryClip(newPlainText)
-                Toast.makeText(it.context.applicationContext,"复制成功", Toast.LENGTH_SHORT).show()
+                Toast.makeText(it.context.applicationContext, "复制成功", Toast.LENGTH_SHORT).show()
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                Toast.makeText(it.context.applicationContext,"复制失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(it.context.applicationContext, "复制失败", Toast.LENGTH_SHORT).show()
             }
         }
 

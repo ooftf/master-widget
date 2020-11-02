@@ -1,4 +1,5 @@
 package com.ooftf.arch.frame.mvvm.vm
+
 import android.app.Application
 import android.view.View
 import com.ooftf.arch.frame.mvvm.BR
@@ -14,8 +15,11 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 abstract class BaseListViewModel<T>(application: Application) : BaseViewModel(application) {
     val items = ObservableArrayListPro<T>()
     val itemBinding by lazy {
-        ItemBinding.of<T>(BR.item, getItemLayout()).bindExtra(BR.viewModel, this)
+        createItemBinding()
     }
+
+    open fun createItemBinding() =
+            ItemBinding.of<T>(BR.item, getItemLayout()).bindExtra(BR.viewModel, this)
 
     fun handleResponseList(data: List<T>) {
         items.addAll(data)
@@ -23,6 +27,7 @@ abstract class BaseListViewModel<T>(application: Application) : BaseViewModel(ap
             baseLiveData.switchToEmpty()
         }
     }
+
     open fun onItemClick(v: View, item: T) {}
 
     abstract fun getItemLayout(): Int
