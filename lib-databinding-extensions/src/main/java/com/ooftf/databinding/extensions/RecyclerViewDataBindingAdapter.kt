@@ -21,4 +21,11 @@ object RecyclerViewDataBindingAdapter {
             (view.layoutManager as? GridLayoutManager)?.spanCount = text
         }
     }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exLayoutManager"])
+    fun setLayoutManager(view: RecyclerView, layoutManager: RecyclerView.LayoutManager?) {
+        view.layoutManager = layoutManager
+    }
+
 }
