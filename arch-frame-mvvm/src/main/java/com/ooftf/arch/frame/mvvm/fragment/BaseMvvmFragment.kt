@@ -3,6 +3,7 @@ package com.ooftf.arch.frame.mvvm.fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.ooftf.arch.frame.mvvm.BR
@@ -20,6 +21,8 @@ open class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFr
     lateinit var binding: B
     lateinit var viewModel: V
     lateinit var baseLiveDataObserve: BaseLiveDataObserve
+
+    @CallSuper
     override fun onLoad(rootView: View) {
         viewModel = createViewModel()
         viewModel.setLifecycleOwner(this)

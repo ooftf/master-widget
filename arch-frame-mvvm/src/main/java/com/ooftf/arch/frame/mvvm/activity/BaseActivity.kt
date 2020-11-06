@@ -21,6 +21,7 @@ import com.ooftf.arch.frame.mvvm.utils.PostcardSerializable
 import com.trello.lifecycle4.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
 import com.trello.rxlifecycle4.LifecycleTransformer
+import com.trello.rxlifecycle4.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
@@ -46,13 +47,14 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun <T> Observable<T>.bindDestroy(): Observable<T> {
-        return this.compose(this@BaseActivity.bindDestroy())
+        return bindUntilEvent(this@BaseActivity, Lifecycle.Event.ON_DESTROY)
     }
 
 
     val providerCompat: LifecycleProvider<Lifecycle.Event> by lazy {
         com.trello.lifecycle2.android.lifecycle.AndroidLifecycle.createLifecycleProvider(this)
     }
+
     fun <T> bindDestroyCompat(): com.trello.rxlifecycle3.LifecycleTransformer<T> {
         return providerCompat.bindUntilEvent(Lifecycle.Event.ON_DESTROY)
     }
@@ -64,6 +66,7 @@ open class BaseActivity : AppCompatActivity() {
     fun <T> io.reactivex.Observable<T>.bindDestroyCompat(): io.reactivex.Observable<T> {
         return this.compose(this@BaseActivity.bindDestroyCompat())
     }
+
     fun getBaseActivity(): BaseActivity {
         return this
     }

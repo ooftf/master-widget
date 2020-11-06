@@ -2,13 +2,14 @@ package com.ooftf.arch.frame.mvvm.vm;
 
 import android.app.Activity
 import android.app.Application
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import com.ooftf.mapping.lib.ui.BaseLiveData
 import com.ooftf.mapping.lib.ui.ISmartLayoutData
 import com.ooftf.mapping.lib.ui.IStateLayoutData
+import com.trello.rxlifecycle4.RxLifecycle
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
@@ -21,6 +22,7 @@ import java.lang.ref.WeakReference
 open class BaseViewModel(application: Application) : AndroidViewModel(application), IStateLayoutData, ISmartLayoutData {
     var baseLiveData = BaseLiveData()
     var disposables = CompositeDisposable()
+    var hasCleared = false
     private var lifecycleOwnerWeakReference: WeakReference<LifecycleOwner>? = null
     private var activityWeakReference: WeakReference<Activity>? = null
     private var fragmentOwnerWeakReference: WeakReference<Fragment>? = null
@@ -30,18 +32,34 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     }
 
+    private val lifecycle by lazy {
+        Observable.create<Any> {
+            doOnCleared { it.onComplete() }
+        }
+    }
+
+    fun <T> Observable<T>.bindClear(): Observable<T> {
+        return compose(RxLifecycle.bind(lifecycle))
+    }
+
     override fun getStateLayout() = baseLiveData.stateLayout
     var doOnCleared: MutableList<() -> Unit> = ArrayList()
     override fun onCleared() {
+        hasCleared = true
         disposables.dispose()
         doOnCleared.forEach {
             it.invoke()
         }
+        doOnCleared.clear()
         super.onCleared()
     }
 
     fun doOnCleared(event: () -> Unit) {
-        doOnCleared.add(event)
+        if (hasCleared) {
+            event.invoke()
+        } else {
+            doOnCleared.add(event)
+        }
     }
 
     override fun emptyAction() {
@@ -56,6 +74,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     override fun getLifecycleOwner(): LifecycleOwner? {
         return lifecycleOwnerWeakReference?.get()
     }
+
     open fun setActivity(activity: Activity) {
         activityWeakReference = WeakReference(activity)
     }
@@ -64,6 +83,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     fun getActivity(): Activity? {
         return activityWeakReference?.get()
     }
+
     open fun setFragment(fragment: Fragment) {
         fragmentOwnerWeakReference = WeakReference(fragment)
     }

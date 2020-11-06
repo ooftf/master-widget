@@ -16,9 +16,9 @@ abstract class BaseLazyFragment : BaseFragment(), LazyFragmentProxy.LazyFragment
     private val lazyFragmentProxy = LazyFragmentProxy<BaseLazyFragment>(this)
 
     final override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return lazyFragmentProxy.onCreateView(inflater, container, savedInstanceState)
@@ -35,7 +35,7 @@ abstract class BaseLazyFragment : BaseFragment(), LazyFragmentProxy.LazyFragment
      * 这个时候view已经创建
      */
     abstract override fun onLoad(rootView: View)
-
+    fun isLoaded() = lazyFragmentProxy.isLoaded
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         lazyFragmentProxy.setUserVisibleHint(isVisibleToUser)
@@ -56,6 +56,7 @@ abstract class BaseLazyFragment : BaseFragment(), LazyFragmentProxy.LazyFragment
         super.onStart()
         lazyFragmentProxy.onStart()
     }
+
     open fun getLayoutId(): Int {
         return 0
     }

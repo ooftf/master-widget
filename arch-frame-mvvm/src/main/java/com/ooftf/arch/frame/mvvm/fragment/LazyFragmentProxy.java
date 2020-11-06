@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +25,7 @@ public class LazyFragmentProxy<T extends Fragment & LazyFragmentProxy.LazyFragme
         this.fragment = fragment;
     }
 
-    private boolean isLoaded = false;
+    public boolean isLoaded = false;
 
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment.lazyEnabled()) {
@@ -65,8 +66,8 @@ public class LazyFragmentProxy<T extends Fragment & LazyFragmentProxy.LazyFragme
 
     private void loadJudgment(View view) {
         if (view != null && fragment.getUserVisibleHint() && !isLoaded && !fragment.isHidden() && fragment.isShowing()) {
-            isLoaded = true;
             fragment.onLoad(view);
+            isLoaded = true;
         }
     }
 
