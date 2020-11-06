@@ -2,4 +2,8 @@
 <resources>
     <item name="tag_id" type="id" />
     <item name="tag_decimal_watcher" type="id"/>
+    <item name="tag_onFocusChangeListener" type="id" />
+    <item name="tag_tabLayoutMediator" type="id" />
+    <item name="tag_onListChangedCallback" type="id" />
+    <item name="tag_onTabSelectedListener" type="id" />
 </resources>

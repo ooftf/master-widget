@@ -26,11 +26,6 @@ import com.bumptech.glide.Glide
 object SrcDataBindingAdapter {
 
 
-
-
-
-
-
     @JvmStatic
     @BindingAdapter(value = ["exSrc", "exSrcDefault"], requireAll = true)
     fun setImageViewSrc(imageView: ImageView, url: String?, resourceId: Drawable) {

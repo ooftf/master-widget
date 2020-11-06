@@ -33,6 +33,17 @@ object TextDataBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter(value = ["exTextStyleTypeface"])
+    fun exTextStyleTypeface(text: TextView, resource: Int?) {
+        when (resource) {
+            Typeface.NORMAL, Typeface.BOLD, Typeface.ITALIC, Typeface.BOLD_ITALIC -> {
+                text.typeface = Typeface.defaultFromStyle(resource)
+            }
+            else -> text.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["exTextColorId"])
     fun setTextColorResource(textView: TextView, resource: Int?) {
         if (resource != null && resource != 0 && resource != View.NO_ID) {
@@ -151,4 +162,5 @@ object TextDataBindingAdapter {
         tag.rm = roundingMode
         view.text = view.text
     }
+
 }
