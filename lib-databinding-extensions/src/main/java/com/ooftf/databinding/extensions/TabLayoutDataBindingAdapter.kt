@@ -4,7 +4,9 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableList
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ooftf.databinding.extensions.action.Action
 import com.ooftf.databinding.extensions.empty.OnListChangedCallbackPoly
+import java.util.function.Function
 
 /**
  *
@@ -44,31 +46,31 @@ object TabLayoutDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exTabLayoutTabNames", "exTabLayoutModel", "exTabLayoutSelectedListener"], requireAll = false)
-    fun exTabLayout(tabLayout: TabLayout, tabs: ObservableList<String>?, mode: Int? = TabLayout.MODE_AUTO, listener: ((Int) -> Unit)?){
-        if (tabs == null) {
-            return
-        }
-        mode?.let {
-            tabLayout.tabMode
-        }
-        var onTabSelectedListener = tabLayout.getTag(R.id.tag_onTabSelectedListener) as? OTSL
-        if (onTabSelectedListener == null) {
-            onTabSelectedListener = OTSL(listener)
-            tabLayout.setTag(R.id.tag_onTabSelectedListener, onTabSelectedListener)
-            tabLayout.addOnTabSelectedListener(onTabSelectedListener)
-        }
-        onTabSelectedListener.listener = listener
-        var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPoly<ObservableList<String>>
-        if (callback == null) {
-            callback = OnListChangedCallbackPoly<ObservableList<String>> {
-                update(tabLayout, it)
-            }
-            tabLayout.setTag(R.id.tag_onListChangedCallback, callback)
-        } else {
-            tabs.removeOnListChangedCallback(callback)
-        }
-        tabs.addOnListChangedCallback(callback)
-        update(tabLayout, tabs)
+    fun exTabLayout(tabLayout: TabLayout, tabs: ObservableList<String>?, mode: Int? = TabLayout.MODE_AUTO, listener: TabLayoutSelectedAction?) {
+           if (tabs == null) {
+               return
+           }
+           mode?.let {
+               tabLayout.tabMode = it
+           }
+           var onTabSelectedListener = tabLayout.getTag(R.id.tag_onTabSelectedListener) as? OTSL
+           if (onTabSelectedListener == null) {
+               onTabSelectedListener = OTSL(listener)
+               tabLayout.setTag(R.id.tag_onTabSelectedListener, onTabSelectedListener)
+               tabLayout.addOnTabSelectedListener(onTabSelectedListener)
+           }
+           onTabSelectedListener.listener = listener
+           var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPoly<ObservableList<String>>
+           if (callback == null) {
+               callback = OnListChangedCallbackPoly<ObservableList<String>> {
+                   update(tabLayout, it)
+               }
+               tabLayout.setTag(R.id.tag_onListChangedCallback, callback)
+           } else {
+               tabs.removeOnListChangedCallback(callback)
+           }
+           tabs.addOnListChangedCallback(callback)
+           update(tabLayout, tabs)
     }
 
     private fun update(tabLayout: TabLayout, tabs: ObservableList<String>) {
@@ -78,9 +80,9 @@ object TabLayoutDataBindingAdapter {
         }
     }
 
-    class OTSL(var listener: ((Int) -> Unit)?) : TabLayout.OnTabSelectedListener {
+    class OTSL(var listener: TabLayoutSelectedAction?) : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
-            listener?.invoke(tab.position)
+            listener?.run(tab.position)
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -90,4 +92,9 @@ object TabLayoutDataBindingAdapter {
         }
 
     }
+    interface TabLayoutSelectedAction:Action<Int>{
+
+    }
+
+
 }

@@ -19,20 +19,22 @@ import java.lang.reflect.ParameterizedType
  */
 open class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFragment() {
     lateinit var binding: B
-    lateinit var viewModel: V
+    var viewModel: V? = null
     lateinit var baseLiveDataObserve: BaseLiveDataObserve
 
     @CallSuper
     override fun onLoad(rootView: View) {
-        viewModel = createViewModel()
-        viewModel.setLifecycleOwner(this)
-        activity?.let {
-            viewModel.setActivity(it)
+        viewModel = createViewModel().apply {
+            setLifecycleOwner(this@BaseMvvmFragment)
+            activity?.let {
+                setActivity(it)
+            }
+            setFragment(this@BaseMvvmFragment)
+            binding.setVariable(getVariableId(), viewModel)
+            binding.lifecycleOwner = this@BaseMvvmFragment
+            baseLiveDataObserve = baseLiveData.attach(this@BaseMvvmFragment)
         }
-        viewModel.setFragment(this)
-        binding.setVariable(getVariableId(), viewModel)
-        binding.lifecycleOwner = this
-        baseLiveDataObserve = viewModel.baseLiveData.attach(this)
+
     }
 
     open fun createViewModel() =
