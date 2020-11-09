@@ -30,7 +30,7 @@ abstract class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLa
                 setActivity(it)
             }
             setFragment(this@BaseMvvmFragment)
-            binding.setVariable(getVariableId(), viewModel)
+            binding.setVariable(getVariableId(), this)
             binding.lifecycleOwner = this@BaseMvvmFragment
             baseLiveDataObserve = baseLiveData.attach(this@BaseMvvmFragment)
             onLoad(rootView, this)
