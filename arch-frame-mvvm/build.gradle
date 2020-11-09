@@ -28,7 +28,7 @@ android {
 }
 publish {
     artifactId = 'arch-frame-mvvm' // bintray创建的package
-    publishVersion = '0.0.10'//-snapshot
+    publishVersion = '0.1.0'//-snapshot
 }
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
