@@ -22,6 +22,7 @@ import java.lang.ref.WeakReference
 open class BaseViewModel(application: Application) : AndroidViewModel(application), IStateLayoutData, ISmartLayoutData {
     var baseLiveData = BaseLiveData()
     var disposables = CompositeDisposable()
+    var disposablesCompat = io.reactivex.disposables.CompositeDisposable()
     var hasCleared = false
     private var lifecycleOwnerWeakReference: WeakReference<LifecycleOwner>? = null
     private var activityWeakReference: WeakReference<Activity>? = null

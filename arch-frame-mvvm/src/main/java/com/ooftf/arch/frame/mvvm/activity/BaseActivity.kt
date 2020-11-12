@@ -17,7 +17,9 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.gyf.immersionbar.ImmersionBar
 import com.ooftf.arch.frame.mvvm.R
+import com.ooftf.arch.frame.mvvm.utils.BackPressedHandler
 import com.ooftf.arch.frame.mvvm.utils.PostcardSerializable
+import com.ooftf.basic.utils.getCurrentFragment
 import com.trello.lifecycle4.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
 import com.trello.rxlifecycle4.LifecycleTransformer
@@ -220,6 +222,7 @@ open class BaseActivity : AppCompatActivity() {
         mToast?.show()
     }
 
+
     fun toast(content: String) {
         toast(content, Toast.LENGTH_SHORT)
     }
@@ -227,6 +230,15 @@ open class BaseActivity : AppCompatActivity() {
     companion object {
         const val INTENT_DATA_SUCCESS_INTENT = "INTENT_DATA_SUCCESS_INTENT"
         const val INTENT_DATA_FAIL_INTENT = "INTENT_DATA_FAIL_INTENT"
+    }
+
+    override fun onBackPressed() {
+        (getCurrentFragment() as? BackPressedHandler)?.let {
+            if (it.onBackPressed()) {
+                return@onBackPressed
+            }
+        }
+        super.onBackPressed()
     }
 }
 

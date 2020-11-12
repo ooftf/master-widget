@@ -12,11 +12,12 @@ import com.gyf.immersionbar.components.SimpleImmersionOwner
 import com.gyf.immersionbar.components.SimpleImmersionProxy
 import com.ooftf.arch.frame.mvvm.R
 import com.ooftf.arch.frame.mvvm.activity.BaseActivity
+import com.ooftf.arch.frame.mvvm.utils.BackPressedHandler
 
 /**
  * Created by master on 2016/4/12.
  */
-abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionOwner {
+abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionOwner, BackPressedHandler {
     private var mToast: Toast? = null
     private var touchable = false
     private var alive = false
@@ -44,7 +45,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionO
     fun toast(content: String) {
         mToast?.cancel()
         mToast = Toast.makeText(context?.applicationContext, content, Toast.LENGTH_SHORT)
-        mToast?.setGravity(Gravity.CENTER,0,0)
+        mToast?.setGravity(Gravity.CENTER, 0, 0)
         mToast?.show()
     }
 
@@ -95,6 +96,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionO
         showing = false
         super.onStop()
     }
+
     fun isTouchable(): Boolean = touchable
 
     open fun getToolbarId(): Int {
@@ -130,5 +132,9 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), SimpleImmersionO
             immersionBar.titleBar(toolbar)
         }
         immersionBar.navigationBarColorInt(Color.WHITE).init()
+    }
+
+    override fun onBackPressed(): Boolean {
+        return false
     }
 }
