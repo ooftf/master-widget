@@ -26,22 +26,27 @@ abstract class BasePageViewModel<T>(application: Application) : BaseListViewMode
 
     }
 
-    fun handleResponseList(page: Int, total: Int, data: List<T>) {
+    open fun handleResponseList(page: Int, total: Int, data: List<T>) {
         if (page == getStartPage()) {
             items.clear()
         }
-        handleResponseList(data)
-
+        items.addAll(data)
+        if (items.isEmpty()) {
+            baseLiveData.switchToEmpty()
+        }
         if (items.size >= total) {
             baseLiveData.finishLoadMoreWithNoMoreData()
         }
     }
 
-    fun handleResponseList(page: Int, data: List<T>) {
+    open fun handleResponseList(page: Int, data: List<T>) {
         if (page == getStartPage()) {
             items.clear()
         }
-        handleResponseList(data)
+        items.addAll(data)
+        if (items.isEmpty()) {
+            baseLiveData.switchToEmpty()
+        }
         if (data.size < getPageCount()) {
             baseLiveData.finishLoadMoreWithNoMoreData()
         }

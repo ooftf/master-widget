@@ -21,7 +21,8 @@ abstract class BaseListViewModel<T>(application: Application) : BaseViewModel(ap
     open fun createItemBinding() =
             ItemBinding.of<T>(BR.item, getItemLayout()).bindExtra(BR.viewModel, this)
 
-    fun handleResponseList(data: List<T>) {
+    open fun handleResponseList(data: List<T>) {
+        items.clear()
         items.addAll(data)
         if (items.isEmpty()) {
             baseLiveData.switchToEmpty()
