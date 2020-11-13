@@ -5,7 +5,9 @@ import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -57,6 +59,20 @@ object TextDataBindingAdapter {
         if (colorString != null) {
             textView.setTextColor(Color.parseColor(colorString))
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exSearchAction"])
+    fun exSearchAction(textView: TextView, action: Runnable?) {
+        textView.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    action?.run()
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     @JvmStatic

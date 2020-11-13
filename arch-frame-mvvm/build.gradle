@@ -28,7 +28,7 @@ android {
 }
 publish {
     artifactId = 'arch-frame-mvvm' // bintray创建的package
-    publishVersion = '0.1.1-local'//-snapshot
+    publishVersion = '0.1.2'//-snapshot
 }
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -53,5 +53,5 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'
-    api 'com.ooftf:basic:0.0.10'
+    api 'com.ooftf:basic:0.0.12-local'
 }
