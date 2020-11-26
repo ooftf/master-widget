@@ -28,13 +28,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }
 publish {
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.0.7'
+    publishVersion = '1.0.7-local'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

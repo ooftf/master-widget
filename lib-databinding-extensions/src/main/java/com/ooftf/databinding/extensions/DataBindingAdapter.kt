@@ -105,4 +105,25 @@ object DataBindingAdapter {
 
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["android:visibility"], requireAll = false)
+    fun androidVisibility(view: View, visibility: Boolean?) {
+        view.visibility = if (visibility == true) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        view.requestLayout()
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exVisible"], requireAll = false)
+    fun exVisible(view: View, visibility: Boolean?) {
+        view.visibility = if (visibility == true) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        view.requestLayout()
+    }
 }
