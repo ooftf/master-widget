@@ -3,7 +3,6 @@ package com.ooftf.layout.kv
 import android.content.Context
 import android.graphics.Color
 import android.text.Editable
-import android.text.Spanned
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -14,8 +13,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import com.ooftf.basic.engine.EditBindingHelper
 import com.ooftf.basic.utils.DensityUtil
-import kotlinx.android.synthetic.main.layout_kv.view.*
+import kotlinx.android.synthetic.main.layout_kv_edit.view.divider
+import kotlinx.android.synthetic.main.layout_kv_edit.view.endIcon
+import kotlinx.android.synthetic.main.layout_kv_edit.view.key
+import kotlinx.android.synthetic.main.layout_kv_edit.view.value
 
 
 /**
@@ -119,7 +122,7 @@ class KvEditLayout : ConstraintLayout {
     }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.layout_kv_edit_, this, true)
+        LayoutInflater.from(context).inflate(R.layout.layout_kv_edit, this, true)
     }
 
     fun setIndentation(indentation: Int) {
@@ -199,39 +202,7 @@ class KvEditLayout : ConstraintLayout {
                 view: KvEditLayout,
                 text: CharSequence?
         ) {
-            val oldText: CharSequence = view.value.getText()
-            if (text === oldText || text == null && oldText.length == 0) {
-                return
-            }
-            if (text is Spanned) {
-                if (text == oldText) {
-                    return  // No change in the spans, so don't set anything.
-                }
-            } else if (!haveContentsChanged(text, oldText)) {
-                return  // No content changes, so don't set anything.
-            }
-            view.value.setText(text)
-        }
-
-        private fun haveContentsChanged(
-            str1: CharSequence?,
-            str2: CharSequence?
-        ): Boolean {
-            if (str1 == null != (str2 == null)) {
-                return true
-            } else if (str1 == null) {
-                return false
-            }
-            val length = str1.length
-            if (length != str2!!.length) {
-                return true
-            }
-            for (i in 0 until length) {
-                if (str1[i] != str2[i]) {
-                    return true
-                }
-            }
-            return false
+            EditBindingHelper.setValue(view.value,text)
         }
 
         @JvmStatic
@@ -239,7 +210,7 @@ class KvEditLayout : ConstraintLayout {
             attribute = "value"
             , event = "valueAttrChanged"
         )
-        fun getValue(view: KvEditLayout): String = view.value.text.toString()
+        fun getValue(view: KvEditLayout): String = EditBindingHelper.getValue(view.value)
 
         @JvmStatic
         @BindingAdapter("valueAttrChanged")
@@ -247,33 +218,7 @@ class KvEditLayout : ConstraintLayout {
                 view: KvEditLayout,
                 bindingListener: InverseBindingListener?
         ) {
-            val oldWatcher = view.getTag(R.id.value) as TextWatcher?
-            if (bindingListener != null) {
-                val watcher = object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence,
-                        start: Int,
-                        before: Int,
-                        count: Int
-                    ) {
-                        bindingListener.onChange()
-                    }
-                }
-                view.value.addTextChangedListener(watcher)
-                view.setTag(R.id.value, watcher)
-            } else {
-                oldWatcher?.let {
-                    view.value.removeTextChangedListener(it)
-                }
-            }
-
+            EditBindingHelper.setOnValueChangedListener(view.value,bindingListener)
         }
     }
 

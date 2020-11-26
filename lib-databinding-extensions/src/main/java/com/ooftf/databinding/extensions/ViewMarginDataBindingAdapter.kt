@@ -56,4 +56,24 @@ object ViewMarginDataBindingAdapter {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["visibility"], requireAll = false)
+    fun setVisibility(view: View, visibility: Boolean?) {
+        view.visibility = if (visibility == true) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exVisibility"], requireAll = false)
+    fun exVisibility(view: View, visibility: Boolean?) {
+        view.visibility = if (visibility == true) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
 }

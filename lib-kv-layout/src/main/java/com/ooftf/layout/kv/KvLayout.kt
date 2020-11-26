@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import androidx.databinding.adapters.TextViewBindingAdapter
+import com.ooftf.basic.engine.EditBindingHelper
 import com.ooftf.basic.utils.DensityUtil
 import kotlinx.android.synthetic.main.layout_kv.view.*
 
@@ -170,39 +172,7 @@ class KvLayout : ConstraintLayout {
                 view: KvLayout,
                 text: CharSequence?
         ) {
-            val oldText: CharSequence = view.value.getText()
-            if (text === oldText || text == null && oldText.length == 0) {
-                return
-            }
-            if (text is Spanned) {
-                if (text == oldText) {
-                    return  // No change in the spans, so don't set anything.
-                }
-            } else if (!haveContentsChanged(text, oldText)) {
-                return  // No content changes, so don't set anything.
-            }
-            view.value.setText(text)
-        }
-
-        private fun haveContentsChanged(
-                str1: CharSequence?,
-                str2: CharSequence?
-        ): Boolean {
-            if (str1 == null != (str2 == null)) {
-                return true
-            } else if (str1 == null) {
-                return false
-            }
-            val length = str1.length
-            if (length != str2!!.length) {
-                return true
-            }
-            for (i in 0 until length) {
-                if (str1[i] != str2[i]) {
-                    return true
-                }
-            }
-            return false
+            EditBindingHelper.setValue(view.value,text)
         }
     }
 
