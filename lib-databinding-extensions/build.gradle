@@ -34,7 +34,7 @@ android {
 }
 publish {
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.0.7-local'
+    publishVersion = '1.0.9'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -47,7 +47,7 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'com.alibaba:arouter-api:1.5.1'
-    api 'com.ooftf:basic:0.1.4'
+    api 'com.ooftf:basic:0.1.6'
 }
 repositories {
     mavenCentral()

@@ -62,7 +62,7 @@ object TabLayoutDataBindingAdapter {
            onTabSelectedListener.listener = listener
            var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPoly<ObservableList<String>>
            if (callback == null) {
-               callback = OnListChangedCallbackPoly<ObservableList<String>> {
+               callback = OnListChangedCallbackPoly {
                    update(tabLayout, it)
                }
                tabLayout.setTag(R.id.tag_onListChangedCallback, callback)

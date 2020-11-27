@@ -3,6 +3,8 @@ package com.ooftf.databinding.extensions
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ooftf.basic.utils.scrollPositionToCenter
+import com.ooftf.basic.utils.scrollPositionToFirst
 
 /**
  *
@@ -26,6 +28,23 @@ object RecyclerViewDataBindingAdapter {
     @BindingAdapter(value = ["exLayoutManager"])
     fun setLayoutManager(view: RecyclerView, layoutManager: RecyclerView.LayoutManager?) {
         view.layoutManager = layoutManager
+    }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["exFirstPosition"])
+    fun exTopPosition(view: RecyclerView, position: Int?) {
+        position?.let {
+            view.scrollPositionToFirst(position)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exCenterPosition"])
+    fun exCenterPosition(view: RecyclerView, position: Int?) {
+        position?.let {
+            view.scrollPositionToCenter(position)
+        }
     }
 
 }

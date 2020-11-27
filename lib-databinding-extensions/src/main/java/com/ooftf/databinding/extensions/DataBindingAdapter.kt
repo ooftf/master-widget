@@ -126,4 +126,11 @@ object DataBindingAdapter {
         }
         view.requestLayout()
     }
+
+    @JvmStatic
+    @BindingAdapter(value = ["android:background"], requireAll = false)
+    fun androidBackground(view: View, color: String?) {
+        view.setBackgroundColor(Color.parseColor(color))
+    }
+
 }

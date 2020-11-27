@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -179,4 +180,21 @@ object TextDataBindingAdapter {
         view.text = view.text
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["exTextSizeSp"])
+    fun exTextSizeSp(view: TextView, size: Int?) {
+        size?.let {
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, size.toFloat())
+        }
+
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exTextSizeSp"])
+    fun exTextSizeSp(view: TextView, size: Float?) {
+        size?.let {
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, it)
+        }
+
+    }
 }
