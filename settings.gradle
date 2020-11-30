@@ -1,4 +1,4 @@
 include ':arch-frame-mvvm'
 include ':lib-kv-layout'
 include ':lib-behavior'
-include ':app', ':LibToolbar', ':LibDialog', ':LibDevEye', ':LibActivityManager', ':lib-statelayout', ':lib-databinding-extensions'
+include ':app', ':lib-toolbar', ':lib-dialog', ':lib-director', ':lib-activity-manager', ':lib-statelayout', ':lib-databinding-extensions'
