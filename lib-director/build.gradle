@@ -27,14 +27,14 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 
 }
 publish {
     artifactId = 'director' // bintray创建的package
-    publishVersion = '1.0.0'//-snapshot
+    publishVersion = '1.0.1'//-snapshot
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,7 +49,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
     implementation "com.ooftf:basic:+"
-    implementation 'com.ooftf:okhttp-monitor:0.0.6'
+    implementation 'com.ooftf:okhttp-monitor:0.0.7'
     implementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.ooftf:arch-frame-mvvm:0.1.4'

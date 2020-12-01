@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
@@ -17,12 +18,11 @@ import com.ooftf.basic.utils.getActivity
 import com.ooftf.basic.utils.getCurrentFragment
 import com.ooftf.basic.utils.toast
 import com.ooftf.director.*
-import com.ooftf.director.LogDialog
+import com.ooftf.director.entrance.DebugEntranceActivity
 import com.ooftf.http.monitor.Monitor
 import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
 import com.ooftf.master.widget.dialog.ui.ListDialog
 import com.ooftf.master.widget.dialog.utils.DialogUtil
-import com.ooftf.director.entrance.DebugEntranceActivity
 
 /**
  *
@@ -33,12 +33,12 @@ import com.ooftf.director.entrance.DebugEntranceActivity
 object PanelDialog {
     internal val items by lazy {
         ArrayList<ItemAction>().apply {
-            add(ItemAction("当前Activity名称") { toast(getTopActivityName()) })
-            add(ItemAction("当前Fragment名称") { toast(getCurrentFragmentName()) })
+            add(ItemAction("当前Activity名称") { toast(getTopActivityName(), duration = Toast.LENGTH_LONG) })
+            add(ItemAction("当前Fragment名称") { toast(getCurrentFragmentName(), duration = Toast.LENGTH_LONG) })
             add(ItemAction("显示当前LOG") {
                 showLogDialog()
             })
-            add(ItemAction("调试宫功能界面") {
+            add(ItemAction("调试功能界面") {
                 AppHolder.app.startActivity(Intent(AppHolder.app, DebugEntranceActivity::class.java))
             })
             add(ItemAction("网络接口日志") {
