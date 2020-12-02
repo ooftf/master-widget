@@ -65,6 +65,8 @@
 
 ### 需要的地方
   implementation 'com.ooftf:director:1.0.2'
+   debugImplementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
+   releaseImplementation 'com.didichuxing.doraemonkit:dokitx-no-op:3.3.5'
 ### 初始化
   Director.init("b6a6080607d1a37310565aca1998e0e9",BuildConfig.DEBUG)
 ### okhttp添加拦截器
