@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ooftf.arch.frame.mvvm.activity.BaseMvvmActivity
+import com.ooftf.director.Item
 import com.ooftf.director.databinding.DirectorOoftfActivityCommonListBinding
 
 /**
@@ -19,7 +20,7 @@ import com.ooftf.director.databinding.DirectorOoftfActivityCommonListBinding
 class DebugInfoActivity : BaseMvvmActivity<DirectorOoftfActivityCommonListBinding, DebugInfoViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.items.add(Pair("定位权限", isPermissions().toString()))
+        viewModel.items.add(Item("定位权限", isPermissions().toString()))
     }
 
     fun isPermissions(): Boolean {

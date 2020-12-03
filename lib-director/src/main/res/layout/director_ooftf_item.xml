@@ -6,12 +6,15 @@
 
         <variable
             name="item"
-            type="kotlin.Pair&lt;String,String>" />
+            type="com.ooftf.director.Item" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{v->item.listener.invoke()}">
 
         <TextView
             android:id="@+id/key"
@@ -19,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="@{item.first}"
+            android:text="@{item.key}"
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,19 +34,32 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|end"
             android:padding="16dp"
-            android:text="@{item.second}"
+            android:text="@{item.value}"
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/switchView"
             app:layout_constraintStart_toEndOf="@+id/key"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Switch
+            android:id="@+id/switchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={item.isChecked}"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="@{item.isChecked == null?View.GONE:View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <View
-            android:background="#EEEEEE"
             android:layout_width="0dp"
             android:layout_height="1px"
+            android:background="#EEEEEE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

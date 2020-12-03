@@ -29,7 +29,7 @@ android {
 }
 publish {
     artifactId = 'master-widget-toolbar' // bintray创建的package
-    publishVersion = '1.1.5'
+    publishVersion = '1.1.6'
 }
 tasks.withType(Javadoc) {
     enabled = false

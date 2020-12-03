@@ -4,73 +4,94 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.Observer
+import com.lzf.easyfloat.EasyFloat
 import com.ooftf.basic.AppHolder
-import com.ooftf.http.monitor.Monitor
 import com.ooftf.director.AppUtils
 import com.ooftf.director.CommonListViewModel
-import com.ooftf.director.ItemAction
+import com.ooftf.director.Item
 import com.ooftf.director.R
 import com.ooftf.director.app.Director
+import com.ooftf.director.app.PanelDialog
+import com.ooftf.director.app.ShowEntranceSwitch
 import com.ooftf.director.info.DebugInfoActivity
-import com.ooftf.director.onoff.SwitchActivity
+import com.ooftf.http.monitor.Monitor
 
 class DebugEntranceViewModel(application: Application) :
-        CommonListViewModel<ItemAction>(application) {
+        CommonListViewModel<Item>(application) {
 
     init {
         title.postValue("调试功能列表")
 
         items.add(
-                ItemAction(
+                Item(
                         "调试信息"
                 ) {
                     AppHolder.app.startActivity(Intent(AppHolder.app, DebugInfoActivity::class.java))
                 }
         )
 
-        items.add(
-                ItemAction(
-                        "调试开关入口"
-                ) {
-                    AppHolder.app.startActivity(Intent(AppHolder.app, SwitchActivity::class.java))
-                }
-        )
+        items.add(Item("显示工具浮窗").apply {
+            isChecked.value = isDevShow()
+            val action = Observer<Boolean> {
+                setDevShow(it)
+                ShowEntranceSwitch.set(it)
+            }
+            isChecked.observeForever(action)
+            doOnCleared {
+                isChecked.removeObserver(action)
+            }
+        })
 
-
         items.add(
-                ItemAction(
-                        "网络日志"
+                Item(
+                        "网络接口日志"
                 ) {
                     AppHolder.app.startActivity(
-                            Monitor.getLogViewIntent(
+                            Monitor.getNetLogIntent(
                                     AppHolder.app
                             )
                     )
                 }
         )
         items.add(
-                ItemAction(
-                        "网络拦截器"
+                Item(
+                        "网络数据Mock"
                 ) {
                     AppHolder.app.startActivity(
-                            Monitor.getSettingIntent(
+                            Monitor.getNetMockIntent(
                                     AppHolder.app
                             )
                     )
                 }
         )
-        items.add(ItemAction("重置应用（数据和权限）") {
+        items.add(Item("重置应用（数据和权限）") {
             val am =
                     AppHolder.app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             am.clearApplicationUserData()
         })
-        items.add(ItemAction("跳转设置界面") {
+        items.add(Item("跳转设置界面") {
             AppUtils.launchAppDetailsSettings(com.ooftf.basic.engine.ActivityManager.getTopActivity(), AppHolder.app.packageName)
         })
         items.addAll(Director.customDebugItems)
     }
 
     override fun getItemLayout(): Int {
-        return R.layout.director_ooftf_item_debug_entance
+        return R.layout.director_ooftf_item
+    }
+
+    companion object {
+        fun isDevShow(): Boolean {
+            return EasyFloat.appFloatIsShow(PanelDialog.tag)
+        }
+
+        fun setDevShow(isChecked: Boolean) {
+            if (isChecked) {
+                EasyFloat.showAppFloat(PanelDialog.tag)
+            } else {
+                EasyFloat.hideAppFloat(PanelDialog.tag)
+            }
+
+        }
     }
 }

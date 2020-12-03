@@ -32,23 +32,30 @@ import com.ooftf.master.widget.dialog.utils.DialogUtil
  */
 object PanelDialog {
     internal val items by lazy {
-        ArrayList<ItemAction>().apply {
-            add(ItemAction("当前Activity名称") { toast(getTopActivityName(), duration = Toast.LENGTH_LONG) })
-            add(ItemAction("当前Fragment名称") { toast(getCurrentFragmentName(), duration = Toast.LENGTH_LONG) })
-            add(ItemAction("显示当前LOG") {
+        ArrayList<Item>().apply {
+            add(Item("当前Activity名称") { toast(getTopActivityName(), duration = Toast.LENGTH_LONG) })
+            add(Item("当前Fragment名称") { toast(getCurrentFragmentName(), duration = Toast.LENGTH_LONG) })
+            add(Item("显示当前LOG") {
                 showLogDialog()
             })
-            add(ItemAction("调试功能界面") {
+            add(Item("调试功能界面") {
                 AppHolder.app.startActivity(Intent(AppHolder.app, DebugEntranceActivity::class.java))
             })
-            add(ItemAction("网络接口日志") {
+            add(Item("网络接口日志") {
                 AppHolder.app.startActivity(
-                        Monitor.getLogViewIntent(
+                        Monitor.getNetLogIntent(
                                 AppHolder.app
                         )
                 )
             })
-            add(ItemAction("滴滴调试面板") {
+            add(Item("网络接口Mock") {
+                AppHolder.app.startActivity(
+                        Monitor.getNetMockIntent(
+                                AppHolder.app
+                        )
+                )
+            })
+            add(Item("滴滴调试面板") {
                 DoraemonKit.showToolPanel()
             })
             addAll(Director.customPanelItems)
@@ -81,20 +88,20 @@ object PanelDialog {
                 return
             }
             ListDialog(topActivity)
-                    .setList(items.map { it.name })
+                    .setList(items.map { it.key.value })
                     .setShowCancel(true)
                     .setOnItemClickListener { dialog: ListDialogInterface, position: Int, item: String? ->
                         dialog.dismiss()
-                        items[position].action()
+                        items[position].listener?.invoke()
                     }
                     .show_()
         }
 
     }
 
-    fun perShowFloat(v: View) {
+    fun openShowFloat(v: View) {
         if (PermissionUtils.checkPermission(AppHolder.app)) {
-            ShowNetLogSwitch.set(true)
+            ShowEntranceSwitch.set(true)
             showFloat(v.context)
         } else {
             v.context.getActivity()?.let {

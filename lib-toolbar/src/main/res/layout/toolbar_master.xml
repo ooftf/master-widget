@@ -12,6 +12,7 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:gravity="center"
+        android:singleLine="true"
         android:layout_height="wrap_content"
         android:textColor="@color/font_black"
         android:textSize="18sp"
@@ -20,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Master" />
+        tools:text="MasterMasterMMasterasterMasterMasterMasterMasterMasterMasterMasterMasterMaster" />
 
     <LinearLayout
         android:id="@+id/leftContainer"

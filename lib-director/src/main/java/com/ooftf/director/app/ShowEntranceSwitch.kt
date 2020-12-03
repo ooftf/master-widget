@@ -1,7 +1,6 @@
 package com.ooftf.director.app
-
-import com.ooftf.director.app.DebugConst.KV_KEV_DEBUG_LOG
 import com.ooftf.basic.engine.serializable.SerializableBoolean
+import com.ooftf.director.app.DebugConst.KV_KEV_SHOW_ENTRANCE
 
 /**
  *
@@ -12,6 +11,6 @@ import com.ooftf.basic.engine.serializable.SerializableBoolean
 object ShowEntranceSwitch : SerializableBoolean() {
 
     override fun getKey(): String {
-        return KV_KEV_DEBUG_LOG
+        return KV_KEV_SHOW_ENTRANCE
     }
 }

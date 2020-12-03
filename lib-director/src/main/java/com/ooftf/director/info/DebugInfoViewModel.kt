@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.LocationManager
 import com.blankj.utilcode.util.*
 import com.ooftf.director.CommonListViewModel
+import com.ooftf.director.Item
 import com.ooftf.director.R
 
 /**
@@ -13,20 +14,20 @@ import com.ooftf.director.R
  * @email 994749769@qq.com
  * @date 2020/5/21
  */
-class DebugInfoViewModel(application: Application) : CommonListViewModel<Pair<String, String>>(application) {
+class DebugInfoViewModel(application: Application) : CommonListViewModel<Item>(application) {
     init {
         title.postValue("调试信息")
 /*        items.add(Pair("打包时间", iGlobalParamProviders.buildTime()))
         items.add(Pair("App启动时间", iGlobalParamProviders.getAppStartTime()))*/
-        items.add(Pair("AppVersionName", AppUtils.getAppVersionName()))
-        items.add(Pair("UniqueDeviceId", DeviceUtils.getUniqueDeviceId()))
-        items.add(Pair("设备型号", DeviceUtils.getModel()))
-        items.add(Pair("设备厂商", DeviceUtils.getManufacturer()))
-        items.add(Pair("设备系统版本号", DeviceUtils.getSDKVersionName()))
-        items.add(Pair("设备是否 rooted", DeviceUtils.isDeviceRooted().toString()))
-        items.add(Pair("Wifi是否连接", NetworkUtils.isWifiConnected().toString()))
-        items.add(Pair("GPS", isGpsEnabled().toString()))
-        items.add(Pair("ROM信息", RomUtils.getRomInfo().toString()))
+        items.add(Item("AppVersionName", AppUtils.getAppVersionName()))
+        items.add(Item("UniqueDeviceId", DeviceUtils.getUniqueDeviceId()))
+        items.add(Item("设备型号", DeviceUtils.getModel()))
+        items.add(Item("设备厂商", DeviceUtils.getManufacturer()))
+        items.add(Item("设备系统版本号", DeviceUtils.getSDKVersionName()))
+        items.add(Item("设备是否 rooted", DeviceUtils.isDeviceRooted().toString()))
+        items.add(Item("Wifi是否连接", NetworkUtils.isWifiConnected().toString()))
+        items.add(Item("GPS", isGpsEnabled().toString()))
+        items.add(Item("ROM信息", RomUtils.getRomInfo().toString()))
 
     }
 
@@ -38,6 +39,6 @@ class DebugInfoViewModel(application: Application) : CommonListViewModel<Pair<St
 
 
     override fun getItemLayout(): Int {
-        return R.layout.director_ooftf_item_debug_info
+        return R.layout.director_ooftf_item
     }
 }
