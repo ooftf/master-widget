@@ -67,9 +67,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-def LocalBintrayKey() {
-    Properties properties = new Properties()
-    InputStream inputStream = rootProject.file('local.properties').newDataInputStream();
-    properties.load(inputStream)
-    properties.getProperty('bintrayKey')
-}
