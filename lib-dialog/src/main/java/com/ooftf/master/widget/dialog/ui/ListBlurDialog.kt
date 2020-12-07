@@ -17,16 +17,16 @@ class ListBlurDialog(activity: Activity) : BlurDialog(activity), ListDialogInter
         delegate.viewAdapter = adapter
     }
 
-    override fun setShowCancel(showCancel: Boolean): ListDialogInterface {
-        return delegate.setShowCancel(showCancel)
+    override fun setShowCancel(showCancel: Boolean): ListBlurDialog {
+        return delegate.setShowCancel(showCancel) as ListBlurDialog
     }
 
-    override fun setList(data: List<String>): ListDialogInterface {
-        return delegate.setList(data)
+    override fun setList(data: List<String>): ListBlurDialog {
+        return delegate.setList(data) as ListBlurDialog
     }
 
-    override fun setOnItemClickListener(listener: DialogOnItemClickListener): ListDialogInterface {
-        return delegate.setOnItemClickListener(listener)
+    override fun setOnItemClickListener(listener: DialogOnItemClickListener): ListBlurDialog {
+        return delegate.setOnItemClickListener(listener) as ListBlurDialog
     }
 
 }
