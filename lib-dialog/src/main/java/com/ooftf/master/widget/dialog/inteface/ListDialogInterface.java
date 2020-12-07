@@ -1,8 +1,14 @@
 package com.ooftf.master.widget.dialog.inteface;
 
 import android.content.DialogInterface;
+import android.widget.TextView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 /**
  * @author ooftf
@@ -23,4 +29,6 @@ public interface ListDialogInterface{
      * @return
      */
     ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener);
+
+    ListDialogInterface setItemViewAdapter(@NotNull Function2<? super TextView, ? super Integer, Unit> adapter);
 }

@@ -13,20 +13,24 @@ import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
  */
 class ListDialog(activity: Activity) : BottomDialog(activity), ListDialogInterface {
     var dialogDelegate: ListDialogDelegate = ListDialogDelegate(this, activity)
-    fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)) {
-        dialogDelegate.viewAdapter = adapter
+    override fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)): ListDialog {
+        dialogDelegate.setItemViewAdapter(adapter)
+        return this
     }
 
     override fun setShowCancel(showCancel: Boolean): ListDialog {
-        return dialogDelegate.setShowCancel(showCancel) as ListDialog
+        dialogDelegate.setShowCancel(showCancel) as ListDialog
+        return this
     }
 
     override fun setList(data: List<String>): ListDialog {
-        return dialogDelegate.setList(data) as ListDialog
+        dialogDelegate.setList(data) as ListDialog
+        return this
     }
 
     override fun setOnItemClickListener(listener: DialogOnItemClickListener): ListDialog {
-        return dialogDelegate.setOnItemClickListener(listener) as ListDialog
+        dialogDelegate.setOnItemClickListener(listener)
+        return this
     }
 
 }

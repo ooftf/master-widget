@@ -45,6 +45,11 @@ class ListDialogDelegate(var dialog: BaseDialog, var activity: Activity) : ListD
         return this
     }
 
+    override fun setItemViewAdapter(adapter: (TextView, Int) -> Unit): ListDialogInterface {
+        viewAdapter = adapter
+        return this
+    }
+
     inner class TheAdapter : RecyclerView.Adapter<TheViewHolder>() {
         var data: List<String>? = null
 

@@ -13,20 +13,24 @@ import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
  */
 class ListBlurDialog(activity: Activity) : BlurDialog(activity), ListDialogInterface {
     var delegate: ListDialogDelegate = ListDialogDelegate(this, activity)
-    fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)) {
-        delegate.viewAdapter = adapter
+    override fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)): ListBlurDialog {
+        delegate.setItemViewAdapter(adapter)
+        return this
     }
 
     override fun setShowCancel(showCancel: Boolean): ListBlurDialog {
-        return delegate.setShowCancel(showCancel) as ListBlurDialog
+        delegate.setShowCancel(showCancel)
+        return this
     }
 
     override fun setList(data: List<String>): ListBlurDialog {
-        return delegate.setList(data) as ListBlurDialog
+        delegate.setList(data)
+        return this
     }
 
     override fun setOnItemClickListener(listener: DialogOnItemClickListener): ListBlurDialog {
-        return delegate.setOnItemClickListener(listener) as ListBlurDialog
+        delegate.setOnItemClickListener(listener)
+        return this
     }
 
 }
