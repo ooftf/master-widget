@@ -1,47 +1,32 @@
-package com.ooftf.master.widget.dialog.ui;
+package com.ooftf.master.widget.dialog.ui
 
-import android.app.Activity;
-
-import com.ooftf.master.widget.dialog.delegate.ListDialogDelegate;
-import com.ooftf.master.widget.dialog.inteface.DialogOnItemClickListener;
-import com.ooftf.master.widget.dialog.inteface.ListDialogInterface;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
+import android.app.Activity
+import android.widget.TextView
+import com.ooftf.master.widget.dialog.delegate.ListDialogDelegate
+import com.ooftf.master.widget.dialog.inteface.DialogOnItemClickListener
+import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
 
 /**
  * @author ooftf
  * @email 994749769@qq.com
  * @date 2018/10/17 0017
  */
-public class ListBlurDialog extends BlurDialog implements ListDialogInterface {
-    ListDialogDelegate delegate;
-
-    public ListBlurDialog(@NotNull Activity activity) {
-        super(activity);
-        delegate = new ListDialogDelegate(this, activity);
+class ListBlurDialog(activity: Activity) : BlurDialog(activity), ListDialogInterface {
+    var delegate: ListDialogDelegate = ListDialogDelegate(this, activity)
+    fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)) {
+        delegate.viewAdapter = adapter
     }
 
-
-    @Override
-    public ListDialogInterface setShowCancel(boolean showCancel) {
-        return delegate.setShowCancel(showCancel);
+    override fun setShowCancel(showCancel: Boolean): ListDialogInterface {
+        return delegate.setShowCancel(showCancel)
     }
 
-    @Override
-    public ListDialogInterface setList(List<String> data) {
-        return delegate.setList(data);
+    override fun setList(data: List<String>): ListDialogInterface {
+        return delegate.setList(data)
     }
 
-    @Override
-    public ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener) {
-        return delegate.setOnItemClickListener(listener);
+    override fun setOnItemClickListener(listener: DialogOnItemClickListener): ListDialogInterface {
+        return delegate.setOnItemClickListener(listener)
     }
 
-    @Override
-    public ListDialogInterface show_() {
-        delegate.show_();
-        return this;
-    }
 }

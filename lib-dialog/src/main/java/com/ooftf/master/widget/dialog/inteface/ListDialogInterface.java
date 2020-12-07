@@ -9,7 +9,7 @@ import java.util.List;
  * @email 994749769@qq.com
  * @date 2019/6/6 0006
  */
-public interface ListDialogInterface extends DialogInterface {
+public interface ListDialogInterface{
     ListDialogInterface setShowCancel(boolean showCancel);
 
     /**
@@ -23,6 +23,4 @@ public interface ListDialogInterface extends DialogInterface {
      * @return
      */
     ListDialogInterface setOnItemClickListener(DialogOnItemClickListener listener);
-
-    ListDialogInterface show_();
 }
