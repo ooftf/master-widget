@@ -13,7 +13,7 @@ import com.ooftf.basic.engine.EditBindingHelper
  */
 object KvLayoutBindingAdapter {
     @JvmStatic
-    @BindingAdapter("value")
+    @BindingAdapter("kvl_value")
     fun setValue(
             view: KvLayout,
             text: CharSequence?
@@ -23,12 +23,12 @@ object KvLayoutBindingAdapter {
 
     @JvmStatic
     @InverseBindingAdapter(
-            attribute = "value", event = "valueAttrChanged"
+            attribute = "kvl_value", event = "kvl_valueAttrChanged"
     )
     fun getValue(view: KvLayout): String = EditBindingHelper.getValue(view.value)
 
     @JvmStatic
-    @BindingAdapter("valueAttrChanged")
+    @BindingAdapter("kvl_valueAttrChanged")
     fun setOnValueChangedListener(
             view: KvLayout,
             bindingListener: InverseBindingListener?
