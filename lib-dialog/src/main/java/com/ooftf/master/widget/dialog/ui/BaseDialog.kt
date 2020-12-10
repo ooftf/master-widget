@@ -109,21 +109,21 @@ open class BaseDialog : Dialog {
      * @param width
      */
     open fun setWidth(width: Int) {
-        val attributes = window.attributes
-        attributes.width = width
-        window.attributes = attributes
+        val attributes = window?.attributes
+        attributes?.width = width
+        window?.attributes = attributes
     }
 
     fun setWidthMatchParent() {
-        val attributes = window.attributes
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT
-        window.attributes = attributes
+        val attributes = window?.attributes
+        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+        window?.attributes = attributes
     }
 
     fun setHeightMatchParent() {
-        val attributes = window.attributes
-        attributes.height = WindowManager.LayoutParams.MATCH_PARENT
-        window.attributes = attributes
+        val attributes = window?.attributes
+        attributes?.height = WindowManager.LayoutParams.MATCH_PARENT
+        window?.attributes = attributes
     }
 
     /**
@@ -132,9 +132,9 @@ open class BaseDialog : Dialog {
      * @param height
      */
     open fun setHeight(height: Int) {
-        val attributes = window.attributes
-        attributes.height = height
-        window.attributes = attributes
+        val attributes = window?.attributes
+        attributes?.height = height
+        window?.attributes = attributes
     }
 
     /**
@@ -147,7 +147,7 @@ open class BaseDialog : Dialog {
      * @param resId
      */
     fun setInOutAnimations(@StyleRes resId: Int) {
-        window.setWindowAnimations(resId)
+        window?.setWindowAnimations(resId)
     }
 
     /**
@@ -157,7 +157,7 @@ open class BaseDialog : Dialog {
      * @see Gravity
      */
     open fun setGravity(gravity: Int) {
-        window.setGravity(gravity)
+        window?.setGravity(gravity)
     }
 
     override fun show() {

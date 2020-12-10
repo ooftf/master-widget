@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <com.ooftf.layout.kv.KvLayout
-            android:paddingEnd="200dp"
+            android:paddingRight="200dp"
             app:kvl_keyWidth="120dp"
             app:kvl_key="@string/app_name"
             app:kvl_value="@string/app_name"

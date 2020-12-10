@@ -1,6 +1,7 @@
 package com.ooftf.layout.kv
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -13,7 +14,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ooftf.basic.AppHolder
 import com.ooftf.basic.utils.*
 
 /**
@@ -282,15 +282,15 @@ open class KvLayout : ConstraintLayout {
     }
 
     companion object {
-        val KEY_WIDTH = AppHolder.app.getDimensionCompat(R.dimen.kvl_ooftf_keyWidth)
-        val TEXT_SIZE = AppHolder.app.getDimensionCompat(R.dimen.kvl_ooftf_textSize)
-        val PADDING = AppHolder.app.resources.getDimensionPixelSize(R.dimen.kvl_ooftf_padding)
-        val DIVIDER_EDGE_LEFT = AppHolder.app.getDimensionCompat(R.dimen.kvl_ooftf_dividerEdgeLeft)
-        val DIVIDER_EDGE_RIGHT = AppHolder.app.getDimensionCompat(R.dimen.kvl_ooftf_dividerEdgeRight)
-        val DIVIDER_COLOR = AppHolder.app.getColorCompat(R.color.kvl_ooftf_dividerColor)
-        val DIVIDER_HEIGHT = AppHolder.app.getDimensionCompat(R.dimen.kvl_ooftf_dividerHeight)
-        val KEY_TEXT_COLOR = AppHolder.app.getColorCompat(R.color.kvl_ooftf_key_textColor)
-        val VALUE_TEXT_COLOR = AppHolder.app.getColorCompat(R.color.kvl_ooftf_value_textColor)
+        val KEY_WIDTH = R.dimen.kvl_ooftf_keyWidth.getResDimension()
+        val TEXT_SIZE = R.dimen.kvl_ooftf_textSize.getResDimension()
+        val PADDING = R.dimen.kvl_ooftf_padding.getResDimensionPixelSize()
+        val DIVIDER_EDGE_LEFT = R.dimen.kvl_ooftf_dividerEdgeLeft.getResDimension()
+        val DIVIDER_EDGE_RIGHT = R.dimen.kvl_ooftf_dividerEdgeRight.getResDimension()
+        val DIVIDER_COLOR = R.color.kvl_ooftf_dividerColor.getResColor()
+        val DIVIDER_HEIGHT = R.dimen.kvl_ooftf_dividerHeight.getResDimension()
+        val KEY_TEXT_COLOR = R.color.kvl_ooftf_key_textColor.getResColor()
+        val VALUE_TEXT_COLOR = R.color.kvl_ooftf_value_textColor.getResColor()
         const val ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android"
     }
 
