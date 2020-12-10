@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="kvl_ooftf_keyWidth">100dp</dimen>
+    <dimen name="kvl_ooftf_textSize">16sp</dimen>
+    <dimen name="kvl_ooftf_dividerEdgeLeft">16dp</dimen>
+    <dimen name="kvl_ooftf_dividerEdgeRight">16dp</dimen>
+    <dimen name="kvl_ooftf_padding">16dp</dimen>
+    <dimen name="kvl_ooftf_dividerHeight">1px</dimen>
+</resources>

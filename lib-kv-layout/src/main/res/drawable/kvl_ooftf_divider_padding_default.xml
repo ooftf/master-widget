@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+    <item
+        android:gravity="bottom|center_horizontal"
+        android:left="16dp"
+        android:right="16dp">
+        <shape android:shape="line">
+            <size android:height="2px" />
+            <stroke
+                android:width="1px"
+                android:color="#EEEEEE" />
+        </shape>
+    </item>
+</layer-list>

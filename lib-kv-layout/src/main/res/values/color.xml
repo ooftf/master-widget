@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="kvl_ooftf_key_textColor">#777777</color>
+    <color name="kvl_ooftf_value_textColor">#333333</color>
+    <color name="kvl_ooftf_dividerColor">#EEEEEE</color>
+</resources>
