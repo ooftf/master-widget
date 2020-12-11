@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.ooftf.layout.kv.KvLayout
-            android:paddingRight="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:kvl_key="@string/app_name"
             app:kvl_keyWidth="120dp"
-            app:kvl_key="@string/app_name"
-            app:kvl_value="@string/app_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:kvl_unit="unitaaaaaaaa"
+            app:kvl_value="沙发扶手"
+            app:kvl_valueGravity="center"
+            app:kvl_valueLines="1" />
+
         <com.ooftf.layout.kv.KvEditLayout
-            app:kvl_key="@string/app_name"
-            app:kvl_value="@string/app_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:kvl_key="@string/app_name"
+            app:kvl_value="@string/app_name" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

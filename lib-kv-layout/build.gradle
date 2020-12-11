@@ -28,7 +28,7 @@ android {
 }
 publish {
     artifactId = 'kv-layout' // bintray创建的package
-    publishVersion = '0.0.3'
+    publishVersion = '0.0.7'
 }
 
 dependencies {
@@ -39,6 +39,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation "com.ooftf:basic:0.2.6"
+    implementation "com.ooftf:basic:0.2.7"
     implementation deps.constraintLayout
 }

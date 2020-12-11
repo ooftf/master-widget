@@ -22,6 +22,25 @@ object KvLayoutBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("kvl_key")
+    fun setKey(
+            view: KvLayout,
+            text: CharSequence?
+    ) {
+        EditBindingHelper.setValue(view.key, text)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_unit")
+    fun setUnit(
+            view: KvLayout,
+            text: CharSequence?
+    ) {
+        EditBindingHelper.setValue(view.unit, text)
+    }
+
+
+    @JvmStatic
     @InverseBindingAdapter(
             attribute = "kvl_value", event = "kvl_valueAttrChanged"
     )

@@ -1,10 +1,12 @@
 package com.ooftf.layout.kv
 
 import android.content.Context
-import android.content.res.Resources
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.text.InputFilter.LengthFilter
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -16,6 +18,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ooftf.basic.utils.*
 
+
 /**
  *
  * 以Padding来布局，兼容多行显示
@@ -25,6 +28,26 @@ import com.ooftf.basic.utils.*
  * @date 2020/2/6
  */
 open class KvLayout : ConstraintLayout {
+
+    val PADDING = context.getDimensionPixelSize(R.dimen.kvl_ooftf_padding)
+    val DIVIDER_EDGE_LEFT = context.getDimensionCompat(R.dimen.kvl_ooftf_dividerEdgeLeft)
+    val DIVIDER_EDGE_RIGHT = context.getDimensionCompat(R.dimen.kvl_ooftf_dividerEdgeRight)
+    val DIVIDER_COLOR = context.getColorCompat(R.color.kvl_ooftf_dividerColor)
+    val DIVIDER_HEIGHT = context.getDimensionCompat(R.dimen.kvl_ooftf_dividerHeight)
+    val dividerPaint by lazy {
+        Paint().apply {
+            isAntiAlias = true
+            color = DIVIDER_COLOR
+            strokeWidth = DIVIDER_HEIGHT
+        }
+    }
+
+    lateinit var key: TextView
+    lateinit var value: TextView
+    lateinit var endIcon: ImageView
+    lateinit var startIcon: ImageView
+    lateinit var unit: TextView
+
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         obtainAttrs(attrs)
@@ -49,12 +72,10 @@ open class KvLayout : ConstraintLayout {
         obtainAttrs(attrs)
     }
 
-    val dividerPaint by lazy {
-        Paint().apply {
-            isAntiAlias = true
-            color = DIVIDER_COLOR
-            strokeWidth = DIVIDER_HEIGHT
-        }
+    init {
+        LayoutInflater.from(context).inflate(getLayoutId(), this, true)
+        initView()
+        setWillNotDraw(false)
     }
 
     private fun obtainAttrs(attrs: AttributeSet?) {
@@ -78,31 +99,29 @@ open class KvLayout : ConstraintLayout {
                     setKeyWidth(
                             getDimension(
                                     R.styleable.KvLayout_kvl_keyWidth,
-                                    KEY_WIDTH
+                                    0f
                             ))
                 }
-                if (hasValue(R.styleable.KvLayout_kvl_TextSize)) {
+                if (hasValue(R.styleable.KvLayout_kvl_textSize)) {
                     setTextSize(
                             getDimension(
-                                    R.styleable.KvLayout_kvl_TextSize,
-                                    TEXT_SIZE
+                                    R.styleable.KvLayout_kvl_textSize,
+                                    0f
                             )
                     )
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_keyTextColor)) {
                     setKeyTextColor(
-                            getColor(
-                                    R.styleable.KvLayout_kvl_keyTextColor,
-                                    KEY_TEXT_COLOR
+                            getColorStateList(
+                                    R.styleable.KvLayout_kvl_keyTextColor
                             )
                     )
                 }
 
                 if (hasValue(R.styleable.KvLayout_kvl_valueTextColor)) {
                     setValueTextColor(
-                            getColor(
-                                    R.styleable.KvLayout_kvl_valueTextColor,
-                                    VALUE_TEXT_COLOR
+                            getColorStateList(
+                                    R.styleable.KvLayout_kvl_valueTextColor
                             )
                     )
                 }
@@ -142,6 +161,43 @@ open class KvLayout : ConstraintLayout {
                 if (hasValue(R.styleable.KvLayout_kvl_dividerEdgeRight)) {
                     dividerEdgeRight = getDimension(R.styleable.KvLayout_kvl_dividerEdgeRight, DIVIDER_EDGE_RIGHT)
                 }
+
+                if (hasValue(R.styleable.KvLayout_kvl_valueLines)) {
+                    setValueLines(getInt(R.styleable.KvLayout_kvl_valueLines, 0))
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_valueLength)) {
+                    setValueLength(getInt(R.styleable.KvLayout_kvl_valueLength, 0))
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_startIcon)) {
+                    startIcon.setImageResource(getResourceId(R.styleable.KvLayout_kvl_startIcon, NO_ID))
+                    startIcon.visibility = View.VISIBLE
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_endIcon)) {
+                    endIcon.setImageResource(getResourceId(R.styleable.KvLayout_kvl_endIcon, NO_ID))
+                    setShowEndIcon(true)
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_endIconGap)) {
+                    (unit.layoutParams as? LayoutParams)?.run {
+                        marginEnd = getDimensionPixelSize(R.styleable.KvLayout_kvl_endIconGap, 0)
+                    }
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_startIconGap)) {
+                    (key.layoutParams as? LayoutParams)?.run {
+                        marginStart = getDimensionPixelSize(R.styleable.KvLayout_kvl_startIconGap, 0)
+                    }
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_unitTextColor)) {
+                    unit.setTextColor(getColorStateList(R.styleable.KvLayout_kvl_unitTextColor))
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_unit)) {
+                    unit.text = getString(R.styleable.KvLayout_kvl_unit)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueGravity)) {
+                    value.gravity = getInt(R.styleable.KvLayout_kvl_valueGravity, 0)
+                }
                 recycle()
             }
 
@@ -171,7 +227,6 @@ open class KvLayout : ConstraintLayout {
                 setPaddingTop(PADDING)
             }
         }
-
     }
 
 
@@ -207,19 +262,13 @@ open class KvLayout : ConstraintLayout {
         }
     }
 
-    init {
-        LayoutInflater.from(context).inflate(getLayoutId(), this, true)
-        initView()
-        setWillNotDraw(false)
-    }
 
-    lateinit var key: TextView
-    lateinit var value: TextView
-    lateinit var endIcon: ImageView
     private fun initView() {
         key = findViewById(R.id.key)
         value = findViewById(R.id.value)
         endIcon = findViewById(R.id.endIcon)
+        startIcon = findViewById(R.id.startIcon)
+        unit = findViewById(R.id.unit)
     }
 
     open fun getLayoutId(): Int {
@@ -239,23 +288,35 @@ open class KvLayout : ConstraintLayout {
     }
 
     fun setValue(text: CharSequence?) {
-        value.setText(text)
+        value.text = text
     }
 
     fun setHint(text: CharSequence) {
         value.hint = text
     }
 
+    fun setValueLines(line: Int) {
+        value.setLines(line)
+        value.ellipsize = TextUtils.TruncateAt.END
+    }
+
+    fun setValueLength(length: Int) {
+        value.filters = value.filters.toList().filter { it !is LengthFilter }.toMutableList().apply {
+            add(LengthFilter(length))
+        }.toTypedArray()
+    }
+
     fun setTextSize(px: Float) {
         key.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
         value.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
+        unit.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
     }
 
-    fun setKeyTextColor(color: Int) {
+    fun setKeyTextColor(color: ColorStateList?) {
         key.setTextColor(color)
     }
 
-    fun setValueTextColor(color: Int) {
+    fun setValueTextColor(color: ColorStateList?) {
         value.setTextColor(color)
     }
 
@@ -282,15 +343,7 @@ open class KvLayout : ConstraintLayout {
     }
 
     companion object {
-        val KEY_WIDTH = R.dimen.kvl_ooftf_keyWidth.getResDimension()
-        val TEXT_SIZE = R.dimen.kvl_ooftf_textSize.getResDimension()
-        val PADDING = R.dimen.kvl_ooftf_padding.getResDimensionPixelSize()
-        val DIVIDER_EDGE_LEFT = R.dimen.kvl_ooftf_dividerEdgeLeft.getResDimension()
-        val DIVIDER_EDGE_RIGHT = R.dimen.kvl_ooftf_dividerEdgeRight.getResDimension()
-        val DIVIDER_COLOR = R.color.kvl_ooftf_dividerColor.getResColor()
-        val DIVIDER_HEIGHT = R.dimen.kvl_ooftf_dividerHeight.getResDimension()
-        val KEY_TEXT_COLOR = R.color.kvl_ooftf_key_textColor.getResColor()
-        val VALUE_TEXT_COLOR = R.color.kvl_ooftf_value_textColor.getResColor()
+
         const val ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android"
     }
 

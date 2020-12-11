@@ -4,6 +4,10 @@
     <dimen name="kvl_ooftf_textSize">16sp</dimen>
     <dimen name="kvl_ooftf_dividerEdgeLeft">16dp</dimen>
     <dimen name="kvl_ooftf_dividerEdgeRight">16dp</dimen>
+
+    <dimen name="kvl_ooftf_startIconGap">12dp</dimen>
+    <dimen name="kvl_ooftf_endIconGap">12dp</dimen>
+
     <dimen name="kvl_ooftf_padding">16dp</dimen>
     <dimen name="kvl_ooftf_dividerHeight">1px</dimen>
 </resources>

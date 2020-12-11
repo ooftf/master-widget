@@ -5,7 +5,7 @@
         <attr name="kvl_value" format="string" />
         <attr name="kvl_hint" format="string" />
         <attr name="kvl_keyWidth" format="dimension" />
-        <attr name="kvl_TextSize" format="dimension" />
+        <attr name="kvl_textSize" format="dimension" />
         <attr name="kvl_keyTextColor" format="color" />
         <attr name="kvl_valueTextColor" format="color" />
         <attr name="kvl_showEndIcon" format="boolean" />
@@ -19,5 +19,19 @@
         <attr name="kvl_dividerEdge" format="dimension" />
         <attr name="kvl_dividerEdgeLeft" format="dimension" />
         <attr name="kvl_dividerEdgeRight" format="dimension" />
+        <attr name="kvl_valueLines" format="integer" />
+        <attr name="kvl_valueLength" format="integer" />
+        <attr name="kvl_startIcon" format="reference" />
+        <attr name="kvl_endIcon" format="reference" />
+        <attr name="kvl_endIconGap" format="dimension" />
+        <attr name="kvl_startIconGap" format="dimension" />
+        <attr name="kvl_unit" format="string" />
+        <attr name="kvl_unitTextColor" format="color" />
+        <attr name="kvl_valueGravity">
+            <flag name="center" value="0x11" />
+            <flag name="start" value="0x00800003" />
+            <flag name="end" value="0x00800005" />
+        </attr>
+
     </declare-styleable>
 </resources>
