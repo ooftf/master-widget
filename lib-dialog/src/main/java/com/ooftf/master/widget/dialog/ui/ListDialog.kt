@@ -19,12 +19,12 @@ class ListDialog(activity: Activity) : BottomDialog(activity), ListDialogInterfa
     }
 
     override fun setShowCancel(showCancel: Boolean): ListDialog {
-        dialogDelegate.setShowCancel(showCancel) as ListDialog
+        dialogDelegate.setShowCancel(showCancel)
         return this
     }
 
     override fun setList(data: List<String>): ListDialog {
-        dialogDelegate.setList(data) as ListDialog
+        dialogDelegate.setList(data)
         return this
     }
 
