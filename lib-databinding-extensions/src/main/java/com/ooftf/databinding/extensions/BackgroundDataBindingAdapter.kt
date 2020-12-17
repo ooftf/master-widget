@@ -25,6 +25,28 @@ object BackgroundDataBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadiusTopLeft", "exBackgroundRadiusBottomLeft", "exBackgroundRadiusTopRight", "exBackgroundRadiusBottomRight"], requireAll = false)
+    fun setBackgroundDrawable(view: View, color: Int, radiusTopLeft: Float?, radiusBottomLeft: Float?, radiusTopRight: Float?, radiusBottomRight: Float?) {
+        var drawable = GradientDrawable()
+        drawable.setColor(color)
+        //top-left, top-right, bottom-right, bottom-left
+        drawable.cornerRadii = floatArrayOf(radiusTopLeft ?: 0f, radiusTopRight
+                ?: 0f, radiusBottomRight ?: 0f, radiusBottomLeft ?: 0f)
+        view.background = drawable
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadiusTopLeft", "exBackgroundRadiusBottomLeft", "exBackgroundRadiusTopRight", "exBackgroundRadiusBottomRight"], requireAll = false)
+    fun setBackgroundDrawable(view: View, color: String, radiusTopLeft: Float?, radiusBottomLeft: Float?, radiusTopRight: Float?, radiusBottomRight: Float?) {
+        var drawable = GradientDrawable()
+        drawable.setColor(Color.parseColor(color))
+        //top-left, top-right, bottom-right, bottom-left
+        drawable.cornerRadii = floatArrayOf(radiusTopLeft ?: 0f, radiusTopRight
+                ?: 0f, radiusBottomRight ?: 0f, radiusBottomLeft ?: 0f)
+        view.background = drawable
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
     fun setBackgroundDrawable(view: View, color: String, radius: Float) {
         var drawable = GradientDrawable()
