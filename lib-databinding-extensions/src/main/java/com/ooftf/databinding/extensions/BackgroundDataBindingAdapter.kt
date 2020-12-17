@@ -30,8 +30,9 @@ object BackgroundDataBindingAdapter {
         var drawable = GradientDrawable()
         drawable.setColor(color)
         //top-left, top-right, bottom-right, bottom-left
-        drawable.cornerRadii = floatArrayOf(radiusTopLeft ?: 0f, radiusTopRight
-                ?: 0f, radiusBottomRight ?: 0f, radiusBottomLeft ?: 0f)
+        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft ?: 0f),
+                DensityUtil.dip2px(radiusTopRight ?: 0f), DensityUtil.dip2px(radiusBottomRight
+                ?: 0f), DensityUtil.dip2px(radiusBottomLeft ?: 0f))
         view.background = drawable
     }
 
@@ -41,8 +42,10 @@ object BackgroundDataBindingAdapter {
         var drawable = GradientDrawable()
         drawable.setColor(Color.parseColor(color))
         //top-left, top-right, bottom-right, bottom-left
-        drawable.cornerRadii = floatArrayOf(radiusTopLeft ?: 0f, radiusTopRight
-                ?: 0f, radiusBottomRight ?: 0f, radiusBottomLeft ?: 0f)
+        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft ?: 0f),
+                DensityUtil.dip2px(radiusTopRight ?: 0f),
+                DensityUtil.dip2px(radiusBottomRight ?: 0f),
+                DensityUtil.dip2px(radiusBottomLeft ?: 0f))
         view.background = drawable
     }
 
@@ -67,7 +70,7 @@ object BackgroundDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundId"], requireAll = false)
-    fun setBackgroundColorId(view: View, id: Int?) {
+    fun setBackgroundId(view: View, id: Int?) {
         id?.let {
             view.setBackgroundResource(it)
         }
@@ -97,4 +100,15 @@ object BackgroundDataBindingAdapter {
             DrawableCompat.setTint(view.background.mutate(), color)
         }
     }
+
+
 }
+
+/**
+ * 左上，右上，右下，左下
+ */
+fun GradientDrawable.setCornerRadii(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
+    cornerRadii = floatArrayOf(topLeft, topLeft, topRight, topRight,
+            bottomRight, bottomRight, bottomLeft, bottomLeft)
+}
+
