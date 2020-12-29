@@ -3,6 +3,8 @@ package com.ooftf.databinding.extensions
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Editable
+import android.text.Selection
+import android.text.Spannable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
@@ -197,4 +199,15 @@ object TextDataBindingAdapter {
         }
 
     }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exSelection"])
+    fun exSelection(view: TextView, selection: Int?) {
+        (view.text as? Spannable)?.let { spanable ->
+            selection?.let { selectionIt ->
+                Selection.setSelection(spanable, selectionIt)
+            }
+        }
+    }
+
 }
