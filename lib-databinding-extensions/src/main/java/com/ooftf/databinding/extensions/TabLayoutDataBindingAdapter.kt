@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ooftf.databinding.extensions.action.Action
 import com.ooftf.databinding.extensions.empty.OnListChangedCallbackPoly
+import com.ooftf.databinding.extensions.empty.OnListChangedCallbackPolyWeak
 
 /**
  *
@@ -21,9 +22,9 @@ object TabLayoutDataBindingAdapter {
         if (tabs == null) {
             return
         }
-        var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPoly<ObservableList<String>>
+        var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPolyWeak<ObservableList<String>>
         if (callback == null) {
-            callback = OnListChangedCallbackPoly(tabLayout) {
+            callback = OnListChangedCallbackPolyWeak(tabLayout) {
                 update(tabLayout, tag, tabs)
             }
             tabLayout.setTag(R.id.tag_onListChangedCallback, callback)
@@ -60,9 +61,9 @@ object TabLayoutDataBindingAdapter {
             tabLayout.addOnTabSelectedListener(onTabSelectedListener)
         }
         onTabSelectedListener.listener = listener
-        var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPoly<ObservableList<String>>
+        var callback = tabLayout.getTag(R.id.tag_onListChangedCallback) as? OnListChangedCallbackPolyWeak<ObservableList<String>>
         if (callback == null) {
-            callback = OnListChangedCallbackPoly(tabLayout) {
+            callback = OnListChangedCallbackPolyWeak(tabLayout) {
                 update(tabLayout, it)
             }
             tabLayout.setTag(R.id.tag_onListChangedCallback, callback)

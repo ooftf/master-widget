@@ -1,9 +1,6 @@
 package com.ooftf.databinding.extensions.empty
 
-import android.view.View
 import androidx.databinding.ObservableList
-import com.ooftf.basic.utils.genTagId
-import java.lang.ref.WeakReference
 
 /**
  *
@@ -11,38 +8,36 @@ import java.lang.ref.WeakReference
  * @email 994749769@qq.com
  * @date 2020/11/6
  */
-open class OnListChangedCallbackPoly<T : ObservableList<*>>(bindView: View? = null, action: (T) -> Unit) : ObservableList.OnListChangedCallback<T>() {
-    val tagId = genTagId()
+open class OnListChangedCallbackPoly<T : ObservableList<*>>(var action: ((T) -> Unit)?,
+                                                            var onChanged: ((T) -> Unit)?,
+                                                            var onItemRangeChanged: ((sender: T, positionStart: Int, itemCount: Int) -> Unit)?,
+                                                            var onItemRangeInserted: ((sender: T, positionStart: Int, itemCount: Int) -> Unit)?,
+                                                            var onItemRangeMoved: ((sender: T, fromPosition: Int, toPosition: Int, itemCount: Int) -> Unit)?,
+                                                            var onItemRangeRemoved: ((sender: T, positionStart: Int, itemCount: Int) -> Unit)?) : ObservableList.OnListChangedCallback<T>() {
 
-    init {
-        /**
-         * 为了防止因为action只有软引用，而导致回收，而可以选择将action和bindView相互绑定
-         */
-        bindView?.setTag(tagId, action)
-    }
-
-    var weak = WeakReference(action)
     override fun onChanged(sender: T) {
-        weak.get()?.invoke(sender)
+        action?.invoke(sender)
+        onChanged?.invoke(sender)
     }
 
     override fun onItemRangeChanged(sender: T, positionStart: Int, itemCount: Int) {
-        weak.get()?.invoke(sender)
+        action?.invoke(sender)
+        onItemRangeChanged?.invoke(sender, positionStart, itemCount)
     }
 
     override fun onItemRangeInserted(sender: T, positionStart: Int, itemCount: Int) {
-        weak.get()?.invoke(sender)
+        action?.invoke(sender)
+        onItemRangeInserted?.invoke(sender, positionStart, itemCount)
     }
 
     override fun onItemRangeMoved(sender: T, fromPosition: Int, toPosition: Int, itemCount: Int) {
-        weak.get()?.invoke(sender)
+        action?.invoke(sender)
+        onItemRangeMoved?.invoke(sender, fromPosition, toPosition, itemCount)
     }
 
     override fun onItemRangeRemoved(sender: T, positionStart: Int, itemCount: Int) {
-        weak.get()?.invoke(sender)
+        action?.invoke(sender)
+        onItemRangeRemoved?.invoke(sender, positionStart, itemCount)
     }
 
-    fun setAction(action: (T) -> Unit) {
-        weak = WeakReference(action)
-    }
 }
