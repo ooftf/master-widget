@@ -49,7 +49,7 @@ public class MasterToolbar extends ConstraintLayout {
 
     {
         inflate(getContext(), R.layout.toolbar_master, this);
-        title = findViewById(R.id.title);
+        title = findViewById(R.id.toolbar_title);
         leftContainer = findViewById(R.id.leftContainer);
         rightContainer = findViewById(R.id.rightContainer);
         checkLeftButton();

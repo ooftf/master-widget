@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -38,8 +37,8 @@ public class ToolbarItem extends ConstraintLayout {
     {
         inflate(getContext(), R.layout.layout_toolbar_item, this);
         leftIcon = findViewById(R.id.left_icon);
-        rightIcon = findViewById(R.id.right_icon);
-        text = findViewById(R.id.text);
+        rightIcon = findViewById(R.id.toolbar_right_icon);
+        text = findViewById(R.id.toolbar_menu_text);
     }
 
 

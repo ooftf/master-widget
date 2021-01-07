@@ -144,8 +144,8 @@ public class ToolbarPlus extends Toolbar {
             super(context);
             this.context = context;
             LayoutInflater.from(context).inflate(R.layout.item_menu_toolbar, this);
-            textView = findViewById(R.id.text);
-            image = findViewById(R.id.image);
+            textView = findViewById(R.id.toolbar_menu_text);
+            image = findViewById(R.id.toolbar_icon);
             initToolbarLayoutParams();
         }
 
