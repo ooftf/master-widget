@@ -1,13 +1,12 @@
 package com.ooftf.arch.frame.mvvm.fragment
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.ooftf.arch.frame.mvvm.BR
 import com.ooftf.arch.frame.mvvm.vm.BaseViewModel
+import com.ooftf.basic.utils.getGenericParamType
 import com.ooftf.mapping.lib.ui.BaseLiveDataObserve
 import java.lang.reflect.ParameterizedType
 
@@ -17,21 +16,21 @@ import java.lang.reflect.ParameterizedType
  * @email 994749769@qq.com
  * @date 2019/10/9
  */
-abstract class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLazyFragment() {
-    lateinit var binding: B
+abstract class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseBindingFragment<B>() {
     var viewModel: V? = null
     lateinit var baseLiveDataObserve: BaseLiveDataObserve
 
     @CallSuper
     final override fun onLoad(rootView: View) {
-        viewModel = createViewModel().apply {
+        super.onLoad(rootView)
+        viewModel = createViewModel()
+        viewModel?.run {
             setLifecycleOwner(this@BaseMvvmFragment)
             activity?.let {
                 setActivity(it)
             }
             setFragment(this@BaseMvvmFragment)
             binding.setVariable(getVariableId(), this)
-            binding.lifecycleOwner = this@BaseMvvmFragment
             baseLiveDataObserve = baseLiveData.attach(this@BaseMvvmFragment)
             onLoad(rootView, this)
         }
@@ -43,9 +42,6 @@ abstract class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLa
     open fun createViewModel() =
             ViewModelProvider(this, getViewModelFactory()).get(getVClass())
 
-    override fun getLayoutId(): Int {
-        return 0
-    }
 
     open fun getViewModelFactory(): ViewModelProvider.Factory {
         return defaultViewModelProviderFactory
@@ -55,31 +51,9 @@ abstract class BaseMvvmFragment<B : ViewDataBinding, V : BaseViewModel> : BaseLa
      * 如果报异常代表泛型设置有问题
      */
     private fun getVClass(): Class<V> {
-        val superClass = this.javaClass.genericSuperclass
-        val pt = superClass as ParameterizedType
-        return pt.actualTypeArguments[1] as Class<V>
+        return this.getGenericParamType(1) as Class<V>
     }
 
     open fun getVariableId() = BR.viewModel
 
-    /**
-     * 如果报异常代表泛型设置有问题
-     */
-    private fun getBClass(): Class<B> {
-        val superClass = this.javaClass.genericSuperclass
-        val pt = superClass as ParameterizedType
-        return pt.actualTypeArguments[0] as Class<B>
-    }
-
-    override fun getContentView(inflater: LayoutInflater, container: ViewGroup?): View {
-        val bClass = getBClass()
-        val method = bClass.getMethod(
-                "inflate",
-                LayoutInflater::class.java,
-                ViewGroup::class.java,
-                Boolean::class.java
-        )
-        binding = method.invoke(null, inflater, container, false) as B
-        return binding.root
-    }
 }
