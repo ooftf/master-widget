@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabLayoutPro">
+        <attr name="tabIndicatorWidth" format="dimension" />
+        <attr name="tabTextBoldChange" format="boolean" />
+        <attr name="tabIndicatorRadius" format="dimension" />
+    </declare-styleable>
+</resources>
