@@ -17,10 +17,10 @@ import com.ooftf.basic.utils.DensityUtil
 object BackgroundDataBindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawable(view: View, color: Int, radius: Float) {
+    fun setBackgroundDrawable(view: View, color: Int, radius: Number) {
         var drawable = GradientDrawable()
         drawable.setColor(color)
-        drawable.cornerRadius = DensityUtil.dip2px(radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius.toFloat())
         view.background = drawable
     }
 
@@ -72,30 +72,13 @@ object BackgroundDataBindingAdapter {
         view.background = drawable
     }
 
-    @JvmStatic
-    @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawable(view: View, color: String, radius: Float) {
-        var drawable = GradientDrawable()
-        drawable.setColor(Color.parseColor(color))
-        drawable.cornerRadius = DensityUtil.dip2px(radius)
-        view.background = drawable
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["exBC", "exBR"], requireAll = true)
-    fun setBackgroundDrawableAbb(view: View, color: String, radius: Float) {
-        var drawable = GradientDrawable()
-        drawable.setColor(Color.parseColor(color))
-        drawable.cornerRadius = DensityUtil.dip2px(radius)
-        view.background = drawable
-    }
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColorId", "exBackgroundRadius"], requireAll = true)
-    fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Float) {
+    fun setBackgroundDrawableForId(view: View, colorId: Int, radius: Number) {
         var drawable = GradientDrawable()
         drawable.setColor(ContextCompat.getColor(view.context, colorId))
-        drawable.cornerRadius = DensityUtil.dip2px(radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius.toFloat())
         view.background = drawable
     }
 
@@ -136,35 +119,36 @@ object BackgroundDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius", "exBackgroundStrokeWidth", "exBackgroundStrokeColor"], requireAll = false)
-    fun setBackgroundDrawable(view: View, color: String?, radius: Float?, strokeWidth: Float? = 1F, strokeColor: String?) {
+    fun setBackgroundDrawable(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String?) {
         var drawable = GradientDrawable()
         color?.let {
             drawable.setColor(Color.parseColor(color))
         }
         radius?.let {
-            drawable.cornerRadius = DensityUtil.dip2px(radius)
+            drawable.cornerRadius = DensityUtil.dip2px(radius.toFloat())
         }
         strokeWidth?.let { strokeWidth_ ->
             strokeColor?.let { strokeColor_ ->
-                drawable.setStroke(DensityUtil.dip2pxInt(strokeWidth_), Color.parseColor(strokeColor_))
+                drawable.setStroke(DensityUtil.dip2pxInt(strokeWidth_.toFloat()), Color.parseColor(strokeColor_))
             }
         }
         view.background = drawable
     }
 
+
     @JvmStatic
     @BindingAdapter(value = ["exBC", "exBR", "exBSW", "exBSC"], requireAll = false)
-    fun setBackgroundDrawableAbb(view: View, color: String?, radius: Float?, strokeWidth: Float? = 1F, strokeColor: String?) {
+    fun setBackgroundDrawableAbb(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String?) {
         var drawable = GradientDrawable()
         color?.let {
             drawable.setColor(Color.parseColor(color))
         }
         radius?.let {
-            drawable.cornerRadius = DensityUtil.dip2px(radius)
+            drawable.cornerRadius = DensityUtil.dip2px(radius.toFloat())
         }
         strokeWidth?.let { strokeWidth_ ->
             strokeColor?.let { strokeColor_ ->
-                drawable.setStroke(DensityUtil.dip2pxInt(strokeWidth_), Color.parseColor(strokeColor_))
+                drawable.setStroke(DensityUtil.dip2pxInt(strokeWidth_.toFloat()), Color.parseColor(strokeColor_))
             }
         }
         view.background = drawable
