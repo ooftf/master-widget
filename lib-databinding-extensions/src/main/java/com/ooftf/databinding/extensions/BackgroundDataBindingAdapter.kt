@@ -26,49 +26,49 @@ object BackgroundDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exBC", "exBR"], requireAll = true)
-    fun setBackgroundDrawableAbb(view: View, color: Int, radius: Float) {
+    fun setBackgroundDrawableAbb(view: View, color: Int, radius: Number) {
         var drawable = GradientDrawable()
         drawable.setColor(color)
-        drawable.cornerRadius = DensityUtil.dip2px(radius)
+        drawable.cornerRadius = DensityUtil.dip2px(radius.toFloat())
         view.background = drawable
     }
 
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadiusTopLeft", "exBackgroundRadiusBottomLeft", "exBackgroundRadiusTopRight", "exBackgroundRadiusBottomRight"], requireAll = false)
-    fun setBackgroundDrawable(view: View, color: Int, radiusTopLeft: Float?, radiusBottomLeft: Float?, radiusTopRight: Float?, radiusBottomRight: Float?) {
+    fun setBackgroundDrawable(view: View, color: Int, radiusTopLeft: Number?, radiusBottomLeft: Number?, radiusTopRight: Number?, radiusBottomRight: Number?) {
         var drawable = GradientDrawable()
         drawable.setColor(color)
         //top-left, top-right, bottom-right, bottom-left
-        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft ?: 0f),
-                DensityUtil.dip2px(radiusTopRight ?: 0f), DensityUtil.dip2px(radiusBottomRight
-                ?: 0f), DensityUtil.dip2px(radiusBottomLeft ?: 0f))
+        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusTopRight?.toFloat() ?: 0f), DensityUtil.dip2px(radiusBottomRight?.toFloat()
+                ?: 0f), DensityUtil.dip2px(radiusBottomLeft?.toFloat() ?: 0f))
         view.background = drawable
     }
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadiusTopLeft", "exBackgroundRadiusBottomLeft", "exBackgroundRadiusTopRight", "exBackgroundRadiusBottomRight"], requireAll = false)
-    fun setBackgroundDrawable(view: View, color: String, radiusTopLeft: Float?, radiusBottomLeft: Float?, radiusTopRight: Float?, radiusBottomRight: Float?) {
+    fun setBackgroundDrawable(view: View, color: String, radiusTopLeft: Number?, radiusBottomLeft: Number?, radiusTopRight: Number?, radiusBottomRight: Number?) {
         var drawable = GradientDrawable()
         drawable.setColor(Color.parseColor(color))
         //top-left, top-right, bottom-right, bottom-left
-        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft ?: 0f),
-                DensityUtil.dip2px(radiusTopRight ?: 0f),
-                DensityUtil.dip2px(radiusBottomRight ?: 0f),
-                DensityUtil.dip2px(radiusBottomLeft ?: 0f))
+        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusTopRight?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusBottomRight?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusBottomLeft?.toFloat() ?: 0f))
         view.background = drawable
     }
 
     @JvmStatic
     @BindingAdapter(value = ["exBC", "exBRTL", "exBRBL", "exBRTR", "exBRBR"], requireAll = false)
-    fun setBackgroundDrawableAbb(view: View, color: String, radiusTopLeft: Float?, radiusBottomLeft: Float?, radiusTopRight: Float?, radiusBottomRight: Float?) {
+    fun setBackgroundDrawableAbb(view: View, color: String, radiusTopLeft: Number?, radiusBottomLeft: Number?, radiusTopRight: Number?, radiusBottomRight: Number?) {
         var drawable = GradientDrawable()
         drawable.setColor(Color.parseColor(color))
         //top-left, top-right, bottom-right, bottom-left
-        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft ?: 0f),
-                DensityUtil.dip2px(radiusTopRight ?: 0f),
-                DensityUtil.dip2px(radiusBottomRight ?: 0f),
-                DensityUtil.dip2px(radiusBottomLeft ?: 0f))
+        drawable.setCornerRadii(DensityUtil.dip2px(radiusTopLeft?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusTopRight?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusBottomRight?.toFloat() ?: 0f),
+                DensityUtil.dip2px(radiusBottomLeft?.toFloat() ?: 0f))
         view.background = drawable
     }
 
@@ -119,7 +119,7 @@ object BackgroundDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exBackgroundColor", "exBackgroundRadius", "exBackgroundStrokeWidth", "exBackgroundStrokeColor"], requireAll = false)
-    fun setBackgroundDrawable(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String?) {
+    fun setBackgroundDrawable(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String? = null) {
         var drawable = GradientDrawable()
         color?.let {
             drawable.setColor(Color.parseColor(color))
@@ -138,7 +138,7 @@ object BackgroundDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["exBC", "exBR", "exBSW", "exBSC"], requireAll = false)
-    fun setBackgroundDrawableAbb(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String?) {
+    fun setBackgroundDrawableAbb(view: View, color: String?, radius: Number?, strokeWidth: Number? = 1, strokeColor: String? = null) {
         var drawable = GradientDrawable()
         color?.let {
             drawable.setColor(Color.parseColor(color))
