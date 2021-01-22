@@ -20,8 +20,6 @@
 
             <com.ooftf.pro.toolbar.TabLayoutPro
                 android:id="@+id/tabLayout"
-                app:tabTextSize="30sp"
-                app:tabSelectedTextSize="40sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="#00FF00"
@@ -46,6 +44,10 @@
                 android:layout_height="wrap_content"
                 app:kvl_key="@string/app_name"
                 app:kvl_value="@string/app_name" />
+            <ImageView
+                android:id="@+id/imageLayout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

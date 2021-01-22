@@ -5,7 +5,6 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.ooftf.basic.utils.getActivity
 
 /**
  * @author ooftf
@@ -14,34 +13,41 @@ import com.ooftf.basic.utils.getActivity
  */
 object SrcDataBindingAdapter {
 
-
     @JvmStatic
     @BindingAdapter(value = ["exSrc", "exSrcDefault"], requireAll = true)
     fun setImageViewSrc(imageView: ImageView, url: String?, resourceId: Drawable) {
-        val activity = imageView.context.getActivity()
-        if (activity == null || !activity.isDestroyed) {
+        try {
             Glide.with(imageView).load(url).placeholder(resourceId).error(resourceId).placeholder(resourceId).into(imageView)
+        } catch (e: Exception) {
+            // 主要捕获activity已销毁和fragment未attach的异常
+            e.printStackTrace()
         }
+
 
     }
 
     @JvmStatic
     @BindingAdapter(value = ["exSrc"])
     fun setImageViewSrc(view: ImageView, uri: Uri?) {
-        val activity = view.context.getActivity()
-        if (activity == null || !activity.isDestroyed) {
+        try {
             Glide.with(view).load(uri).into(view)
+        } catch (e: Exception) {
+            // 主要捕获activity已销毁和fragment未attach的异常
+            e.printStackTrace()
         }
+
+
     }
 
     @JvmStatic
     @BindingAdapter(value = ["exSrc"], requireAll = false)
     fun setImageViewSrc(imageView: ImageView, url: String?) {
-        val activity = imageView.context.getActivity()
-        if (activity == null || !activity.isDestroyed) {
+        try {
             Glide.with(imageView).load(url).into(imageView)
+        } catch (e: Exception) {
+            // 主要捕获activity已销毁和fragment未attach的异常
+            e.printStackTrace()
         }
-
     }
 
     @JvmStatic
