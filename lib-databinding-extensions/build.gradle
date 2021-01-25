@@ -33,7 +33,7 @@ android {
 }
 publish {
     artifactId = 'dataBinging-extensions' // bintray创建的package
-    publishVersion = '1.2.1'
+    publishVersion = '1.2.3'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

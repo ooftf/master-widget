@@ -27,6 +27,28 @@ object SrcDataBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter(value = ["exSrc", "exSrcDefault", "exSrcSize"], requireAll = false)
+    fun setImageViewSrc(imageView: ImageView, url: String?, resourceId: Drawable?, size: Int?) {
+        try {
+            Glide.with(imageView).load(url).apply {
+                resourceId?.let {
+                    this.error(resourceId).placeholder(resourceId)
+                }
+                size?.let {
+                    this.override(it, it)
+                }
+            }.into(imageView)
+
+
+        } catch (e: Exception) {
+            // 主要捕获activity已销毁和fragment未attach的异常
+            e.printStackTrace()
+        }
+
+    }
+
+
+    @JvmStatic
     @BindingAdapter(value = ["exSrc"])
     fun setImageViewSrc(view: ImageView, uri: Uri?) {
         try {
