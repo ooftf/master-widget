@@ -23,31 +23,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="#00FF00"
-                app:tabIndicatorRadius="10dp"
                 app:tabIndicatorHeight="8dp"
+                app:tabIndicatorRadius="10dp"
                 app:tabIndicatorWidth="100dp"
+                app:tabTextAppearance="@style/TabTextView"
                 app:tabTextBoldChange="true" />
 
             <com.ooftf.layout.kv.KvLayout
+                app:kvl_keyGravity="end"
                 android:id="@+id/kvLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:kvl_key="@string/app_name"
+                app:kvl_key="app_"
                 app:kvl_keyWidth="120dp"
+                app:kvl_valueTextColor="#ff0000"
+                app:kvl_hintTextColor="#0000FF"
+                app:kvl_unitTextColor="#00FF00"
                 app:kvl_unit="unitaaaaaaaa"
-                app:kvl_value="沙发扶手"
-                app:kvl_valueGravity="center"
-                app:kvl_valueLines="1" />
+                app:kvl_hint="沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手"
+                app:kvl_valueGravity="center" />
 
             <com.ooftf.layout.kv.KvEditLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:kvl_key="@string/app_name"
                 app:kvl_value="@string/app_name" />
+
             <ImageView
                 android:id="@+id/imageLayout"
                 android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

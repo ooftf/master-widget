@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -196,11 +197,43 @@ open class KvLayout : ConstraintLayout {
                     unit.text = getString(R.styleable.KvLayout_kvl_unit)
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_valueGravity)) {
-                    value.gravity = getInt(R.styleable.KvLayout_kvl_valueGravity, 0)
+                    val gravity = getInt(R.styleable.KvLayout_kvl_valueGravity, 0)
+                    setGravity(value, gravity)
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_keyGravity)) {
+                    val gravity = getInt(R.styleable.KvLayout_kvl_keyGravity, 0)
+                    setGravity(key, gravity)
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_unitGravity)) {
+                    val gravity = getInt(R.styleable.KvLayout_kvl_unitGravity, 0)
+                    setGravity(unit, gravity)
                 }
                 recycle()
             }
 
+        }
+    }
+
+    private fun setGravity(unit: TextView, gravity: Int) {
+        val lp = unit.layoutParams as LayoutParams
+        unit.gravity = gravity
+        val absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection)
+
+        when (absoluteGravity and Gravity.VERTICAL_GRAVITY_MASK) {
+            Gravity.CENTER_VERTICAL -> {
+                lp.topToTop = LayoutParams.PARENT_ID
+                lp.bottomToBottom = LayoutParams.PARENT_ID
+            }
+            Gravity.TOP -> {
+                lp.topToTop = LayoutParams.PARENT_ID
+                lp.bottomToBottom = -1
+            }
+            Gravity.BOTTOM -> {
+                lp.topToTop = -1
+                lp.bottomToBottom = LayoutParams.PARENT_ID
+            }
         }
     }
 
@@ -251,7 +284,7 @@ open class KvLayout : ConstraintLayout {
     }
 
     private fun setHintTextColor(color: Int) {
-        value.setTextColor(color)
+        value.setHintTextColor(color)
     }
 
     private fun setValueBold(boolean: Boolean) {

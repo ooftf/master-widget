@@ -28,22 +28,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginStart="0dp" />
 
-    <TextView
+    <EditText
         android:id="@+id/value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:textColor="@color/kvl_ooftf_value_textColor"
         android:textSize="@dimen/kvl_ooftf_textSize"
         app:layout_constraintEnd_toStartOf="@+id/unit"
         app:layout_constraintStart_toEndOf="@+id/key"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/kvl_ooftf_endIconGap"
-        android:background="@null"
         android:textColor="@color/kvl_ooftf_value_textColor"
         android:textSize="@dimen/kvl_ooftf_textSize"
         app:layout_constraintEnd_toStartOf="@+id/endIcon"

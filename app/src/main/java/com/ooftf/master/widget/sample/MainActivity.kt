@@ -2,6 +2,7 @@ package com.ooftf.master.widget.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
@@ -21,5 +22,15 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         })
         //
         Glide.with(this).load("https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoCHWAoBMvZt0mpAunoHVYQ2l1vL5LEsGsGKy4rFflbDJol0f1PQKa5ZXNXC2iaAMuNf5bEB3N4aPQ/132").into(binding.imageLayout)
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        level == TRIM_MEMORY_UI_HIDDEN
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+
     }
 }
