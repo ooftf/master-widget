@@ -271,23 +271,23 @@ open class KvLayout : ConstraintLayout {
     }
 
 
-    private fun setDividerColor(color: Int) {
+    fun setDividerColor(color: Int) {
         dividerPaint.color = color
     }
 
-    private fun setDividerHeight(dimensionPixelSize: Float) {
+    fun setDividerHeight(dimensionPixelSize: Float) {
         dividerPaint.strokeWidth = dimensionPixelSize
     }
 
-    private fun setValueEnabled(enabled: Boolean) {
+    fun setValueEnabled(enabled: Boolean) {
         value.isEnabled = enabled
     }
 
-    private fun setHintTextColor(color: Int) {
+    fun setHintTextColor(color: Int) {
         value.setHintTextColor(color)
     }
 
-    private fun setValueBold(boolean: Boolean) {
+    fun setValueBold(boolean: Boolean) {
         if (boolean) {
             value.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         } else {

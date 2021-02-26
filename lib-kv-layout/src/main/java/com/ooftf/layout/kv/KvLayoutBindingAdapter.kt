@@ -1,5 +1,6 @@
 package com.ooftf.layout.kv
 
+import android.content.res.ColorStateList
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -37,6 +38,105 @@ object KvLayoutBindingAdapter {
             text: CharSequence?
     ) {
         EditBindingHelper.setValue(view.unit, text)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueEnabled")
+    fun setValueEnabled(
+            view: KvLayout,
+            value: Boolean?
+    ) {
+        view.setValueEnabled(value == true)
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("kvl_hintTextColor")
+    fun setHintTextColor(
+            view: KvLayout,
+            value: Int?
+    ) {
+        value?.let {
+            view.setHintTextColor(it)
+        }
+
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueEnabled")
+    fun setValueBold(
+            view: KvLayout,
+            value: Boolean?
+    ) {
+        view.setValueBold(value == true)
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("kvl_showEndIcon")
+    fun setShowEndIcon(
+            view: KvLayout,
+            value: Boolean?
+    ) {
+        view.setShowEndIcon(value == true)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_keyWidth")
+    fun setKeyWidth(
+            view: KvLayout,
+            value: Number?
+    ) {
+        value?.let {
+            view.setKeyWidth(value.toFloat())
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueLines")
+    fun setValueLines(
+            view: KvLayout,
+            value: Int?
+    ) {
+        value?.let {
+            view.setValueLines(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueLength")
+    fun setValueLength(
+            view: KvLayout,
+            value: Int?
+    ) {
+        value?.let {
+            view.setValueLength(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_textSize")
+    fun setTextSize(
+            view: KvLayout,
+            value: Number?
+    ) {
+        value?.let {
+            view.setTextSize(it.toFloat())
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_keyTextColor")
+    fun setKeyTextColor(view: KvLayout,
+                        value: ColorStateList?) {
+        view.setKeyTextColor(value)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueTextColor")
+    fun setValueTextColor(view: KvLayout,
+                          value: ColorStateList?) {
+        view.setValueTextColor(value)
     }
 
 
