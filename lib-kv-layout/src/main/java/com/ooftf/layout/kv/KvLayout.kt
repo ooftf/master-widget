@@ -5,7 +5,10 @@ import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.text.Editable
 import android.text.InputFilter.LengthFilter
+import android.text.Selection
+import android.text.Spannable
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
@@ -17,6 +20,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.basic.utils.*
 
 
@@ -136,6 +140,12 @@ open class KvLayout : ConstraintLayout {
                         setValueNumberDecimal()
                     }
                 }
+                if (hasValue(R.styleable.KvLayout_kvl_valueNumber)) {
+                    if (getBoolean(R.styleable.KvLayout_kvl_valueNumber, false)) {
+                        setValueNumber()
+                    }
+                }
+
                 if (hasValue(R.styleable.KvLayout_kvl_valueBold)) {
                     setValueBold(getBoolean(R.styleable.KvLayout_kvl_valueBold, false))
                 }
@@ -209,6 +219,29 @@ open class KvLayout : ConstraintLayout {
                 if (hasValue(R.styleable.KvLayout_kvl_unitGravity)) {
                     val gravity = getInt(R.styleable.KvLayout_kvl_unitGravity, 0)
                     setGravity(unit, gravity)
+                }
+                //kvl_valueDecimalCount
+                if (hasValue(R.styleable.KvLayout_kvl_valueDecimalCount)) {
+                    setValueNumberDecimal()
+                    val count = getInt(R.styleable.KvLayout_kvl_valueDecimalCount, 0)
+                    value.addTextChangedListener(object : EmptyTextWatcher(value) {
+                        var selectionEnd = 0
+                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                            selectionEnd = value.selectionEnd
+                        }
+
+                        override fun afterTextChanged(s: Editable) {
+                            val ss = value.text
+                            val dotIndex = ss.indexOf(".")
+                            if (dotIndex > 0 && dotIndex < ss.length - 1 - count) {
+                                val result = ss.subSequence(0, dotIndex + count + 1)
+                                setText(result.toString())
+                                (value.text as? Spannable)?.let { spanable ->
+                                    Selection.setSelection(spanable, selectionEnd)
+                                }
+                            }
+                        }
+                    })
                 }
                 recycle()
             }
@@ -310,6 +343,10 @@ open class KvLayout : ConstraintLayout {
 
     fun setValueNumberDecimal() {
         value.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+    }
+
+    fun setValueNumber() {
+        value.inputType = EditorInfo.TYPE_CLASS_NUMBER
     }
 
     fun setKey(text: CharSequence) {
