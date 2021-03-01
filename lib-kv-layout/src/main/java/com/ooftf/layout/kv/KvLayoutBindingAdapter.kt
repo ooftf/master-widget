@@ -63,7 +63,7 @@ object KvLayoutBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("kvl_valueEnabled")
+    @BindingAdapter("kvl_valueBold")
     fun setValueBold(
             view: KvLayout,
             value: Boolean?
