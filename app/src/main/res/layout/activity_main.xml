@@ -44,6 +44,7 @@
                 app:kvl_valueTextColor="#ff0000" />
 
             <com.ooftf.layout.kv.KvEditLayout
+                kvl_valueLines="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:kvl_key="@string/app_name"

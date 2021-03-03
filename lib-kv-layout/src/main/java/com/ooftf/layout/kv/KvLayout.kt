@@ -366,7 +366,12 @@ open class KvLayout : ConstraintLayout {
     }
 
     fun setValueLines(line: Int) {
-        value.setLines(line)
+        if (line == 1) {
+            value.setSingleLine()
+        } else {
+            value.setLines(line)
+        }
+
         value.ellipsize = TextUtils.TruncateAt.END
     }
 
