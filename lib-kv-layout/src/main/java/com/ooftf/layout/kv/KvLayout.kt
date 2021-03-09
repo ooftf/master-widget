@@ -14,6 +14,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -414,6 +415,17 @@ open class KvLayout : ConstraintLayout {
             canvas?.drawLine(DIVIDER_EDGE_LEFT, y, width - DIVIDER_EDGE_RIGHT, y, dividerPaint)
         }
 
+
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        //解决EditText作为RecyclerView的最后一行时，输入换行，在某些机型（华为）崩溃的问题
+        try {
+            return super.dispatchKeyEvent(event)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return true
 
     }
 
