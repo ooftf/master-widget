@@ -234,7 +234,7 @@ open class KvLayout : ConstraintLayout {
                         override fun afterTextChanged(s: Editable) {
                             val ss = value.text
                             val dotIndex = ss.indexOf(".")
-                            if (dotIndex > 0 && dotIndex < ss.length - 1 - count) {
+                            if (dotIndex >= 0 && dotIndex < ss.length - 1 - count) {
                                 val result = ss.subSequence(0, dotIndex + count + 1)
                                 setText(result.toString())
                                 (value.text as? Spannable)?.let { spanable ->
