@@ -11,7 +11,7 @@ import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
  * @email 994749769@qq.com
  * @date 2018/10/17 0017
  */
-class ListDialog(activity: Activity) : BottomDialog(activity), ListDialogInterface {
+open class ListDialog(activity: Activity) : BottomDialog(activity), ListDialogInterface {
     var dialogDelegate: ListDialogDelegate = ListDialogDelegate(this, activity)
     override fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)): ListDialog {
         dialogDelegate.setItemViewAdapter(adapter)

@@ -11,7 +11,7 @@ import com.ooftf.master.widget.dialog.inteface.ListDialogInterface
  * @email 994749769@qq.com
  * @date 2018/10/17 0017
  */
-class ListBlurDialog(activity: Activity) : BlurDialog(activity), ListDialogInterface {
+open class ListBlurDialog(activity: Activity) : BlurDialog(activity), ListDialogInterface {
     var delegate: ListDialogDelegate = ListDialogDelegate(this, activity)
     override fun setItemViewAdapter(adapter: ((textView: TextView, position: Int) -> Unit)): ListBlurDialog {
         delegate.setItemViewAdapter(adapter)

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'ooftf-publish'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
@@ -30,7 +29,7 @@ android {
 }
 publish {
     artifactId = 'master-widget-dialog' // bintray创建的package
-    publishVersion = '1.2.1'//0.0.1-snapshot
+    publishVersion = '1.2.2'//0.0.1-snapshot
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -41,5 +40,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation deps.constraintLayout
-    implementation 'com.ooftf:basic:0.2.7'
+    implementation 'com.ooftf:basic:0.2.11'
 }
