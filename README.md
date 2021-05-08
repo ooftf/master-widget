@@ -1,15 +1,36 @@
 # master-widget
 ## master-widget-dialog
-[ ![Download](https://api.bintray.com/packages/ooftf/maven/master-widget-dialog/images/download.svg) ](https://bintray.com/ooftf/maven/master-widget-dialog/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/master-widget-dialog)](https://mvnrepository.com/artifact/com.github.ooftf/master-widget-dialog)
+```groovy
+implementation 'com.github.ooftf:master-widget-dialog:x.x.x'
+```
 ## master-widget-toolbar
-[ ![Download](https://api.bintray.com/packages/ooftf/maven/master-widget-toolbar/images/download.svg) ](https://bintray.com/ooftf/maven/master-widget-toolbar/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/master-widget-toolbar)](https://mvnrepository.com/artifact/com.github.ooftf/master-widget-toolbar)
+```groovy
+implementation 'com.github.ooftf:master-widget-toolbar:x.x.x'
+```
 ## master-widget-statelayout
-[ ![master-widget-statelayout](https://api.bintray.com/packages/ooftf/maven/master-widget-statelayout/images/download.svg) ](https://bintray.com/ooftf/maven/master-widget-statelayout/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/master-widget-statelayout)](https://mvnrepository.com/artifact/com.github.ooftf/master-widget-statelayout)
+```groovy
+implementation 'com.github.ooftf:master-widget-statelayout:x.x.x'
+```
 ## tablayout-pro
-[ ![tablayout-pro](https://api.bintray.com/packages/ooftf/maven/tablayout-pro/images/download.svg) ](https://bintray.com/ooftf/maven/tablayout-pro/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/tablayout-pro)](https://mvnrepository.com/artifact/com.github.ooftf/tablayout-pro)
+```groovy
+implementation 'com.github.ooftf:tablayout-pro:x.x.x'
+```
 ## kv-layout
-[ ![kv-layout](https://api.bintray.com/packages/ooftf/maven/kv-layout/images/download.svg) ](https://bintray.com/ooftf/maven/kv-layout/_latestVersion)
-## BottomSheetBehaviorPro
-[ ![BottomSheetBehaviorPro](https://api.bintray.com/packages/ooftf/maven/BottomSheetBehaviorPro/images/download.svg) ](https://bintray.com/ooftf/maven/BottomSheetBehaviorPro/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/kv-layout)](https://mvnrepository.com/artifact/com.github.ooftf/kv-layout)
+```groovy
+implementation 'com.github.ooftf:kv-layout:x.x.x'
+```
+## bottom-sheet-behavior-pro
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/bottom-sheet-behavior-pro)](https://mvnrepository.com/artifact/com.github.ooftf/bottom-sheet-behavior-pro)
+```groovy
+implementation 'com.github.ooftf:bottom-sheet-behavior-pro:x.x.x'
+```
 ## dataBinging-extensions
-[ ![dataBinging-extensions](https://api.bintray.com/packages/ooftf/maven/dataBinging-extensions/images/download.svg) ](https://bintray.com/ooftf/maven/dataBinging-extensions/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ooftf/dataBinging-extensions)](https://mvnrepository.com/artifact/com.github.ooftf/dataBinging-extensions)
+```groovy
+implementation 'com.github.ooftf:dataBinging-extensions:x.x.x'
+```
