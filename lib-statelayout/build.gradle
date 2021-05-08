@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
-apply plugin: 'ooftf-publish'
+apply plugin: 'ooftf-maven'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -30,16 +30,10 @@ android {
 
 }
 publish {
-    groupId = 'com.ooftf'
     artifactId = 'master-widget-statelayout' // bintray创建的package
-    publishVersion = '1.1.2'
+    version = '1.1.2'
 }
-tasks.withType(Javadoc) {
-    enabled = false
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -47,5 +41,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation deps.constraintLayout
-    implementation 'com.ooftf:basic:0.0.4'
+    implementation 'com.github.ooftf:basic:0.3.0'
 }
