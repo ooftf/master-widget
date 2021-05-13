@@ -13,8 +13,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import com.ooftf.basic.armor.EmptyTextWatcher
+import com.ooftf.basic.utils.genTagId
 import com.ooftf.databinding.extensions.empty.DecimalTextWatcher
 import java.math.RoundingMode
 
@@ -163,7 +165,11 @@ object TextDataBindingAdapter {
      */
     @JvmStatic
     @BindingAdapter(value = ["exNumFormat", "exNumFormatModel"], requireAll = false)
-    fun setDecimal(view: TextView, pattern: String?, roundingMode: RoundingMode = RoundingMode.HALF_EVEN) {
+    fun setDecimal(
+        view: TextView,
+        pattern: String?,
+        roundingMode: RoundingMode = RoundingMode.HALF_EVEN
+    ) {
         var tag = view.getTag(R.id.tag_decimal_watcher)
         if (pattern == null) {
             view.setTag(R.id.tag_decimal_watcher, null)
@@ -206,6 +212,41 @@ object TextDataBindingAdapter {
         (view.text as? Spannable)?.let { spanable ->
             selection?.let { selectionIt ->
                 Selection.setSelection(spanable, selectionIt)
+            }
+        }
+    }
+
+    val textSizeWatcherId by lazy {
+        genTagId()
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["exTextSize", "exHintTextSize"], requireAll = true)
+    fun exTextSize(view: TextView, exTextSize: Int?, hint: Int?) {
+        setSize(view, hint, exTextSize)
+        (view.getTag(textSizeWatcherId) as? TextWatcher)?.let {
+            view.removeTextChangedListener(it)
+        }
+        val watcher = view.doOnTextChanged { text, start, before, count ->
+            setSize(view, hint, exTextSize)
+        }
+        view.setTag(textSizeWatcherId, watcher)
+
+    }
+
+    private fun setSize(
+        view: TextView,
+        hint: Int?,
+        exTextSize: Int?
+    ) {
+        if (view.text.isNullOrEmpty()) {
+            hint?.toFloat()?.let {
+                view.textSize = it
+            }
+
+        } else {
+            exTextSize?.toFloat()?.let {
+                view.textSize = it
             }
         }
     }
