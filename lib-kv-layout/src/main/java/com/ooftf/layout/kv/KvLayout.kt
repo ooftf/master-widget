@@ -61,19 +61,19 @@ open class KvLayout : ConstraintLayout {
 
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-            context,
-            attrs,
-            defStyleAttr
+        context,
+        attrs,
+        defStyleAttr
     ) {
         obtainAttrs(attrs)
     }
 
 
     constructor(
-            context: Context,
-            attrs: AttributeSet?,
-            defStyleAttr: Int,
-            defStyleRes: Int
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
         obtainAttrs(attrs)
     }
@@ -91,44 +91,54 @@ open class KvLayout : ConstraintLayout {
             context.obtainStyledAttributes(attr, R.styleable.KvLayout).run {
                 if (hasValue(R.styleable.KvLayout_kvl_key)) {
                     getString(R.styleable.KvLayout_kvl_key)
-                            ?.let { it -> setKey(it) }
+                        ?.let { it -> setKey(it) }
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_value)) {
                     getString(R.styleable.KvLayout_kvl_value)
-                            ?.let { it -> setValue(it) }
+                        ?.let { it -> setValue(it) }
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_hint)) {
                     getString(R.styleable.KvLayout_kvl_hint)
-                            ?.let { it -> setHint(it) }
+                        ?.let { it -> setHint(it) }
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_keyWidth)) {
                     setKeyWidth(
-                            getDimension(
-                                    R.styleable.KvLayout_kvl_keyWidth,
-                                    0f
-                            ))
+                        getDimension(
+                            R.styleable.KvLayout_kvl_keyWidth,
+                            0f
+                        )
+                    )
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_textSize)) {
                     setTextSize(
-                            getDimension(
-                                    R.styleable.KvLayout_kvl_textSize,
-                                    0f
-                            )
+                        getDimension(
+                            R.styleable.KvLayout_kvl_textSize,
+                            0f
+                        )
                     )
                 }
+                if (hasValue(R.styleable.KvLayout_kvl_valueHintTextSize)) {
+                    setValueHintTextSize(
+                        getDimension(
+                            R.styleable.KvLayout_kvl_valueHintTextSize,
+                            0f
+                        )
+                    )
+                }
+
                 if (hasValue(R.styleable.KvLayout_kvl_keyTextColor)) {
                     setKeyTextColor(
-                            getColorStateList(
-                                    R.styleable.KvLayout_kvl_keyTextColor
-                            )
+                        getColorStateList(
+                            R.styleable.KvLayout_kvl_keyTextColor
+                        )
                     )
                 }
 
                 if (hasValue(R.styleable.KvLayout_kvl_valueTextColor)) {
                     setValueTextColor(
-                            getColorStateList(
-                                    R.styleable.KvLayout_kvl_valueTextColor
-                            )
+                        getColorStateList(
+                            R.styleable.KvLayout_kvl_valueTextColor
+                        )
                     )
                 }
 
@@ -159,7 +169,12 @@ open class KvLayout : ConstraintLayout {
                     setValueEnabled(getBoolean(R.styleable.KvLayout_kvl_valueEnabled, true))
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_dividerHeight)) {
-                    setDividerHeight(getDimension(R.styleable.KvLayout_kvl_dividerHeight, DIVIDER_HEIGHT))
+                    setDividerHeight(
+                        getDimension(
+                            R.styleable.KvLayout_kvl_dividerHeight,
+                            DIVIDER_HEIGHT
+                        )
+                    )
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_dividerColor)) {
                     setDividerColor(getColor(R.styleable.KvLayout_kvl_dividerColor, DIVIDER_COLOR))
@@ -168,10 +183,12 @@ open class KvLayout : ConstraintLayout {
                     setDividerEdge(getDimension(R.styleable.KvLayout_kvl_dividerEdgeLeft, 0f))
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_dividerEdgeLeft)) {
-                    dividerEdgeLeft = getDimension(R.styleable.KvLayout_kvl_dividerEdgeLeft, DIVIDER_EDGE_LEFT)
+                    dividerEdgeLeft =
+                        getDimension(R.styleable.KvLayout_kvl_dividerEdgeLeft, DIVIDER_EDGE_LEFT)
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_dividerEdgeRight)) {
-                    dividerEdgeRight = getDimension(R.styleable.KvLayout_kvl_dividerEdgeRight, DIVIDER_EDGE_RIGHT)
+                    dividerEdgeRight =
+                        getDimension(R.styleable.KvLayout_kvl_dividerEdgeRight, DIVIDER_EDGE_RIGHT)
                 }
 
                 if (hasValue(R.styleable.KvLayout_kvl_valueLines)) {
@@ -182,7 +199,12 @@ open class KvLayout : ConstraintLayout {
                     setValueLength(getInt(R.styleable.KvLayout_kvl_valueLength, 0))
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_startIcon)) {
-                    startIcon.setImageResource(getResourceId(R.styleable.KvLayout_kvl_startIcon, NO_ID))
+                    startIcon.setImageResource(
+                        getResourceId(
+                            R.styleable.KvLayout_kvl_startIcon,
+                            NO_ID
+                        )
+                    )
                     startIcon.visibility = View.VISIBLE
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_endIcon)) {
@@ -197,7 +219,8 @@ open class KvLayout : ConstraintLayout {
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_startIconGap)) {
                     (key.layoutParams as? LayoutParams)?.run {
-                        marginStart = getDimensionPixelSize(R.styleable.KvLayout_kvl_startIconGap, 0)
+                        marginStart =
+                            getDimensionPixelSize(R.styleable.KvLayout_kvl_startIconGap, 0)
                     }
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_unitTextColor)) {
@@ -227,7 +250,12 @@ open class KvLayout : ConstraintLayout {
                     val count = getInt(R.styleable.KvLayout_kvl_valueDecimalCount, 0)
                     value.addTextChangedListener(object : EmptyTextWatcher(value) {
                         var selectionEnd = 0
-                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                        override fun beforeTextChanged(
+                            s: CharSequence,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                        ) {
                             selectionEnd = value.selectionEnd
                         }
 
@@ -277,11 +305,13 @@ open class KvLayout : ConstraintLayout {
         }
         if (attr.getAttributeValue(ANDROID_NAMESPACE, "paddingHorizontal") == null) {
             if (attr.getAttributeValue(ANDROID_NAMESPACE, "paddingRight") == null
-                    && attr.getAttributeValue(ANDROID_NAMESPACE, "paddingEnd") == null) {
+                && attr.getAttributeValue(ANDROID_NAMESPACE, "paddingEnd") == null
+            ) {
                 setPaddingRight(PADDING)
             }
             if (attr.getAttributeValue(ANDROID_NAMESPACE, "paddingLeft") == null
-                    && attr.getAttributeValue(ANDROID_NAMESPACE, "paddingStart") == null) {
+                && attr.getAttributeValue(ANDROID_NAMESPACE, "paddingStart") == null
+            ) {
                 setPaddingLeft(PADDING)
             }
         }
@@ -377,15 +407,27 @@ open class KvLayout : ConstraintLayout {
     }
 
     fun setValueLength(length: Int) {
-        value.filters = value.filters.toList().filter { it !is LengthFilter }.toMutableList().apply {
-            add(LengthFilter(length))
-        }.toTypedArray()
+        value.filters =
+            value.filters.toList().filter { it !is LengthFilter }.toMutableList().apply {
+                add(LengthFilter(length))
+            }.toTypedArray()
     }
 
     fun setTextSize(px: Float) {
         key.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
         value.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
         unit.setTextSize(TypedValue.COMPLEX_UNIT_PX, px)
+    }
+
+    val textWatcher by lazy {
+        val result = TextWatcher()
+        value.addTextChangedListener(result)
+        result
+    }
+
+    fun setValueHintTextSize(px: Float) {
+        textWatcher.hintSize = px
+        afterTextChanged(textWatcher.hintSize)
     }
 
     fun setKeyTextColor(color: ColorStateList?) {
@@ -434,4 +476,21 @@ open class KvLayout : ConstraintLayout {
         const val ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android"
     }
 
+    inner class TextWatcher(
+        var hintSize: Float = key.textSize
+    ) : EmptyTextWatcher() {
+        override fun afterTextChanged(s: Editable) {
+            afterTextChanged(hintSize)
+        }
+    }
+
+    private fun afterTextChanged(hintSize: Float) {
+        if (value.text.isNullOrEmpty()) {
+            value.setTextSize(TypedValue.COMPLEX_UNIT_PX, hintSize)
+        } else {
+            value.setTextSize(TypedValue.COMPLEX_UNIT_PX, key.textSize)
+        }
+    }
+
 }
+

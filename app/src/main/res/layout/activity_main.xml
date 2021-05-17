@@ -29,15 +29,17 @@
                 app:tabTextAppearance="@style/TabTextView"
                 app:tabTextBoldChange="true" />
 
-            <com.ooftf.layout.kv.KvLayout
+            <com.ooftf.layout.kv.KvEditLayout
                 android:id="@+id/kvLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:kvl_hint="沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手"
                 app:kvl_hintTextColor="#0000FF"
                 app:kvl_key="app_"
+                app:kvl_valueHintTextSize="15sp"
                 app:kvl_keyGravity="end"
                 app:kvl_keyWidth="120dp"
+                app:kvl_textSize="20sp"
                 app:kvl_unit="unitaaaaaaaa"
                 app:kvl_unitTextColor="#00FF00"
                 app:kvl_valueGravity="center"

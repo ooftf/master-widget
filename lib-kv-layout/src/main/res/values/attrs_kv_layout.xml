@@ -6,6 +6,7 @@
         <attr name="kvl_hint" format="string" />
         <attr name="kvl_keyWidth" format="dimension" />
         <attr name="kvl_textSize" format="dimension" />
+        <attr name="kvl_valueHintTextSize" format="dimension" />
         <attr name="kvl_keyTextColor" format="color" />
         <attr name="kvl_valueTextColor" format="color" />
         <attr name="kvl_showEndIcon" format="boolean" />
