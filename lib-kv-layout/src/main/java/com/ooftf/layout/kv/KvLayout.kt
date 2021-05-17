@@ -290,10 +290,10 @@ open class KvLayout : ConstraintLayout {
             }
             Gravity.TOP -> {
                 lp.topToTop = LayoutParams.PARENT_ID
-                lp.bottomToBottom = -1
+                lp.bottomToBottom = LayoutParams.UNSET
             }
             Gravity.BOTTOM -> {
-                lp.topToTop = -1
+                lp.topToTop = LayoutParams.UNSET
                 lp.bottomToBottom = LayoutParams.PARENT_ID
             }
         }

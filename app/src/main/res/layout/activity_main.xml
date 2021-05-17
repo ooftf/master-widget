@@ -33,16 +33,16 @@
                 android:id="@+id/kvLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:kvl_hint="沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手沙发扶手"
+                app:kvl_hint="沙发扶手沙发扶手沙"
                 app:kvl_hintTextColor="#0000FF"
                 app:kvl_key="app_"
-                app:kvl_valueHintTextSize="15sp"
+                app:kvl_valueHintTextSize="10sp"
                 app:kvl_keyGravity="end"
                 app:kvl_keyWidth="120dp"
-                app:kvl_textSize="20sp"
-                app:kvl_unit="unitaaaaaaaa"
+                app:kvl_textSize="16sp"
+                app:kvl_unit="uni"
                 app:kvl_unitTextColor="#00FF00"
-                app:kvl_valueGravity="center"
+                app:kvl_valueGravity="center_vertical"
                 app:kvl_valueTextColor="#ff0000" />
 
             <com.ooftf.layout.kv.KvEditLayout
