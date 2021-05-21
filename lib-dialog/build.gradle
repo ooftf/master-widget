@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -23,11 +23,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
 
 }
 publish {
     artifactId = 'master-widget-dialog' // bintray创建的package
-    version = '1.2.2'//0.0.1-snapshot
+    version = '1.2.3'//0.0.1-snapshot
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
