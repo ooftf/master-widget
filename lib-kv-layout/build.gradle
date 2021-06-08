@@ -24,7 +24,7 @@ android {
 }
 publish {
     artifactId = 'kv-layout' // bintray创建的package
-    version = '1.0.7'
+    version = '1.0.8'
 }
 
 dependencies {

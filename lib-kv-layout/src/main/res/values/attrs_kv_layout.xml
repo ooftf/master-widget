@@ -29,6 +29,12 @@
         <attr name="kvl_startIconGap" format="dimension" />
         <attr name="kvl_unit" format="string" />
         <attr name="kvl_unitTextColor" format="color" />
+        <attr name="kvl_keyDrawableLeft" format="reference" />
+        <attr name="kvl_keyDrawableRight" format="reference" />
+        <attr name="kvl_keyDrawableTop" format="reference" />
+        <attr name="kvl_keyDrawableBottom" format="reference" />
+
+        <attr name="kvl_keyDrawablePadding" format="dimension" />
         <attr name="kvl_valueDecimalCount" format="integer" />
         <attr name="kvl_valueGravity">
             <!-- Push object to the top of its container, not changing its size. -->

@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.InputFilter.LengthFilter
 import android.text.Selection
@@ -244,7 +245,29 @@ open class KvLayout : ConstraintLayout {
                     val gravity = getInt(R.styleable.KvLayout_kvl_unitGravity, 0)
                     setGravity(unit, gravity)
                 }
-                //kvl_valueDecimalCount
+
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawablePadding)) {
+                    val keyDrawablePadding =
+                        getLayoutDimension(R.styleable.KvLayout_kvl_keyDrawablePadding, 0)
+                    setKeyDrawablePadding(keyDrawablePadding)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableLeft)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableLeft)
+                    setKeyDrawableLeft(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableRight)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableRight)
+                    setKeyDrawableRight(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableTop)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableTop)
+                    setKeyDrawableTop(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableBottom)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableBottom)
+                    setKeyDrawableBottom(drawable)
+                }
+
                 if (hasValue(R.styleable.KvLayout_kvl_valueDecimalCount)) {
                     setValueNumberDecimal()
                     val count = getInt(R.styleable.KvLayout_kvl_valueDecimalCount, 0)
@@ -276,6 +299,26 @@ open class KvLayout : ConstraintLayout {
             }
 
         }
+    }
+
+    fun setKeyDrawablePadding(padding: Int) {
+        key.compoundDrawablePadding = padding
+    }
+
+    fun setKeyDrawableLeft(drawable: Drawable) {
+        key.setDrawableLeft(drawable)
+    }
+
+    fun setKeyDrawableRight(drawable: Drawable) {
+        key.setDrawableRight(drawable)
+    }
+
+    fun setKeyDrawableTop(drawable: Drawable) {
+        key.setDrawableTop(drawable)
+    }
+
+    fun setKeyDrawableBottom(drawable: Drawable) {
+        key.setDrawableBottom(drawable)
     }
 
     private fun setGravity(unit: TextView, gravity: Int) {
