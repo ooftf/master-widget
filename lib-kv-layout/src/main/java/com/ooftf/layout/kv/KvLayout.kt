@@ -11,6 +11,7 @@ import android.text.InputFilter.LengthFilter
 import android.text.Selection
 import android.text.Spannable
 import android.text.TextUtils
+import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -268,6 +269,13 @@ open class KvLayout : ConstraintLayout {
                     setKeyDrawableBottom(drawable)
                 }
 
+                if (hasValue(R.styleable.KvLayout_kvl_valueOnlyNumberLetter)) {
+                    val valueOnlyNumberLetter =
+                        getBoolean(R.styleable.KvLayout_kvl_valueOnlyNumberLetter, false)
+                    setValueOnlyNumberLetter(valueOnlyNumberLetter)
+                }
+
+
                 if (hasValue(R.styleable.KvLayout_kvl_valueDecimalCount)) {
                     setValueNumberDecimal()
                     val count = getInt(R.styleable.KvLayout_kvl_valueDecimalCount, 0)
@@ -299,6 +307,24 @@ open class KvLayout : ConstraintLayout {
             }
 
         }
+    }
+
+    private fun setValueOnlyNumberLetter(valueOnlyNumberLetter: Boolean) {
+        val filter =
+            DigitsKeyListener.getInstance("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        if (valueOnlyNumberLetter) {
+            if (value.filters.contains(filter)) {
+                return
+            }
+            value.filters = value.filters.plus(filter)
+        } else {
+            if (!value.filters.contains(filter)) {
+                return
+            }
+
+            value.filters = value.filters.toList().filter { it != filter }.toTypedArray()
+        }
+
     }
 
     fun setKeyDrawablePadding(padding: Int) {

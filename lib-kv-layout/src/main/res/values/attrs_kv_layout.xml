@@ -15,6 +15,7 @@
         <attr name="kvl_valueNumber" format="boolean" />
         <attr name="kvl_valueBold" format="boolean" />
         <attr name="kvl_hintTextColor" format="color" />
+        <attr name="kvl_valueOnlyNumberLetter" format="boolean" />
         <attr name="kvl_valueEnabled" format="boolean" />
         <attr name="kvl_dividerColor" format="color" />
         <attr name="kvl_dividerHeight" format="dimension" />
