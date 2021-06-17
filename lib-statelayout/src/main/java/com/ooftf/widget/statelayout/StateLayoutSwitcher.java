@@ -32,7 +32,8 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
     int firstLayoutId = NO_ID;
     int secondLayoutId = NO_ID;
     int thirdLayoutId = NO_ID;
-
+    boolean showEmptyLayout = true;
+    boolean showErrorLayout = true;
     View firstLayout;
     View secondLayout;
     View thirdLayout;
@@ -83,8 +84,11 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
     private void obtainAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.StateLayoutSwitcher);
         errorLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_error_layout, defaultErrorLayoutId);
+
         loadLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_loading_layout, defaultLoadLayoutId);
         emptyLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_empty_layout, defaultEmptyLayoutId);
+        showEmptyLayout = typedArray.getBoolean(R.styleable.StateLayoutSwitcher_showEmptyLayout, showEmptyLayout);
+        showErrorLayout = typedArray.getBoolean(R.styleable.StateLayoutSwitcher_showErrorLayout, showErrorLayout);
         firstLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_first_layout, firstLayoutId);
         secondLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_second_layout, secondLayoutId);
         thirdLayoutId = typedArray.getResourceId(R.styleable.StateLayoutSwitcher_third_layout, thirdLayoutId);
@@ -161,6 +165,7 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         this.successLayout = successLayout;
         return this;
     }
+
     public StateLayoutSwitcher(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -182,7 +187,7 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
         blocking = false;
 
-        if (emptyLayoutId != NO_ID && emptyLayout == null) {
+        if (showEmptyLayout && emptyLayoutId != NO_ID && emptyLayout == null) {
             emptyLayout = LayoutInflater.from(getContext()).inflate(emptyLayoutId, this, false);
             View action = emptyLayout.findViewById(emptyActionId);
             if (action != null) {
@@ -217,7 +222,7 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
         if (blocking) {
             return;
         }
-        if (errorLayoutId != NO_ID && errorLayout == null) {
+        if (showErrorLayout && errorLayoutId != NO_ID && errorLayout == null) {
             errorLayout = LayoutInflater.from(getContext()).inflate(errorLayoutId, this, false);
             View refresh = errorLayout.findViewById(refreshId);
             if (refresh != null) {
@@ -332,6 +337,9 @@ public class StateLayoutSwitcher extends FrameLayout implements IStateLayout {
 
     private void showView(View except) {
         if (except == null) {
+            if (successLayout != null) {
+                switchToSuccess();
+            }
             return;
         }
         if (errorLayout != null && except != errorLayout) {
