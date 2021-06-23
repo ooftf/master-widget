@@ -44,6 +44,8 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
      * 需要在 view 和 dialog 绑定之后调用，否则没有效果
      * 推荐在 onActivityCreated 中配置
      * 可设置 ViewGroup.LayoutParams.MATCH_PARENT
+     *
+     * 设置展开状态高度
      */
     fun setHeight(height: Int) {
         dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)?.layoutParams?.height =
@@ -58,11 +60,15 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         setPeekHeight((DensityUtil.getScreenHeightPx() * percent).toInt())
     }
 
+    /**
+     * 设置中间状态高度
+     */
     fun setPeekHeight(height: Int) {
         dialog?.behavior?.peekHeight = height
     }
 
     /**
+     * 设置背景透明
      * Calling this after the fragment's Dialog is created will have no effect.
      *
      * 需要在 onCreateView 之前调用 比如 onCreate
