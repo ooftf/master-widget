@@ -6,12 +6,10 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.text.Editable
+import android.text.*
 import android.text.InputFilter.LengthFilter
-import android.text.Selection
-import android.text.Spannable
-import android.text.TextUtils
 import android.text.method.DigitsKeyListener
+import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -23,8 +21,10 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.getSpans
 import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.basic.utils.*
+import com.ooftf.layout.utils.NoUnderlineSpan
 
 
 /**
@@ -48,6 +48,9 @@ open class KvLayout : ConstraintLayout {
             color = DIVIDER_COLOR
             strokeWidth = DIVIDER_HEIGHT
         }
+    }
+    val linkLineTextWatcher by lazy {
+        TextWatcherLinkLine()
     }
 
     lateinit var key: TextView
@@ -303,9 +306,45 @@ open class KvLayout : ConstraintLayout {
                         }
                     })
                 }
+
+                if (hasValue(R.styleable.KvLayout_kvl_valueAutoLink)) {
+                    setValueAutoLink(getInt(R.styleable.KvLayout_kvl_valueAutoLink, 0))
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueTextColorLink)) {
+                    setValueTextColorLink(getColorStateList(R.styleable.KvLayout_kvl_valueTextColorLink))
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueShowLinkLine)) {
+                    setValueShowLinkLine(
+                        getBoolean(
+                            R.styleable.KvLayout_kvl_valueShowLinkLine,
+                            false
+                        )
+                    )
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueLinksClickable)) {
+                    setValueLinksClickable(getBoolean(R.styleable.KvLayout_kvl_valueLinksClickable, false))
+                }
+
                 recycle()
             }
 
+        }
+    }
+
+    fun setValueAutoLink(mask:Int){
+        value.autoLinkMask = mask
+    }
+    fun setValueTextColorLink(color:ColorStateList){
+        value.setLinkTextColor(color)
+    }
+    fun setValueLinksClickable(b: Boolean) {
+        value.linksClickable = b
+    }
+    fun setValueShowLinkLine(b: Boolean) {
+        if (b) {
+            value.removeTextChangedListener(linkLineTextWatcher)
+        } else {
+            value.addTextChangedListener(linkLineTextWatcher)
         }
     }
 
@@ -560,6 +599,18 @@ open class KvLayout : ConstraintLayout {
             value.setTextSize(TypedValue.COMPLEX_UNIT_PX, key.textSize)
         }
     }
+
+    inner class TextWatcherLinkLine : EmptyTextWatcher() {
+        override fun afterTextChanged(s: Editable) {
+            val mNoUnderlineSpan = NoUnderlineSpan()
+            (value.text as? Spannable)?.let {
+                it.getSpans(0,it.length, android.text.style.URLSpan::class.java).forEach { urlSpan->
+                    it.setSpan(mNoUnderlineSpan, it.getSpanStart(urlSpan), it.getSpanEnd(urlSpan), Spanned.SPAN_MARK_MARK)
+                }
+            }
+        }
+    }
+
 
 }
 

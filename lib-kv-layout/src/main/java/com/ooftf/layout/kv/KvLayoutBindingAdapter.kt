@@ -1,6 +1,7 @@
 package com.ooftf.layout.kv
 
 import android.content.res.ColorStateList
+import android.text.util.Linkify
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -166,4 +167,71 @@ object KvLayoutBindingAdapter {
     ) {
         EditBindingHelper.setOnValueChangedListener(view.value, bindingListener)
     }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueAutoLink")
+    fun setValueAutoLink(
+        view: KvLayout,
+        value: String?
+    ) {
+        val mask = when (value) {
+            "none" -> {
+                0
+            }
+            "web" -> {
+                Linkify.WEB_URLS
+            }
+            "email" -> {
+                Linkify.EMAIL_ADDRESSES
+            }
+            "phone" -> {
+                Linkify.PHONE_NUMBERS
+            }
+            "map" -> {
+                Linkify.MAP_ADDRESSES
+            }
+            "all" -> {
+                Linkify.ALL
+            }
+            else -> {
+                0
+            }
+        }
+        view.setValueAutoLink(mask)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueTextColorLink")
+    fun setValueTextColorLink(
+        view: KvLayout,
+        value: ColorStateList?
+    ) {
+        value?.let {
+            view.setValueTextColorLink(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueLinksClickable")
+    fun setValueLinksClickable(
+        view: KvLayout,
+        value: Boolean?
+    ) {
+        value?.let {
+            view.setValueLinksClickable(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueShowLinkLine")
+    fun setValueShowLinkLine(
+        view: KvLayout,
+        value: Boolean?
+    ) {
+        value?.let {
+            view.setValueShowLinkLine(it)
+        }
+    }
+
+
 }
