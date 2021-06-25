@@ -21,10 +21,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.text.getSpans
 import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.basic.utils.*
-import com.ooftf.layout.utils.NoUnderlineSpan
+import com.ooftf.layout.utils.URLSpanPlus
 
 
 /**
@@ -322,7 +321,12 @@ open class KvLayout : ConstraintLayout {
                     )
                 }
                 if (hasValue(R.styleable.KvLayout_kvl_valueLinksClickable)) {
-                    setValueLinksClickable(getBoolean(R.styleable.KvLayout_kvl_valueLinksClickable, false))
+                    setValueLinksClickable(
+                        getBoolean(
+                            R.styleable.KvLayout_kvl_valueLinksClickable,
+                            false
+                        )
+                    )
                 }
 
                 recycle()
@@ -331,21 +335,29 @@ open class KvLayout : ConstraintLayout {
         }
     }
 
-    fun setValueAutoLink(mask:Int){
+    fun setValueAutoLink(mask: Int) {
         value.autoLinkMask = mask
+        value.text = value.text
     }
-    fun setValueTextColorLink(color:ColorStateList){
+
+    fun setValueTextColorLink(color: ColorStateList) {
         value.setLinkTextColor(color)
     }
+
     fun setValueLinksClickable(b: Boolean) {
         value.linksClickable = b
     }
+
     fun setValueShowLinkLine(b: Boolean) {
         if (b) {
             value.removeTextChangedListener(linkLineTextWatcher)
         } else {
             value.addTextChangedListener(linkLineTextWatcher)
         }
+    }
+    var mValueLinkLineClickInterceptor: URLSpanPlus.ClickInterceptor? = null
+    fun setValueAutoLinkClickInterceptor(clickInterceptor: URLSpanPlus.ClickInterceptor?) {
+        mValueLinkLineClickInterceptor = clickInterceptor
     }
 
     private fun setValueOnlyNumberLetter(valueOnlyNumberLetter: Boolean) {
@@ -602,12 +614,27 @@ open class KvLayout : ConstraintLayout {
 
     inner class TextWatcherLinkLine : EmptyTextWatcher() {
         override fun afterTextChanged(s: Editable) {
-            val mNoUnderlineSpan = NoUnderlineSpan()
-            (value.text as? Spannable)?.let {
-                it.getSpans(0,it.length, android.text.style.URLSpan::class.java).forEach { urlSpan->
-                    it.setSpan(mNoUnderlineSpan, it.getSpanStart(urlSpan), it.getSpanEnd(urlSpan), Spanned.SPAN_MARK_MARK)
+            proxyURLSpan()
+        }
+    }
+
+    private fun proxyURLSpan() {
+        (value.text as? Spannable)?.let {
+            it.getSpans(0, it.length, URLSpan::class.java)
+                .forEach { urlSpan ->
+                    it.setSpan(
+                        URLSpanPlus(urlSpan.url, object : URLSpanPlus.ClickInterceptor {
+                            override fun preOnClick(content:String,realClick: Runnable) {
+                                mValueLinkLineClickInterceptor?.preOnClick(content,realClick)
+                            }
+                        }),
+                        it.getSpanStart(urlSpan),
+                        it.getSpanEnd(urlSpan),
+                        Spanned.SPAN_MARK_MARK
+                    )
+                    it.removeSpan(urlSpan)
                 }
-            }
+
         }
     }
 

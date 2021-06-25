@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.ooftf.basic.engine.EditBindingHelper
+import com.ooftf.layout.utils.URLSpanPlus
 
 /**
  *
@@ -217,9 +218,7 @@ object KvLayoutBindingAdapter {
         view: KvLayout,
         value: Boolean?
     ) {
-        value?.let {
-            view.setValueLinksClickable(it)
-        }
+        view.setValueLinksClickable(value == true)
     }
 
     @JvmStatic
@@ -228,9 +227,16 @@ object KvLayoutBindingAdapter {
         view: KvLayout,
         value: Boolean?
     ) {
-        value?.let {
-            view.setValueShowLinkLine(it)
-        }
+        view.setValueShowLinkLine(value == true)
+    }
+
+    @JvmStatic
+    @BindingAdapter("kvl_valueAutoLinkClickInterceptor")
+    fun setValueAutoLinkClickInterceptor(
+        view: KvLayout,
+        value: URLSpanPlus.ClickInterceptor?
+    ) {
+        view.setValueAutoLinkClickInterceptor(value)
     }
 
 
