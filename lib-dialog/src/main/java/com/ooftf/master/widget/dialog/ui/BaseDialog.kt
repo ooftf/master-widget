@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window.ID_ANDROID_CONTENT
 import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
@@ -26,7 +28,12 @@ open class BaseDialog : Dialog {
     constructor(context: Context) : super(context, R.style.master_DialogTheme_Transparent)
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-    protected constructor(context: Context, cancelable: Boolean, cancelListener: DialogInterface.OnCancelListener?) : super(context, cancelable, cancelListener) {}
+    protected constructor(
+        context: Context,
+        cancelable: Boolean,
+        cancelListener: DialogInterface.OnCancelListener?
+    ) : super(context, cancelable, cancelListener) {
+    }
 
     val activity: Activity?
         get() = context.getActivity()
@@ -38,6 +45,7 @@ open class BaseDialog : Dialog {
     protected fun setBackground(color: Int) {
         window?.decorView?.setBackgroundColor(color)
     }
+
 
     /**
      *  布局文件使用  android:fitsSystemWindows="true" 完成沉浸式
@@ -54,8 +62,8 @@ open class BaseDialog : Dialog {
             window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         window?.setFlags(
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
     }
 
@@ -181,4 +189,18 @@ open class BaseDialog : Dialog {
             e.printStackTrace()
         }
     }
+}
+
+fun Dialog.getContentView(): View? {
+    val contentViewParent = getContentViewParent()
+    return if (contentViewParent.childCount == 0) {
+        null
+    } else {
+        contentViewParent.getChildAt(0)
+    }
+
+}
+
+fun Dialog.getContentViewParent(): ViewGroup {
+    return findViewById(ID_ANDROID_CONTENT)
 }

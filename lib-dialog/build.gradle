@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -23,11 +23,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
 
 }
 publish {
     artifactId = 'master-widget-dialog' // bintray创建的package
-    version = '1.2.2'//0.0.1-snapshot
+    version = '1.2.4-local'//0.0.1-snapshot
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -38,5 +42,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation deps.constraintLayout
-    implementation 'com.github.ooftf:basic:0.3.0'
+    implementation 'com.github.ooftf:basic:0.3.2'
 }

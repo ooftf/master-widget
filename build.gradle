@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.5.0'
+    ext.kotlin_version = '1.5.10'
 
     ext {
         MoudleDebug = false
@@ -13,7 +13,7 @@ buildscript {
                 'support'    : '1.2.1',
                 'butterknife': "10.1.0",
                 'arouter'    : "1.2.1",
-                'glide'      : "4.8.0",
+                'glide'      : "4.12.0",
                 'dagger'     : '2.22.1',
                 'java'       : JavaVersion.VERSION_1_8,
                 'rxlifecycle': "3.0.0",

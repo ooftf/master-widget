@@ -4,7 +4,8 @@
         <attr name="error_layout" format="reference" />
         <attr name="loading_layout" format="reference" />
         <attr name="empty_layout" format="reference" />
-
+        <attr name="showEmptyLayout" format="boolean" />
+        <attr name="showErrorLayout" format="boolean" />
         <attr name="first_layout" format="reference" />
         <attr name="second_layout" format="reference" />
         <attr name="third_layout" format="reference" />

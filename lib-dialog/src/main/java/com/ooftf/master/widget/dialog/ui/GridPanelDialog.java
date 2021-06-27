@@ -24,7 +24,7 @@ public class GridPanelDialog<T> extends BottomDialog {
 
     public GridPanelDialog(@NotNull Activity activity) {
         super(activity);
-        getLayoutInflater().inflate(R.layout.master_dialog_grid_panel, (ViewGroup) getWindow().getDecorView());
+        setContentView(R.layout.master_dialog_grid_panel);
         recyclerView = findViewById(R.id.recycler_view);
         setWidthPercent(1);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));

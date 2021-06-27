@@ -5,11 +5,11 @@ import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.text.Editable
+import android.graphics.drawable.Drawable
+import android.text.*
 import android.text.InputFilter.LengthFilter
-import android.text.Selection
-import android.text.Spannable
-import android.text.TextUtils
+import android.text.method.DigitsKeyListener
+import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -23,6 +23,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ooftf.basic.armor.EmptyTextWatcher
 import com.ooftf.basic.utils.*
+import com.ooftf.layout.utils.URLSpanPlus
 
 
 /**
@@ -46,6 +47,9 @@ open class KvLayout : ConstraintLayout {
             color = DIVIDER_COLOR
             strokeWidth = DIVIDER_HEIGHT
         }
+    }
+    val linkLineTextWatcher by lazy {
+        TextWatcherLinkLine()
     }
 
     lateinit var key: TextView
@@ -244,7 +248,36 @@ open class KvLayout : ConstraintLayout {
                     val gravity = getInt(R.styleable.KvLayout_kvl_unitGravity, 0)
                     setGravity(unit, gravity)
                 }
-                //kvl_valueDecimalCount
+
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawablePadding)) {
+                    val keyDrawablePadding =
+                        getLayoutDimension(R.styleable.KvLayout_kvl_keyDrawablePadding, 0)
+                    setKeyDrawablePadding(keyDrawablePadding)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableLeft)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableLeft)
+                    setKeyDrawableLeft(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableRight)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableRight)
+                    setKeyDrawableRight(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableTop)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableTop)
+                    setKeyDrawableTop(drawable)
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_keyDrawableBottom)) {
+                    val drawable = getDrawable(R.styleable.KvLayout_kvl_keyDrawableBottom)
+                    setKeyDrawableBottom(drawable)
+                }
+
+                if (hasValue(R.styleable.KvLayout_kvl_valueOnlyNumberLetter)) {
+                    val valueOnlyNumberLetter =
+                        getBoolean(R.styleable.KvLayout_kvl_valueOnlyNumberLetter, false)
+                    setValueOnlyNumberLetter(valueOnlyNumberLetter)
+                }
+
+
                 if (hasValue(R.styleable.KvLayout_kvl_valueDecimalCount)) {
                     setValueNumberDecimal()
                     val count = getInt(R.styleable.KvLayout_kvl_valueDecimalCount, 0)
@@ -272,10 +305,97 @@ open class KvLayout : ConstraintLayout {
                         }
                     })
                 }
+
+                if (hasValue(R.styleable.KvLayout_kvl_valueAutoLink)) {
+                    setValueAutoLink(getInt(R.styleable.KvLayout_kvl_valueAutoLink, 0))
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueTextColorLink)) {
+                    setValueTextColorLink(getColorStateList(R.styleable.KvLayout_kvl_valueTextColorLink))
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueShowLinkLine)) {
+                    setValueShowLinkLine(
+                        getBoolean(
+                            R.styleable.KvLayout_kvl_valueShowLinkLine,
+                            false
+                        )
+                    )
+                }
+                if (hasValue(R.styleable.KvLayout_kvl_valueLinksClickable)) {
+                    setValueLinksClickable(
+                        getBoolean(
+                            R.styleable.KvLayout_kvl_valueLinksClickable,
+                            false
+                        )
+                    )
+                }
+
                 recycle()
             }
 
         }
+    }
+
+    fun setValueAutoLink(mask: Int) {
+        value.autoLinkMask = mask
+        value.text = value.text
+    }
+
+    fun setValueTextColorLink(color: ColorStateList) {
+        value.setLinkTextColor(color)
+    }
+
+    fun setValueLinksClickable(b: Boolean) {
+        value.linksClickable = b
+    }
+
+    fun setValueShowLinkLine(b: Boolean) {
+        if (b) {
+            value.removeTextChangedListener(linkLineTextWatcher)
+        } else {
+            value.addTextChangedListener(linkLineTextWatcher)
+        }
+    }
+    var mValueLinkLineClickInterceptor: URLSpanPlus.ClickInterceptor? = null
+    fun setValueAutoLinkClickInterceptor(clickInterceptor: URLSpanPlus.ClickInterceptor?) {
+        mValueLinkLineClickInterceptor = clickInterceptor
+    }
+
+    private fun setValueOnlyNumberLetter(valueOnlyNumberLetter: Boolean) {
+        val filter =
+            DigitsKeyListener.getInstance("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        if (valueOnlyNumberLetter) {
+            if (value.filters.contains(filter)) {
+                return
+            }
+            value.filters = value.filters.plus(filter)
+        } else {
+            if (!value.filters.contains(filter)) {
+                return
+            }
+
+            value.filters = value.filters.toList().filter { it != filter }.toTypedArray()
+        }
+
+    }
+
+    fun setKeyDrawablePadding(padding: Int) {
+        key.compoundDrawablePadding = padding
+    }
+
+    fun setKeyDrawableLeft(drawable: Drawable) {
+        key.setDrawableLeft(drawable)
+    }
+
+    fun setKeyDrawableRight(drawable: Drawable) {
+        key.setDrawableRight(drawable)
+    }
+
+    fun setKeyDrawableTop(drawable: Drawable) {
+        key.setDrawableTop(drawable)
+    }
+
+    fun setKeyDrawableBottom(drawable: Drawable) {
+        key.setDrawableBottom(drawable)
     }
 
     private fun setGravity(unit: TextView, gravity: Int) {
@@ -491,6 +611,33 @@ open class KvLayout : ConstraintLayout {
             value.setTextSize(TypedValue.COMPLEX_UNIT_PX, key.textSize)
         }
     }
+
+    inner class TextWatcherLinkLine : EmptyTextWatcher() {
+        override fun afterTextChanged(s: Editable) {
+            proxyURLSpan()
+        }
+    }
+
+    private fun proxyURLSpan() {
+        (value.text as? Spannable)?.let {
+            it.getSpans(0, it.length, URLSpan::class.java)
+                .forEach { urlSpan ->
+                    it.setSpan(
+                        URLSpanPlus(urlSpan.url, object : URLSpanPlus.ClickInterceptor {
+                            override fun preOnClick(content:String,realClick: Runnable) {
+                                mValueLinkLineClickInterceptor?.preOnClick(content,realClick)
+                            }
+                        }),
+                        it.getSpanStart(urlSpan),
+                        it.getSpanEnd(urlSpan),
+                        Spanned.SPAN_MARK_MARK
+                    )
+                    it.removeSpan(urlSpan)
+                }
+
+        }
+    }
+
 
 }
 

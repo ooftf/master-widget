@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="master_DialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -39,10 +39,18 @@
         <!-- 背景是否变暗 -->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
     <style name="master_DialogTheme.Transparent">
         <!-- 背景色 -->
         <item name="android:windowBackground">@color/master_transparent</item>
     </style>
 
+    <style name="master_ooftf_transparentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/master_ooftf_transparentBottomSheetStyle</item>
+    </style>
+
+    <style name="master_ooftf_transparentBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>
