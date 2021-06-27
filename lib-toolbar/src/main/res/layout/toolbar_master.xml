@@ -16,10 +16,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/font_black"
         android:textSize="18sp"
-        app:layout_constraintWidth_percent="0.6"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintStart_toEndOf="@+id/leftContainer"
+        app:layout_constraintEnd_toStartOf="@+id/rightContainer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="MasterMasterMMasterasterMasterMasterMasterMasterMasterMasterMasterMasterMaster" />
 

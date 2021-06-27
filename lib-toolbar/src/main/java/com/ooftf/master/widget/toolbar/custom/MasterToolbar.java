@@ -54,6 +54,7 @@ public class MasterToolbar extends ConstraintLayout {
         rightContainer = findViewById(R.id.rightContainer);
         checkLeftButton();
         checkRightButton();
+
     }
 
     private void obtainAttrs(AttributeSet attrs) {
@@ -322,7 +323,7 @@ public class MasterToolbar extends ConstraintLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int mode = MeasureSpec.getMode(heightMeasureSpec);
         if (mode != MeasureSpec.EXACTLY) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec((int) getDefaultHeightPx(), MeasureSpec.EXACTLY);
+            title.setMinHeight((int) getDefaultHeightPx());
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
