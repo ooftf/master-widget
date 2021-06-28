@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.ooftf.basic.utils.DensityUtil
+import com.ooftf.databinding.extensions.assist.LineDrawable
 
 /**
  * @author ooftf
@@ -20,6 +21,76 @@ import com.ooftf.basic.utils.DensityUtil
  */
 object DataBindingAdapter {
 
+    @JvmStatic
+    @BindingAdapter(
+        requireAll = false,
+        value = ["exBackgroundLineColor", "exBackgroundLineWidth",
+            "exBackgroundLinePaddingLeft",
+            "exBackgroundLinePaddingRight",
+            "exBackgroundLineVisible"]
+    )
+    fun setBackgroundLiner(
+        view: View,
+        color: String?,
+        width: Number?,
+        paddingLeft: Number?,
+        paddingRight: Number?,
+        visible: Boolean?
+    ) {
+
+        val colorInt = color?.let {
+            Color.parseColor(it)
+        }
+        setBackgroundLiner2(view, colorInt, width, paddingLeft, paddingRight, visible)
+    }
+
+    @JvmStatic
+    @BindingAdapter(
+        requireAll = false,
+        value = ["exBgLColor", "exBgLWidth", "exBgLPaddingLeft", "exBgLPaddingRight", "exBgLVisible"]
+    )
+    fun setBackgroundLiner2(
+        view: View,
+        color: String?,
+        width: Number?,
+        paddingLeft: Number?,
+        paddingRight: Number?,
+        visible: Boolean?
+    ) {
+        setBackgroundLiner(view, color, width, paddingLeft, paddingRight, visible)
+    }
+
+    @JvmStatic
+    @BindingAdapter(
+        requireAll = false,
+        value = ["exBgLColor", "exBgLWidth", "exBgLPaddingLeft", "exBgLPaddingRight", "exBgLVisible"]
+    )
+    fun setBackgroundLiner2(
+        view: View,
+        color: Int?,
+        width: Number?,
+        paddingLeft: Number?,
+        paddingRight: Number?,
+        visible: Boolean?
+    ) {
+        val line = (view.background as? LineDrawable) ?: LineDrawable()
+        color?.let {
+            line.setColor(it)
+        }
+        width?.let {
+            line.setWidth(it.toFloat())
+        }
+        paddingLeft?.let {
+            line.leftPadding = DensityUtil.dip2pxInt(it.toFloat())
+        }
+        paddingRight?.let {
+            line.rightPadding = DensityUtil.dip2pxInt(it.toFloat())
+        }
+        visible?.let {
+            line.setShow(visible)
+        }
+        view.background = line
+    }
 
     @JvmStatic
     @BindingAdapter(value = ["exTextColor"])
@@ -43,7 +114,8 @@ object DataBindingAdapter {
         path?.let {
             view.setOnClickListener(AntiOnClickListener(View.OnClickListener {
                 try {
-                    com.alibaba.android.arouter.launcher.ARouter.getInstance().build(path).navigation()
+                    com.alibaba.android.arouter.launcher.ARouter.getInstance().build(path)
+                        .navigation()
                 } catch (e: ClassNotFoundException) {
                     throw Exception("exStartPath   只支持ARouter 路由系统")
                 }
@@ -91,7 +163,7 @@ object DataBindingAdapter {
             //获取到服务
             try {
                 val systemService =
-                        it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 //创建ClipData
                 val newPlainText = ClipData.newPlainText("Label", content)
                 //设置到剪贴板中
