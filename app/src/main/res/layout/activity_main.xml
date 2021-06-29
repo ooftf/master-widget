@@ -23,9 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="#00FF00"
-                app:tabIndicatorHeight="8dp"
-                app:tabIndicatorRadius="10dp"
-                app:tabIndicatorWidth="100dp"
+                app:tabIndicatorHeight="20dp"
+                app:tabIndicatorRadius="100dp"
+                app:tabIndicatorWidth="120dp"
                 app:tabTextAppearance="@style/TabTextView"
                 app:tabTextBoldChange="true" />
 

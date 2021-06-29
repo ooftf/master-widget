@@ -16,7 +16,7 @@ class LineDrawable : Drawable() {
     var mShow = true
 
     init {
-        mPaint.color = Color.parseColor("#DDDDDD")
+        mPaint.color = Color.parseColor("#EEEEEE")
         mPaint.isAntiAlias = true
         mPaint.strokeWidth = 1F
     }

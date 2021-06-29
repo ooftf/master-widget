@@ -58,23 +58,27 @@ open class TabLayoutPro : TabLayout {
         })
     }
 
-    fun getShapeIndicator(): GradientDrawable? {
-        return ((tabSelectedIndicator as? LayerDrawable)?.getDrawable(0) as? GradientDrawable)
-    }
 
     fun obtainStyle(attrs: AttributeSet) {
         val tabLayoutStyle = context.obtainStyledAttributes(attrs, R.styleable.TabLayout)
         val tabLayoutProStyle = context.obtainStyledAttributes(attrs, R.styleable.TabLayoutPro)
         if (tabLayoutProStyle.hasValue(R.styleable.TabLayoutPro_tabIndicatorWidth)) {
-            setSelectedTabIndicator(R.drawable.ooftf_tablayout_pro_indicator)
+            val indicatorDrawable = IndicatorDrawable()
+            setSelectedTabIndicator(IndicatorDrawable())
             if (tabLayoutStyle.hasValue(com.google.android.material.R.styleable.TabLayout_tabIndicatorHeight)) {
-                getShapeIndicator()?.setSize(tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorWidth, -1), tabLayoutStyle.getDimensionPixelSize(R.styleable.TabLayout_tabIndicatorHeight, -1))
+                indicatorDrawable.width = tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorWidth, -1)
+                    .toFloat()
+                indicatorDrawable.height =
+                    tabLayoutStyle.getDimensionPixelSize(R.styleable.TabLayout_tabIndicatorHeight, -1)
+                        .toFloat()
             } else {
-                getShapeIndicator()?.setSize(tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorWidth, -1), DensityUtil.dip2pxInt(4f))
+                if (tabLayoutStyle.hasValue(R.styleable.TabLayoutPro_tabIndicatorWidth)) {
+                    indicatorDrawable.width = tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorWidth, -1).toFloat()
+                }
             }
 
             if (tabLayoutProStyle.hasValue(R.styleable.TabLayoutPro_tabIndicatorRadius)) {
-                getShapeIndicator()?.cornerRadius = tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorRadius, -1).toFloat()
+                indicatorDrawable.cornerRadius = tabLayoutProStyle.getDimensionPixelSize(R.styleable.TabLayoutPro_tabIndicatorRadius, -1).toFloat()
             }
         }
         if (tabLayoutProStyle.hasValue(R.styleable.TabLayoutPro_tabTextBoldChange)) {

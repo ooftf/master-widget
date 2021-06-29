@@ -28,7 +28,7 @@ android {
 }
 publish {
     artifactId = 'dataBinding-extensions' // bintray创建的package
-    version = '1.2.5'
+    version = '1.2.6'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
