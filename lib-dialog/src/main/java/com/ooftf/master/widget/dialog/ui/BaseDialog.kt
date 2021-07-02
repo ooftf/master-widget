@@ -4,18 +4,14 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window.ID_ANDROID_CONTENT
 import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import com.ooftf.basic.utils.getActivity
 import com.ooftf.master.widget.dialog.R
 import com.ooftf.master.widget.dialog.utils.BarUtils
+
 
 /**
  *
@@ -35,6 +31,9 @@ open class BaseDialog : Dialog {
     ) : super(context, cancelable, cancelListener) {
     }
 
+    fun setImmersion(){
+        applyImmersion()
+    }
     val activity: Activity?
         get() = context.getActivity()
 
@@ -44,27 +43,6 @@ open class BaseDialog : Dialog {
 
     protected fun setBackground(color: Int) {
         window?.decorView?.setBackgroundColor(color)
-    }
-
-
-    /**
-     *  布局文件使用  android:fitsSystemWindows="true" 完成沉浸式
-     */
-    protected fun setImmersion() {
-        //需要设置这个才能设置状态栏和导航栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window?.statusBarColor = Color.TRANSPARENT
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
-        window?.setFlags(
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-        )
     }
 
     protected fun setBackgroundResource(@DrawableRes resid: Int) {
@@ -123,15 +101,11 @@ open class BaseDialog : Dialog {
     }
 
     fun setWidthMatchParent() {
-        val attributes = window?.attributes
-        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
-        window?.attributes = attributes
+        setWidth(WindowManager.LayoutParams.MATCH_PARENT)
     }
 
     fun setHeightMatchParent() {
-        val attributes = window?.attributes
-        attributes?.height = WindowManager.LayoutParams.MATCH_PARENT
-        window?.attributes = attributes
+        setHeight(WindowManager.LayoutParams.MATCH_PARENT)
     }
 
     /**
@@ -189,18 +163,4 @@ open class BaseDialog : Dialog {
             e.printStackTrace()
         }
     }
-}
-
-fun Dialog.getContentView(): View? {
-    val contentViewParent = getContentViewParent()
-    return if (contentViewParent.childCount == 0) {
-        null
-    } else {
-        contentViewParent.getChildAt(0)
-    }
-
-}
-
-fun Dialog.getContentViewParent(): ViewGroup {
-    return findViewById(ID_ANDROID_CONTENT)
 }
