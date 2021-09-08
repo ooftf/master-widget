@@ -23,11 +23,18 @@ class MenuPagerLayoutManager(
         )
     }
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State?) {
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         // 先把所有的View先从RecyclerView中detach掉，然后标记为"Scrap"状态，表示这些View处于可被重用状态(非显示中)。
         // 实际就是把View放到了Recycler中的一个集合中。
-        detachAndScrapAttachedViews(recycler);
-        calculateChildrenSite(recycler);
+        if (itemCount == 0) {
+            detachAndScrapAttachedViews(recycler)
+            return
+        }
+        if(childCount == 0 && state.isPreLayout) {
+            return
+        }
+        detachAndScrapAttachedViews(recycler)
+        calculateChildrenSite(recycler)
     }
 
     private fun calculateChildrenSite(recycler: Recycler) {
