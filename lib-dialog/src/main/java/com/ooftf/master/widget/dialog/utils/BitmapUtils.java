@@ -21,9 +21,18 @@ public class BitmapUtils {
      * @param radius
      * @return
      */
-    public static Bitmap rsBlur(Context context, Bitmap source, int radius) {
+    public static Bitmap rsBlur(Context context, Bitmap source, double radius) {
+        Bitmap inputBmp;
+        if(radius >25){
+            double scale = radius/25.0;
+            radius = 25;
+            int scaleWith = Math.max((int)(source.getWidth()/scale),1);
+            int scaleHeight = Math.max((int)(source.getHeight()/scale),1);
+            inputBmp = Bitmap.createScaledBitmap(source,scaleWith,scaleHeight,false);
+        }else {
+            inputBmp = source;
+        }
 
-        Bitmap inputBmp = source;
         //(1)
         RenderScript renderScript = RenderScript.create(context);
 
@@ -38,16 +47,23 @@ public class BitmapUtils {
         scriptIntrinsicBlur.setInput(input);
         //(5)
         // Set the blur radius
-        scriptIntrinsicBlur.setRadius(radius);
+        scriptIntrinsicBlur.setRadius((float) radius);
         //(6)
         // Start the ScriptIntrinisicBlur
         scriptIntrinsicBlur.forEach(output);
         //(7)
         // Copy the output to the blurred bitmap
-        output.copyTo(inputBmp);
+        Bitmap outBitmap;
+        if(inputBmp == source){
+            outBitmap = Bitmap.createBitmap(inputBmp.getWidth(),inputBmp.getHeight(),inputBmp.getConfig());
+        }else{
+            outBitmap = inputBmp;
+        }
+
+        output.copyTo(outBitmap);
+
         //(8)
         renderScript.destroy();
-
-        return inputBmp;
+        return outBitmap;
     }
 }

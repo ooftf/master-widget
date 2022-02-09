@@ -113,9 +113,7 @@ public class BlurDialog extends BaseDialog {
 
     void setBlurBackground() {
         Bitmap screen = ScreenUtils.screenShot(getActivity(), BarUtils.isStatusBarVisible(getActivity()));
-        for (int i = 0; i < 3; i++) {
-            screen = BitmapUtils.rsBlur(getContext(), screen, 25);
-        }
+        screen = BitmapUtils.rsBlur(getContext(), screen, 100);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getContext().getResources(), screen);
         setBackground(bitmapDrawable);
     }
